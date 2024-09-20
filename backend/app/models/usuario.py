@@ -2,10 +2,11 @@ from sqlalchemy import Column, Integer, String
 from app.config import Base
 
 class Usuario(Base):
-    __tablename__ = "usuarios"
+    __tablename__ = "usuario"
 
-    idusuarios = Column(Integer, primary_key=True, index=True)
-    correo = Column(String(45))
+    id = Column(Integer, primary_key=True, index=True)
+    nombre = Column(String(150))
+    correo = Column(String(75))
     password = Column(String(45))
-    Mascota = Column(String(45))
-    usuarioscol = Column(String(45))
+    direccion = Column(String(200))
+    num_celular = int    
