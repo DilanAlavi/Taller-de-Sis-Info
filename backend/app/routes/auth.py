@@ -13,7 +13,6 @@ class UserLogin(BaseModel):
 class UserRegister(BaseModel):
     correo: str
     password: str
-    mascota: str
 
 @router.post("/login")
 def login(user: UserLogin, db: Session = Depends(get_db)):
@@ -27,7 +26,7 @@ def register(user: UserRegister, db: Session = Depends(get_db)):
     db_user = db.query(Usuario).filter(Usuario.correo == user.correo).first()
     if db_user:
         raise HTTPException(status_code=400, detail="El correo ya está registrado")
-    new_user = Usuario(correo=user.correo, password=user.password, Mascota=user.mascota)
+    new_user = Usuario(correo=user.correo, password=user.password)
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
