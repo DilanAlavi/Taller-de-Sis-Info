@@ -6,7 +6,7 @@ import './Register.css';
 const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [mascota, setMascota] = useState('');
+  const [nombre, setNombre] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ const Register = () => {
       const response = await axios.post('http://localhost:8000/auth/register', {
         correo: email,
         password: password,
-        mascota: mascota
+        nombre: nombre
       });
       console.log(response.data);
       alert('Registro exitoso');
@@ -50,9 +50,9 @@ const Register = () => {
         />
         <input
           type="text"
-          placeholder="Mascota"
-          value={mascota}
-          onChange={(e) => setMascota(e.target.value)}
+          placeholder="Nombre"
+          value={nombre}
+          onChange={(e) => setNombre(e.target.value)}
           required
         />
         <button type="submit">Registrarse</button>
