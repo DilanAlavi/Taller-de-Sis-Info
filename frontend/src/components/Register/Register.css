@@ -1,42 +1,59 @@
 .register-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f2f5;
-  }
-  
-  .register-form {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 300px;
-  }
-  
-  .register-form h2 {
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-  
-  .register-form input {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  .register-form button {
-    width: 100%;
-    padding: 0.5rem;
-    background-color: #42b72a;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .register-form button:hover {
-    background-color: #36a420;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f2f5;
+}
+
+.register-form {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  display: flex;
+  flex-direction: column; /* Asegura que los elementos se apilen verticalmente */
+}
+
+.register-form h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.register-form input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.register-form button {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #42b72a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 1rem; /* Espacio entre el botón y el enlace */
+}
+
+.register-form button:hover {
+  background-color: #36a420;
+}
+
+.login-prompt {
+  text-align: center; /* Centra el texto */
+  margin-top: 1rem; /* Espacio adicional para separar del formulario */
+}
+
+.register-container a {
+  color: #1877f2;
+  text-decoration: none;
+}
+
+.register-container a:hover {
+  text-decoration: underline;
+}
