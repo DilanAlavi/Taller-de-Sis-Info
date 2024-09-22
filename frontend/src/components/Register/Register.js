@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './Register.css';
 
 const Register = () => {
@@ -22,7 +22,6 @@ const Register = () => {
       console.log(response.data);
       alert('Registro exitoso');
       navigate('/home');
-      // Aquí puedes redirigir al usuario o limpiar el formulario
     } catch (error) {
       console.error('Error en registro:', error);
       setError(error.response?.data?.detail || 'Error en el registro. Por favor, intente de nuevo.');
@@ -56,6 +55,9 @@ const Register = () => {
           required
         />
         <button type="submit">Registrarse</button>
+        <div className="login-prompt">
+          <p>¿Ya tienes cuenta? <Link to="/login">Iniciar sesión</Link></p>
+        </div>
       </form>
     </div>
   );
