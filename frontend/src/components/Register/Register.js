@@ -58,6 +58,12 @@ const Register = () => {
         <div className="login-prompt">
           <p>¿Ya tienes cuenta? <Link to="/login">Iniciar sesión</Link></p>
         </div>
+        <div className="google-prompt">
+          <p>O regístrate con tu cuenta de <strong>Google</strong></p>
+          {/* <button type="button" className="google-button">
+            Iniciar sesión con Google
+          </button> */}
+        </div>
       </form>
     </div>
   );
