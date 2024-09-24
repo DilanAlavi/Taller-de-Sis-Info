@@ -7,17 +7,29 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [nombre, setNombre] = useState('');
+  const [numero, setNumero] = useState('');
+  const [direccion, setDireccion] = useState('');
+  const [foto, setFoto] = useState(null);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    
+    const formData = new FormData();
+    formData.append('correo', email);
+    formData.append('password', password);
+    formData.append('nombre', nombre);
+    formData.append('numero', numero);
+    formData.append('direccion', direccion);
+    if (foto) {
+      formData.append('foto', foto);
+    }
+
     try {
-      const response = await axios.post('http://localhost:8000/auth/register', {
-        correo: email,
-        password: password,
-        nombre: nombre
+      const response = await axios.post('http://localhost:8000/auth/register', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
       console.log(response.data);
       alert('Registro exitoso');
@@ -54,15 +66,28 @@ const Register = () => {
           onChange={(e) => setNombre(e.target.value)}
           required
         />
+        <input
+          type="text"
+          placeholder="Número de Teléfono"
+          value={numero}
+          onChange={(e) => setNumero(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Dirección"
+          value={direccion}
+          onChange={(e) => setDireccion(e.target.value)}
+          required
+        />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => setFoto(e.target.files[0])}
+        />
         <button type="submit">Registrarse</button>
         <div className="login-prompt">
           <p>¿Ya tienes cuenta? <Link to="/login">Iniciar sesión</Link></p>
-        </div>
-        <div className="google-prompt">
-          <p>O regístrate con tu cuenta de <strong>Google</strong></p>
-          {/* <button type="button" className="google-button">
-            Iniciar sesión con Google
-          </button> */}
         </div>
       </form>
     </div>
