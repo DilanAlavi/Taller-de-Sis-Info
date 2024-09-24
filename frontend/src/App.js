@@ -4,6 +4,7 @@ import Login from './components/Login/Login';
 import Home from './components/Home/Home';
 import Register from './components/Register/Register';
 import './App.css';
+import PerritoPerdidoForm from './components/PerritoPerdido/PerritoPerdidoForm';
 
 const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,6 +27,7 @@ const App = () => {
             <li className="navbar-item"><Link to="/home">Home</Link></li>
             <li className="navbar-item"><Link to="/login">Login</Link></li>
             <li className="navbar-item"><Link to="/register">Register</Link></li>
+            <li className="navbar-item"><Link to="/perritoperdidoform">Vi un Perrito Perdido</Link></li>
           </ul>
         </nav>
 
@@ -33,6 +35,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/perritoperdidoform" element={<PerritoPerdidoForm />} />
         </Routes>
       </div>
     </Router>
