@@ -1,0 +1,37 @@
+.perrito-perdido-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background-color: #f0f2f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: auto;
+  }
+  
+  .perrito-perdido-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .perrito-perdido-form input, 
+  .perrito-perdido-form textarea, 
+  .perrito-perdido-form button {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .perrito-perdido-form button {
+    background-color: #42b72a;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .perrito-perdido-form button:hover {
+    background-color: #36a420;
+  }
+  
