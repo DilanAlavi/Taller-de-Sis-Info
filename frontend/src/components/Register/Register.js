@@ -28,8 +28,12 @@ const Register = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:8000/auth/register', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+      const response = await axios.post('http://localhost:8000/auth/register', {
+        correo: email,
+        nombre: nombre,
+        password: password,
+        num_celular: numero,
+        direccion: direccion
       });
       console.log(response.data);
       alert('Registro exitoso');
