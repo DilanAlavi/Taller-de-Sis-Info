@@ -9,4 +9,4 @@ class Usuario(Base):
     correo = Column(String(75))
     password = Column(String(45))
     direccion = Column(String(200))
-    num_celular = int    
+    num_celular = Column(Integer)
