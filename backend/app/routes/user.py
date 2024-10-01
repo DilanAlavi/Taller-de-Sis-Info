@@ -13,6 +13,6 @@ def get_user(user_id: int, db: Session = Depends(get_db)):
     return user
 
 @router.get("/")
-def get_users(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
+def get_users(skip: int = 0, limit: int = 50, db: Session = Depends(get_db)):
     users = db.query(Usuario).offset(skip).limit(limit).all()
     return users
