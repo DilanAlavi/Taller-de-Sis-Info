@@ -1,23 +1,18 @@
 import os
 import numpy as np
 from PIL import Image
-import tensorflow as tf
-from tensorflow import keras
 from sklearn.model_selection import train_test_split
+from classifier import cargar_o_crear_modelo, preprocess_image  # Importar la función desde clasificación
 
 BASE_DIR = os.path.dirname(__file__)
 
 # Rutas de las carpetas de imágenes
 PERROS_PATH = os.path.join(BASE_DIR, '..', 'Entrenamiento', 'imgs', 'img-perritos')
-NO_PERROS_PATH =  os.path.join(BASE_DIR, '..', 'Entrenamiento', 'imgs', 'img-no-perritos')
+NO_PERROS_PATH = os.path.join(BASE_DIR, '..', 'Entrenamiento', 'imgs', 'img-no-perritos')
 
 # Ruta para guardar el modelo entrenado
-MODEL_SAVE_PATH =  os.path.join(BASE_DIR, '..', 'Entrenamiento', 'model_training', 'modelo_perrito_entrenado.h5')
+MODEL_SAVE_PATH = os.path.join(BASE_DIR, '..', 'Entrenamiento', 'model_training', 'modelo_perrito_entrenado.h5')
 
-def load_and_preprocess_image(image_path):
-    img = Image.open(image_path).convert('RGB')
-    img = img.resize((224, 224))  # Redimensionar todas las imágenes a 224x224
-    return np.array(img) / 255.0  # Normalizar los valores de píxeles
 
 def load_images_from_folder(folder_path, label):
     images = []
@@ -25,7 +20,7 @@ def load_images_from_folder(folder_path, label):
     for filename in os.listdir(folder_path):
         if filename.lower().endswith(('.png', '.jpg', '.jpeg')):
             img_path = os.path.join(folder_path, filename)
-            img = load_and_preprocess_image(img_path)
+            img = preprocess_image(img_path, add_batch_dim=True)
             images.append(img)
             labels.append(label)
     return images, labels
@@ -41,22 +36,8 @@ y = np.array(perros_labels + no_perros_labels)
 # Dividir en conjuntos de entrenamiento y prueba
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Definir el modelo
-model = keras.Sequential([
-    keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(224, 224, 3)),
-    keras.layers.MaxPooling2D((2, 2)),
-    keras.layers.Conv2D(64, (3, 3), activation='relu'),
-    keras.layers.MaxPooling2D((2, 2)),
-    keras.layers.Conv2D(64, (3, 3), activation='relu'),
-    keras.layers.Flatten(),
-    keras.layers.Dense(64, activation='relu'),
-    keras.layers.Dense(1, activation='sigmoid')
-])
-
-# Compilar el modelo
-model.compile(optimizer='adam',
-              loss='binary_crossentropy',
-              metrics=['accuracy'])
+# Cargar o crear el modelo
+model = cargar_o_crear_modelo()
 
 # Entrenar el modelo
 history = model.fit(X_train, y_train, epochs=10, validation_data=(X_test, y_test))
