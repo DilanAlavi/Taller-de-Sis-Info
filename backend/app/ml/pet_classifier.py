@@ -3,8 +3,10 @@ import numpy as np
 from PIL import Image
 import os
 
+BASE_DIR = os.path.dirname(__file__)
+
 # Ruta al modelo entrenado
-MODEL_PATH = 'E:/Univerisda/2024-2/Gestion de Calidad/ProyectoCalidad1/model_training/modelo_perros.h5'
+MODEL_PATH =  os.path.join(BASE_DIR, '..', 'Entrenamiento', 'model_training', 'modelo_perrito_entrenado.h5')
 
 # Cargar el modelo
 model = tf.keras.models.load_model(MODEL_PATH)

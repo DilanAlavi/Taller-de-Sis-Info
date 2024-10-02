@@ -5,12 +5,14 @@ import tensorflow as tf
 from tensorflow import keras
 from sklearn.model_selection import train_test_split
 
+BASE_DIR = os.path.dirname(__file__)
+
 # Rutas de las carpetas de imágenes
-PERROS_PATH = r'E:\Univerisda\2024-2\Gestion de Calidad\ProyectoCalidad1\imgs\imgs\img-perritos'
-NO_PERROS_PATH = r'E:\Univerisda\2024-2\Gestion de Calidad\ProyectoCalidad1\imgs\imgs\img-no-perritos'
+PERROS_PATH = os.path.join(BASE_DIR, '..', 'Entrenamiento', 'imgs', 'img-perritos')
+NO_PERROS_PATH =  os.path.join(BASE_DIR, '..', 'Entrenamiento', 'imgs', 'img-no-perritos')
 
 # Ruta para guardar el modelo entrenado
-MODEL_SAVE_PATH = r'E:\Univerisda\2024-2\Gestion de Calidad\ProyectoCalidad1\model_training\modelo_perros.h5'
+MODEL_SAVE_PATH =  os.path.join(BASE_DIR, '..', 'Entrenamiento', 'model_training', 'modelo_perrito_entrenado.h5')
 
 def load_and_preprocess_image(image_path):
     img = Image.open(image_path).convert('RGB')
