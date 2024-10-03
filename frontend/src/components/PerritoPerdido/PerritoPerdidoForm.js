@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import './PerritoPerdidoForm.css';
 
 const PerritoPerdidoForm = () => {
@@ -10,10 +11,22 @@ const PerritoPerdidoForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí puedes manejar el envío del formulario, como subir la imagen y los datos.
     console.log({ photo, description, ownerName, contact, date });
   };
 
+  const shareOnWhatsApp = () => {
+    const message = `¡Ayuda! He perdido a mi perrito. Descripción: ${description}. Contacto: ${contact}.`;
+    const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  };
+  const shareOnFacebook = () => {
+    const message = `¡Ayuda! He perdido a mi perrito. Descripción: ${description}. Contacto: ${contact}.`;
+    const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  };
+  const shareOnInstagram = () => {
+    alert("Instagram no permite compartir mediante enlaces directos. Comparte tu publicación manualmente.");
+  };
   return (
     <div className="perrito-perdido-form-container">
       <h2>Reporta un Perrito Perdido</h2>
@@ -52,6 +65,18 @@ const PerritoPerdidoForm = () => {
         />
         <button type="submit">Enviar Reporte</button>
       </form>
+      <div className="share-buttons">
+        <h3>Comparte este reporte:</h3>
+        <button onClick={shareOnWhatsApp}>
+          <FaWhatsapp /> {/* Ícono de WhatsApp */}
+        </button>
+        <button onClick={shareOnFacebook}>
+          <FaFacebook /> {/* Ícono de Facebook */}
+        </button>
+        <button onClick={shareOnInstagram}>
+          <FaInstagram /> {/* Ícono de Instagram */}
+        </button>
+      </div>
     </div>
   );
 };
