@@ -49,6 +49,16 @@ body, html {
   margin-left: 1rem;
 }
 
+.user-avatar {
+  width: 32px;  /* Ajusta el tamaño de la imagen */
+  height: 32px; /* Ajusta el tamaño de la imagen */
+  border-radius: 50%; /* Redondear la imagen para que parezca un avatar */
+  cursor: pointer;
+}
+.user-avatar:hover {
+  opacity: 0.8; /* Efecto hover para hacer el ícono un poco más oscuro */
+}
+
 .navbar-item a {
   color: white;
   text-decoration: none;
