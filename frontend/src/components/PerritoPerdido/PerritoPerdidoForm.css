@@ -34,4 +34,31 @@
   .perrito-perdido-form button:hover {
     background-color: #36a420;
   }
+
+  
+  .share-buttons {
+    margin-top: 20px;
+    display: flex;              /* Usar flexbox para alinear horizontalmente */
+    justify-content: center;    /* Centrar horizontalmente */
+  }
+  
+  .share-buttons button {
+    background-color: #4CAF50; /* Color de fondo */
+    color: white;              /* Color del texto */
+    padding: 10px 15px;        /* Espaciado interno */
+    border: none;              /* Sin borde */
+    border-radius: 5px;       /* Bordes redondeados */
+    cursor: pointer;           /* Cambiar cursor al pasar */
+    margin: 0 10px;           /* Espacio horizontal entre botones */
+    display: flex;             /* Usar flexbox para alinear ícono y texto */
+    align-items: center;       /* Centrar verticalmente */
+  }
+  
+  .share-buttons button:hover {
+    background-color: #45a049; /* Color más oscuro al pasar el cursor */
+  }
+  
+  .share-buttons button svg {
+    margin-right: 5px;         /* Espacio entre ícono y texto */
+  }
   
