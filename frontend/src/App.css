@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
 }
 
 body, html {
@@ -18,8 +19,8 @@ body, html {
 
 /* Header y Navbar */
 .header {
-  background-color: #42b72a;
-  color: white;
+  background-color: #FA9B2F;
+  color: rgb(222, 94, 94);
 }
 
 .navbar {
@@ -94,7 +95,7 @@ body, html {
 
 /* Footer */
 .footer {
-  background-color: #343a40;
+  background-color: #5c3911;
   color: white;
   text-align: center;
   padding: 1rem;
@@ -123,3 +124,4 @@ body, html {
   font-size: 1.5em;
   padding: 2rem;
 }
+
