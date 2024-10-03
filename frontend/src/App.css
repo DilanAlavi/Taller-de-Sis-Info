@@ -49,6 +49,36 @@
   border-radius: 4px;
 }
 
+/* Estilos básicos */
+.header, .footer {
+  background-color: #f8f9fa;
+  padding: 20px;
+  text-align: center;
+}
+
+.navbar-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-item {
+  display: inline;
+  margin-right: 15px;
+}
+
+.footer {
+  margin-top: auto;
+  background-color: #343a40;
+  color: #fff;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.5em;
+}
+
+
 /* Estilos para el menú hamburguesa */
 @media (max-width: 768px) {
   .navbar-list {
