@@ -34,11 +34,13 @@ const App = () => {
             <li className="navbar-item"><Link to="/perritoperdidoform">Vi un Perrito Perdido</Link></li>
             <li className="navbar-item"><Link to="/ia">Clasificador IA</Link></li>
             <li className="navbar-item"><Link to="/dog-recognition">Reconocimiento de Razas</Link></li>
-            <li className="navbar-item user-icon">
-              <Link to="/user">
-                <img src="/images/default-user.png" alt="User" className="user-avatar" />
+            <li className="navbar-item">
+              <Link to="/user" onClick={() => console.log("Navegando a la página de usuario")}>
+                <FaUser size={24} />
               </Link>
             </li>
+
+
 
 
           </ul>
@@ -56,7 +58,8 @@ const App = () => {
             <Route path="/perritoperdidoform" element={<PerritoPerdidoForm />} />
             <Route path="/ia" element={<IA />} />
             <Route path="/dog-recognition" element={<DogRecognition />} />
-            <Route path="/user" element={<User />} />
+            <Route path="/user" element={<User/>} />
+
           </Routes>
         </main>
       </div>
