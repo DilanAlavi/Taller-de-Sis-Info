@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/Login/Login';
 import Home from './components/Home/Home';
 import Register from './components/Register/Register';
@@ -8,15 +8,11 @@ import User from './components/User/User';
 import IA from './components/IA/IA';
 import DogRecognition from './components/DogRecognition/DogRecognition';
 import { FaUser } from 'react-icons/fa'; // Importamos el ícono de usuario de react-icons
+import Header from './components/Header';
+import Footer from './components/Footer';
 import './App.css';
 
 const App = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
   return (
     <Router>
       <div className="App">
@@ -51,6 +47,10 @@ const App = () => {
         </header>
 
         <main>
+
+        <Header />
+        <main className="App-main">
+
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -62,6 +62,7 @@ const App = () => {
 
           </Routes>
         </main>
+        <Footer />
       </div>
     </Router>
   );
