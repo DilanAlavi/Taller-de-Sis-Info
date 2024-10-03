@@ -1,5 +1,5 @@
 from fastapi import APIRouter, UploadFile, File
-from ...ml.image_classifier import classify_image
+# from ...ml.image_classifier import classify_image
 import shutil
 import os
 
@@ -11,7 +11,8 @@ async def clasificar_imagen(file: UploadFile = File(...)):
     with open(temp_file, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
     
-    result = classify_image(temp_file)
+    # result = classify_image(temp_file)
+    # result = classify_image(temp_file)
     os.remove(temp_file)
     
-    return {"resultado": result}
+    return "probando"
