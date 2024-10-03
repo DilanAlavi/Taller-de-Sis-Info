@@ -39,22 +39,4 @@
   .success-message {
     color: green;
   }
-  /* Estilo para el ícono de usuario */
-.user-icon {
-  font-size: 1.5rem; /* Tamaño del ícono */
-  display: flex;
-  align-items: center; /* Centrar ícono verticalmente */
-}
-
-.user-icon a {
-  padding: 0; /* Eliminar padding del enlace */
-}
-
-.user-icon svg {
-  color: white; /* Color del ícono */
-  cursor: pointer;
-}
-
-.user-icon a:hover {
-  background-color: transparent; /* Sin fondo al hacer hover */
-}
+  
