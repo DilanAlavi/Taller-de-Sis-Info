@@ -16,7 +16,7 @@ const Login = () => {
         password: password
       });
       console.log(response.data);
-      alert('Login exitoso');
+      alert('Login exitoso como yo');
       navigate('/home');
     } catch (error) {
       console.error('Error en login:', error.response.data);
