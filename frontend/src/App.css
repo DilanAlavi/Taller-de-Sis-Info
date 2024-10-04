@@ -20,7 +20,9 @@ body, html {
 /* Header y Navbar */
 .header {
   background-color: #FA9B2F;
-  color: rgb(222, 94, 94);
+  color: #ee6d0a;
+  padding: 1rem 0;
+  border-bottom: 2px solid #eaeaea;
 }
 
 .navbar {
@@ -60,14 +62,15 @@ body, html {
 }
 
 .navbar-item a {
-  color: white;
   text-decoration: none;
   padding: 0.5rem;
   transition: background-color 0.3s;
+  color: #1d1c1c;
+  font-size: 1.1rem;
 }
 
 .navbar-item a:hover {
-  background-color: #36a420;
+  background-color: #ee6d0a;
   border-radius: 4px;
 }
 
@@ -109,6 +112,7 @@ body, html {
   color: white;
   text-align: center;
   padding: 1rem;
+
 }
 
 /* Responsive */
@@ -135,3 +139,57 @@ body, html {
   padding: 2rem;
 }
 
+.navbar-brand .brand-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+}
+
+.navbar-nav .navbar-list {
+  display: flex;
+  gap: 1.5rem;
+}
+
+
+.navbar-icons .user-icon, .navbar-icons .menu-icon {
+  font-size: 1.5rem;
+  color: #555;
+  margin-left: 1rem;
+}
+
+@media (max-width: 768px) {
+  .navbar-nav {
+    display: none;
+  }
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: #fff;
+}
+
+.footer-link {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 1rem;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+  }
+
+  .footer-link {
+    margin: 0.5rem 0;
+  }
+}
