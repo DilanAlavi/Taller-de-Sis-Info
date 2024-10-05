@@ -1,60 +1,105 @@
+/* Estilos para el registro */
 .register-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f0f2f5;
+  background-color: #f5d5b2; /* Fondo beige-naranja claro */
+  padding: 1rem; /* Añadir un poco de padding en móviles */
 }
 
 .register-form {
-  background-color: white;
+  background-color: white; /* Fondo blanco para el formulario */
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 300px;
+  border-radius: 10px; /* Bordes ligeramente más redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
+  width: 100%; /* Ancho completo por defecto */
+  max-width: 400px; /* Limitar ancho máximo */
   display: flex;
-  flex-direction: column; /* Asegura que los elementos se apilen verticalmente */
+  flex-direction: column;
 }
 
 .register-form h2 {
+  color: #6f4e37; /* Color café */
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem; /* Tamaño de fuente mayor */
+  font-weight: bold;
 }
 
 .register-form input {
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.75rem;
   margin-bottom: 1rem;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 5px;
+  background-color: #fae5d3; /* Tono claro, acorde a la paleta */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.register-form input:focus {
+  outline: none;
+  border-color: #ee6d0a; /* Naranja vibrante */
+  box-shadow: 0 0 5px rgba(238, 109, 10, 0.5); /* Sombra suave en naranja */
 }
 
 .register-form button {
   width: 100%;
-  padding: 0.5rem;
-  background-color: #42b72a;
+  padding: 0.75rem;
+  background-color: #ee6d0a; /* Naranja vibrante */
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
-  margin-bottom: 1rem; /* Espacio entre el botón y el enlace */
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .register-form button:hover {
-  background-color: #36a420;
+  background-color: #d35f05; /* Naranja más oscuro */
+  transform: translateY(-2px); /* Efecto de elevación en hover */
 }
 
 .login-prompt {
-  text-align: center; /* Centra el texto */
-  margin-top: 1rem; /* Espacio adicional para separar del formulario */
+  text-align: center;
+  margin-top: 1rem; /* Espacio adicional entre el botón y el enlace */
 }
 
 .register-container a {
-  color: #1877f2;
+  color: #ee6d0a; /* Naranja vibrante para el enlace */
   text-decoration: none;
+  transition: text-decoration 0.3s;
 }
 
 .register-container a:hover {
-  text-decoration: underline;
+  text-decoration: underline; /* Subrayado en hover */
 }
 
+/* Mensaje de error */
+.error-message {
+  color: #d9534f; /* Rojo para el mensaje de error */
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Consultas de medios para responsividad */
+@media (max-width: 500px) {
+  .register-form {
+    padding: 1.5rem; /* Reducir el padding en pantallas pequeñas */
+    border-radius: 8px; /* Bordes ligeramente más suaves */
+  }
+
+  .register-form h2 {
+    font-size: 1.5rem; /* Ajustar el tamaño del título */
+  }
+
+  .register-form input, .register-form button {
+    padding: 0.6rem; /* Reducir el padding en inputs y botones */
+  }
+
+  .register-form button {
+    font-size: 0.9rem; /* Ajustar el tamaño del texto en el botón */
+  }
+}
