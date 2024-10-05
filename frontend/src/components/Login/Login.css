@@ -1,16 +1,75 @@
-.home-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: center;
-  }
-  
-  .home-container h1 {
-    color: #333;
-    margin-bottom: 1rem;
-  }
-  
-  .home-container p {
-    color: #666;
-    line-height: 1.6;
-  }
+/* Estilos solo para el Login */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5d5b2; /* Fondo beige-naranja claro */
+}
+
+.login-form {
+  background-color: #fff; /* Fondo blanco para el formulario */
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Título */
+.login-form h2 {
+  color: #6f4e37; /* Color café para el título */
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem; /* Tamaño más grande */
+  font-weight: bold;
+}
+
+/* Campos de entrada */
+.login-form input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1.2rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fae5d3; /* Tono claro para el input */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: #ee6d0a; /* Naranja */
+  box-shadow: 0 0 5px rgba(238, 109, 10, 0.5); /* Sombra naranja */
+}
+
+/* Botón de login */
+.login-form button {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #ee6d0a; /* Naranja vibrante */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+.login-form button:hover {
+  background-color: #d35f05; /* Naranja oscuro */
+  transform: translateY(-2px); /* Efecto hover con elevación */
+}
+
+/* Enlace de ayuda */
+.login-form a {
+  display: block;
+  margin-top: 1rem;
+  color: #ee6d0a;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.login-form a:hover {
+  text-decoration: underline;
+}
