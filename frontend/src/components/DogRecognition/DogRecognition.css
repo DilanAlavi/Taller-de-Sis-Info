@@ -2,82 +2,86 @@
     max-width: 600px;
     margin: 2rem auto;
     padding: 2rem;
-    background-color: #f8f9fa;
+    background-color: #f8f1e7; /* Beige claro como fondo */
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .dog-recognition-container h2 {
-    color: #343a40;
+}
+
+.dog-recognition-container h2 {
+    color: #6f4c3e; /* Marrón oscuro para el título */
     text-align: center;
     margin-bottom: 1.5rem;
-  }
-  
-  .dog-recognition-form {
+}
+
+.dog-recognition-form {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  
-  .dog-recognition-form input[type="file"] {
+}
+
+.dog-recognition-form input[type="file"] {
     margin-bottom: 1rem;
-  }
-  
-  .image-preview {
+}
+
+.image-preview {
     width: 100%;
     max-width: 300px;
     margin: 1rem 0;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .image-preview img {
+}
+
+.image-preview img {
     width: 100%;
     height: auto;
     display: block;
-  }
-  
-  button {
+    border-radius: 8px; /* Bordes suaves para la imagen */
+}
+
+button {
     padding: 0.75rem 1.5rem;
-    background-color: #007bff;
+    background-color: #d38e2d; /* Naranja suave para el botón */
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s; /* Transición para el color y transformación */
     font-size: 1rem;
-  }
-  
-  button:hover:not(:disabled) {
-    background-color: #0056b3;
-  }
-  
-  button:disabled {
-    background-color: #6c757d;
+}
+
+button:hover {
+    background-color: #b96c1c; /* Naranja más oscuro al pasar el cursor */
+    transform: translateY(-2px); /* Efecto de elevación al pasar el cursor */
+}
+
+button:disabled {
+    background-color: #b3b3b3; /* Gris claro para el botón deshabilitado */
     cursor: not-allowed;
-  }
-  
-  .result {
+}
+
+.result {
     margin-top: 2rem;
     padding: 1rem;
-    background-color: #e9ecef;
+    background-color: #f3e6d2; /* Beige claro para el fondo del resultado */
     border-radius: 5px;
-  }
-  
-  .result h3 {
-    color: #343a40;
+    border-left: 4px solid #d38e2d; /* Línea lateral en color naranja para resaltar */
+}
+
+.result h3 {
+    color: #6f4c3e; /* Marrón oscuro para el título del resultado */
     margin-bottom: 0.5rem;
-  }
-  
-  .result p {
+}
+
+.result p {
     margin: 0.5rem 0;
-    color: #495057;
-  }
-  
-  @media (max-width: 768px) {
+    color: #495057; /* Color gris oscuro para el texto */
+}
+
+
+@media (max-width: 768px) {
     .dog-recognition-container {
-      margin: 1rem;
-      padding: 1.5rem;
+        margin: 1rem;
+        padding: 1.5rem;
     }
-  }
+}
