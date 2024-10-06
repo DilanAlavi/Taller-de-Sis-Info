@@ -21,7 +21,7 @@ app.add_middleware(
 app.include_router(auth.router, prefix="/auth", tags=["auth"])
 app.include_router(user.router, prefix="/users", tags=["users"])
 app.include_router(pet_routes.router, prefix="/pets", tags=["pets"])
-app.include_router(dog_routes.router, prefix="/dogs", tags=["dogs"])
+# app.include_router(dog_routes.router, prefix="/dogs", tags=["dogs"])
 
 @app.get("/")
 async def root():
