@@ -18,7 +18,8 @@
 
 .perrito-perdido-form input, 
 .perrito-perdido-form textarea, 
-.perrito-perdido-form button {
+.perrito-perdido-form button,
+.perrito-perdido-form select {
   margin-bottom: 1rem;
   padding: 0.5rem;
   border: 1px solid #d5a250; /* Borde color café claro */
@@ -26,12 +27,14 @@
 }
 
 .perrito-perdido-form input,
-.perrito-perdido-form textarea {
+.perrito-perdido-form textarea,
+.perrito-perdido-form select {
   transition: border-color 0.3s; /* Suave transición de borde */
 }
 
 .perrito-perdido-form input:focus,
-.perrito-perdido-form textarea:focus {
+.perrito-perdido-form textarea:focus,
+.perrito-perdido-form select:focus {
   border-color: #c47a2d; /* Borde naranja oscuro al enfocar */
 }
 

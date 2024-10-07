@@ -32,7 +32,7 @@ def registrar_estado(estado_perro: EstadoPerroNuevo, db: Session = Depends(get_d
     db.add(new_estado_perro)
     db.commit()
     db.refresh(new_estado_perro)
-    return {"message": "Estado de perro registrado exitosamente"}
+    return {new_estado_perro}
 
 @router.post("/data")
 def resgistrar_perro(perrito: PerritoNuevo, db: Session = Depends(get_db)):
