@@ -17,31 +17,34 @@ const Register = () => {
     e.preventDefault();
     setError('');
     
-    const formData = new FormData();
-    formData.append('correo', email);
-    formData.append('password', password);
-    formData.append('nombre', nombre);
-    formData.append('numero', numero);
-    formData.append('direccion', direccion);
-    if (foto) {
-      formData.append('foto', foto);
-    }
+    const formData = {
+      correo: email,
+      nombre: nombre,
+      password: password,
+      num_celular: parseInt(numero),  // Convierte a número
+      direccion: direccion
+  };
 
-    try {
-      const response = await axios.post('http://localhost:8000/auth/register', {
-        correo: email,
-        nombre: nombre,
-        password: password,
-        num_celular: numero,
-        direccion: direccion
-      });
+  try {
+      const response = await axios.post('http://localhost:8000/auth/login', formData);
       console.log(response.data);
-      alert('Registro exitoso');
-      navigate('/home');
-    } catch (error) {
-      console.error('Error en registro:', error);
-      setError(error.response?.data?.detail || 'Error en el registro. Por favor, intente de nuevo.');
-    }
+      navigate('/login');
+  } catch (error) {
+      let errorMessage = "Error en el registro. Por favor, intente de nuevo.";
+      
+      if (error.response) {
+          const responseData = error.response.data;
+          if (responseData.message) {
+              errorMessage = responseData.message;
+          } 
+          else if (responseData.errors && Array.isArray(responseData.errors) && responseData.errors.length > 0) {
+              errorMessage = responseData.errors[0].msg;
+          }
+      }
+      setError(errorMessage); 
+  }
+  
+  
   };
 
   return (

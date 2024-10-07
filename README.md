@@ -5,6 +5,7 @@
 # backend -> pip install fastapi uvicorn sqlalchemy psycopg2-binary tensorflow pillow
 # backend -> pip install pymysql
 # backend -> uvicorn main:app --reload
+# python -m pip install python-multipart
 
 # Frontend
 # front -> npm install axios react-router-dom @mui/material @emotion/react @emotion/styled
