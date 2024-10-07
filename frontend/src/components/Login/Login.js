@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';
 import { AuthContext } from '../../AuthContext';
@@ -48,6 +48,9 @@ const Login = () => {
           required
         />
         <button type="submit">Entrar</button>
+        <div className="login-prompt">
+          <p>¿Aun no tienes cuenta? <Link to="/register">Registrate</Link></p>
+        </div>
       </form>
     </div>
   );
