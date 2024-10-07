@@ -1,26 +1,80 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import './PerritoPerdidoForm.css';
+import { AuthContext } from '../../AuthContext';
+import axios from 'axios';
+import { useNavigate  } from 'react-router-dom';
 
 const PerritoPerdidoForm = () => {
-  const [photo, setPhoto] = useState(null);
-  const [description, setDescription] = useState('');
-  const [ownerName, setOwnerName] = useState('');
-  const [contact, setContact] = useState('');
+  const [foto, setFoto] = useState(null);
+  const [descripcion, setDescription] = useState('');
+  const [nombre, setNombre] = useState('');
+  const [raza, setRaza] = useState('');
+  const [color, setColor] = useState('');
+  const [genero, setGenero] = useState('');
+  const [direccion, setDireccion] = useState('');
   const [date, setDate] = useState('');
+  const { user } = useContext(AuthContext)
+  // const [error, setError] = useState('')
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({ photo, description, ownerName, contact, date });
+    console.log(user)
+    console.log({ foto, descripcion, nombre, raza, color, direccion, date });
+
+    // setError('');
+    
+    const formData = new FormData();
+    formData.append('raza', raza);
+    formData.append('color', color);
+    formData.append('genero', genero);
+    formData.append('nombre', nombre);
+    formData.append('usuario_id', user.id);
+    formData.append('estado_perro_id', 1);
+
+    const formEstado = new FormData();
+    formEstado.append('descripcion', descripcion);
+    formEstado.append('direccion_visto', direccion);
+    formEstado.append('fecha', date);
+    formEstado.append('estado', 1);
+    if (foto) {
+      formData.append('foto', foto);
+    }
+
+    try {
+      const response_estado = await axios.post('http://localhost:8000/perro/estado', {
+        descripcion: descripcion,
+        direccion_visto: direccion,
+        fecha: date,
+        estado: 1,
+      });
+      console.log(response_estado.data[0]);
+      const response = await axios.post('http://localhost:8000/perro/data', {
+        raza: raza,
+        color: color,
+        genero: genero,
+        nombre: nombre,
+        usuario_id: user.id,
+        estado_perro_id: response_estado.data[0].id
+      });
+      console.log(response)
+      alert('Registro exitoso');
+      navigate('/home');
+    } catch (error) {
+      console.error('Error en registro:', error);
+      // setError(error.response?.data?.detail || 'Error en el registro. Por favor, intente de nuevo.');
+    }
+
   };
 
   const shareOnWhatsApp = () => {
-    const message = `¡Ayuda! He perdido a mi perrito. Descripción: ${description}. Contacto: ${contact}.`;
+    const message = `¡Ayuda! He perdido a mi perrito. Descripción: ${descripcion}. Contacto: ${user.num_celular}.`;
     const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
   };
   const shareOnFacebook = () => {
-    const message = `¡Ayuda! He perdido a mi perrito. Descripción: ${description}. Contacto: ${contact}.`;
+    const message = `¡Ayuda! He perdido a mi perrito. Descripción: ${descripcion}. Contacto: ${user.num_celular}.`;
     const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
   };
@@ -34,27 +88,26 @@ const PerritoPerdidoForm = () => {
         <input 
           type="file" 
           accept="image/*" 
-          onChange={(e) => setPhoto(e.target.files[0])}
-          required
+          onChange={(e) => setFoto(e.target.files[0])}
         />
         <textarea 
           placeholder="Descripción del perrito" 
-          value={description}
+          value={descripcion}
           onChange={(e) => setDescription(e.target.value)}
           required
         />
         <input 
           type="text" 
-          placeholder="Tu Nombre" 
-          value={ownerName}
-          onChange={(e) => setOwnerName(e.target.value)}
+          placeholder="Nombre del perrito" 
+          value={nombre}
+          onChange={(e) => setNombre(e.target.value)}
           required
         />
         <input 
           type="text" 
-          placeholder="Contacto" 
-          value={contact}
-          onChange={(e) => setContact(e.target.value)}
+          placeholder="Direccion perdido" 
+          value={direccion}
+          onChange={(e) => setDireccion(e.target.value)}
           required
         />
         <input 
@@ -63,6 +116,25 @@ const PerritoPerdidoForm = () => {
           onChange={(e) => setDate(e.target.value)}
           required
         />
+        <select defaultValue="" onChange={(e) => setGenero(e.target.value)}>
+          <option value="" disabled>Selecciona su género</option>
+          <option value="M">Macho</option>
+          <option value="H">Hembra</option>
+        </select>
+        <select defaultValue="" onChange={(e) => setRaza(e.target.value)}>
+          <option value="" disabled>Selecciona su raza</option>
+          <option value="Golgen">Golden</option>
+          <option value="Chapi">Chapi</option>
+          <option value="Bulldog">Bulldog</option>
+          <option value="Pastor Aleman">Pastor Alemán</option>
+        </select>
+        <select defaultValue="" onChange={(e) => setColor(e.target.value)}>
+          <option  value="" disabled>Selecciona su color</option>
+          <option value="Cafe">Cafe</option>
+          <option value="Blanco">Blanco</option>
+          <option value="Beige">Beige</option>
+          <option value="Negro">Negro</option>
+        </select>
         <button type="submit">Enviar Reporte</button>
       </form>
       <div className="share-buttons">
