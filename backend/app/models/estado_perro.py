@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Date, SmallInteger
 from app.config import Base
 
 class EstadoPerro(Base):
@@ -7,5 +7,5 @@ class EstadoPerro(Base):
     id = Column(Integer, primary_key=True, index=True)
     descripcion = Column(String(500), nullable=False)
     direccion_visto = Column(String(200), nullable=False)
-    fecha = Column(String, nullable=False)  # Cambia el tipo si deseas usar DateTime
-    estado = Column(Integer, nullable=False)  # Puedes ajustar el tipo según tu necesidad
+    fecha = Column(Date, nullable=False)
+    estado = Column(Integer, nullable=False)
