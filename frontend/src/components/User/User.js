@@ -72,7 +72,7 @@ const User = () => {
           type="text"
           name="numero"
           placeholder="Número de Teléfono"
-          value={newData.numero ? newData.numero : ""}
+          value={newData.num_celular ? newData.num_celular : ""}
           onChange={handleChange}
           required
         />
