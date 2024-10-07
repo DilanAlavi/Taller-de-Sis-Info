@@ -1,29 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import './User.css';
+import { AuthContext } from '../../AuthContext';
 
 const User = () => {
-  const [userData, setUserData] = useState({
-    correo: 'usuario@ejemplo.com',
-    nombre: 'Juan Pérez',
-    numero: '1234567890',
-    direccion: 'Calle Falsa 123',
-    foto: null,
-  });
-  
-  const [newData, setNewData] = useState({ ...userData });
+  const { user } = useContext(AuthContext);
+  const [newData, setNewData] = useState( user || {} );
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
-    // Simulamos la carga de datos del usuario
-    const fetchUserData = () => {
-      // Aquí podrías hacer la llamada a la API para obtener datos
-      setUserData(userData);
-      setNewData(userData);
-    };
-
-    fetchUserData();
-  }, []);
+    if (user) {
+      // Actualizamos los datos del usuario logueado
+      setNewData(user);
+    }
+  }, [user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,8 +36,8 @@ const User = () => {
     setSuccessMessage('');
 
     // Simulamos la actualización de datos
-    const updatedUserData = { ...newData };
-    setUserData(updatedUserData);
+    // const updatedUserData = { ...newData };
+    // setUserData(updatedUserData);
     setSuccessMessage('Datos actualizados exitosamente');
     
     // Limpiar el mensaje de éxito después de 3 segundos
@@ -66,7 +56,7 @@ const User = () => {
           type="email"
           name="correo"
           placeholder="Email"
-          value={newData.correo}
+          value={newData.correo ? newData.correo : ""}
           onChange={handleChange}
           required
         />
@@ -74,7 +64,7 @@ const User = () => {
           type="text"
           name="nombre"
           placeholder="Nombre"
-          value={newData.nombre}
+          value={newData.nombre ? newData.nombre : ""}
           onChange={handleChange}
           required
         />
@@ -82,7 +72,7 @@ const User = () => {
           type="text"
           name="numero"
           placeholder="Número de Teléfono"
-          value={newData.numero}
+          value={newData.numero ? newData.numero : ""}
           onChange={handleChange}
           required
         />
@@ -90,7 +80,7 @@ const User = () => {
           type="text"
           name="direccion"
           placeholder="Dirección"
-          value={newData.direccion}
+          value={newData.direccion ? newData.direccion : ""}
           onChange={handleChange}
           required
         />
@@ -101,10 +91,10 @@ const User = () => {
         />
         <button type="submit">Actualizar Datos</button>
       </form>
-      {userData.foto && (
+      {newData.foto && (
         <div className="user-photo">
           <h3>Foto de Perfil:</h3>
-          <img src={URL.createObjectURL(userData.foto)} alt="Foto de perfil" />
+          <img src={URL.createObjectURL(newData.foto)} alt="Foto de perfil" />
         </div>
       )}
     </div>
