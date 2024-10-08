@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes import auth, user, pet_routes, dog_routes, registrar_perrito, perritos, registrar_foto
+from app.routes import auth, user, pet_routes, dog_routes, registrar_perrito, perritos, registrar_foto, subir_imagen
 from app.config import engine
 from app.models import usuario
 
@@ -24,6 +24,7 @@ app.include_router(pet_routes.router, prefix="/pets", tags=["pets"])
 app.include_router(registrar_perrito.router, prefix="/perro", tags=["perro"])
 app.include_router(perritos.router, prefix="/perritos", tags=["perritos"])
 app.include_router(registrar_foto.router, prefix="/foto", tags=["foto"])
+app.include_router(subir_imagen.router)
 # app.include_router(dog_routes.router, prefix="/dogs", tags=["dogs"])
 
 @app.get("/")
