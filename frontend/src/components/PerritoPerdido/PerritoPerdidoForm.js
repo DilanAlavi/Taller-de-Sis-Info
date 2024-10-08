@@ -25,22 +25,7 @@ const PerritoPerdidoForm = () => {
 
     // setError('');
     
-    const formData = new FormData();
-    formData.append('raza', raza);
-    formData.append('color', color);
-    formData.append('genero', genero);
-    formData.append('nombre', nombre);
-    formData.append('usuario_id', user.id);
-    formData.append('estado_perro_id', 1);
-
-    const formEstado = new FormData();
-    formEstado.append('descripcion', descripcion);
-    formEstado.append('direccion_visto', direccion);
-    formEstado.append('fecha', date);
-    formEstado.append('estado', 1);
-    if (foto) {
-      formData.append('foto', foto);
-    }
+    
 
     try {
       const response_estado = await axios.post('http://localhost:8000/perro/estado', {
