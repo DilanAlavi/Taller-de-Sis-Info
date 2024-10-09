@@ -25,7 +25,7 @@ const perrosPerdidos = [
   },
   {
     nombre: 'Rocky',
-    foto: 'https://th.bing.com/th/id/OIP.x0q2cRh4I0mKcX2FV1xsnAHaFj?pid=ImgDet&w=400&h=300&rs=1',
+    foto: 'https://th.bing.com/th/id/OIP.pETFwCE2n_n41d-j0aclSQHaFQ?rs=1&pid=ImgDetMain',
     descripcion: 'Rocky es un perro enérgico y juguetón, le encanta correr y jugar con pelotas.',
     fechaPerdida: '2024-09-12',
     contacto: '12345678',
@@ -33,7 +33,7 @@ const perrosPerdidos = [
   },
   {
     nombre: 'Bella',
-    foto: 'https://th.bing.com/th/id/OIP.6M1-aC-IzPi94QRSW6A0hQHaEo?pid=ImgDet&w=400&h=300&rs=1',
+    foto: 'https://th.bing.com/th/id/OIP.mYA5d4ZAncU843C32902_gAAAA?w=474&h=355&rs=1&pid=ImgDetMain',
     descripcion: 'Bella es una perra cariñosa que siempre está buscando atención y amor.',
     fechaPerdida: '2024-09-08',
     contacto: '87654321',
@@ -41,7 +41,7 @@ const perrosPerdidos = [
   },
   {
     nombre: 'Coco',
-    foto: 'https://th.bing.com/th/id/OIP.0Lmf9kZV4c_lYXzFDW7kBgHaEK?pid=ImgDet&w=400&h=300&rs=1',
+    foto: 'https://th.bing.com/th/id/OIP.pETFwCE2n_n41d-j0aclSQHaFQ?rs=1&pid=ImgDetMain',
     descripcion: 'Coco es un perro pequeño, curioso y muy amigable con todos los niños.',
     fechaPerdida: '2024-09-15',
     contacto: '23456789',
@@ -49,7 +49,7 @@ const perrosPerdidos = [
   },
   {
     nombre: 'Daisy',
-    foto: 'https://th.bing.com/th/id/OIP.zR9k1Aj0IBTwdTLBAVmgFQHaEo?pid=ImgDet&w=400&h=300&rs=1',
+    foto: 'https://th.bing.com/th/id/OIP.mYA5d4ZAncU843C32902_gAAAA?w=474&h=355&rs=1&pid=ImgDetMain',
     descripcion: 'Daisy es una perra dulce y juguetona, adora a los niños y juega en el parque.',
     fechaPerdida: '2024-09-20',
     contacto: '34567890',
@@ -57,7 +57,7 @@ const perrosPerdidos = [
   },
   {
     nombre: 'Toby',
-    foto: 'https://th.bing.com/th/id/OIP.9BO5xd7q_EUwx53UuD4oLQHaFj?pid=ImgDet&w=400&h=300&rs=1',
+    foto: 'https://th.bing.com/th/id/OIP.pETFwCE2n_n41d-j0aclSQHaFQ?rs=1&pid=ImgDetMain',
     descripcion: 'Toby es un perro leal y guardián, siempre cuida a su familia.',
     fechaPerdida: '2024-09-18',
     contacto: '45678901',
@@ -65,7 +65,7 @@ const perrosPerdidos = [
   },
   {
     nombre: 'Chester',
-    foto: 'https://th.bing.com/th/id/OIP.m8nEivlksUQQX_xnPvxaIAHaE8?pid=ImgDet&w=400&h=300&rs=1',
+    foto: 'https://th.bing.com/th/id/OIP.mYA5d4ZAncU843C32902_gAAAA?w=474&h=355&rs=1&pid=ImgDetMain',
     descripcion: 'Chester es un perro amigable, le encanta jugar a buscar la pelota.',
     fechaPerdida: '2024-09-16',
     contacto: '56789012',
@@ -73,7 +73,7 @@ const perrosPerdidos = [
   },
   {
     nombre: 'Nina',
-    foto: 'https://th.bing.com/th/id/OIP.aXWSZc1TKGYO8kZ-89puVgHaEo?pid=ImgDet&w=400&h=300&rs=1',
+    foto: 'https://th.bing.com/th/id/OIP.pETFwCE2n_n41d-j0aclSQHaFQ?rs=1&pid=ImgDetMain',
     descripcion: 'Nina es una perra pequeña y juguetona, siempre está feliz.',
     fechaPerdida: '2024-09-14',
     contacto: '67890123',
@@ -81,7 +81,7 @@ const perrosPerdidos = [
   },
   {
     nombre: 'Rex',
-    foto: 'https://th.bing.com/th/id/OIP.FyFNOzYH0ftMEON6W9H8pwHaE7?pid=ImgDet&w=400&h=300&rs=1',
+    foto: 'https://th.bing.com/th/id/OIP.mYA5d4ZAncU843C32902_gAAAA?w=474&h=355&rs=1&pid=ImgDetMain',
     descripcion: 'Rex es un perro grande y fuerte, pero muy cariñoso con los niños.',
     fechaPerdida: '2024-09-22',
     contacto: '78901234',
@@ -160,6 +160,7 @@ const Home = () => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
+    arrows: false,
     autoplay: true, // Activa el desplazamiento automático
     autoplaySpeed: 3000, // Cambia cada 3 segundos
     responsive: [
@@ -184,32 +185,36 @@ const Home = () => {
 
   return (
     <div className="home-container">
+      <img className='image-home' src={`${process.env.PUBLIC_URL}/images/home-dog.webp`} alt='perritos en un campo'/>
+      <div className='overlay'></div>
       <h1>Encuentra a nuestros amigos perdidos</h1>
-      <p>Ayuda a reunir a estos perros con sus dueños</p>
+      <p>Ayuda a reunir a estos pequeños con sus dueños</p>
       
       <div className="perros-container">
         {perrosPerdidos.map((perro, index) => (
           <div className="perro-card" key={index}>
             <img src={perro.foto} alt={`Foto de ${perro.nombre}`} className="perro-foto" />
             <h3>{perro.nombre}</h3>
-            <p><strong>Descripción:</strong> {perro.descripcion}</p>
-            <p><strong>Fecha de pérdida:</strong> {perro.fechaPerdida}</p>
-            <p><strong>Última ubicación:</strong> {perro.ultimaUbicacion}</p>
-            <p><strong>Contacto:</strong> {perro.contacto}</p>
+            
+            <p><div>{perro.fechaPerdida}</div><strong>Fecha de pérdida</strong></p>
+            <p><div>{perro.ultimaUbicacion}</div><strong>Última ubicación</strong></p>
+            <p><div>{perro.contacto}</div><strong>Contacto</strong></p>
           </div>
         ))}
       </div>
 
-      <h2>Nuestras Historias de Éxito</h2>
-      <Slider {...settings}>
-        {testimonios.map((testimonio, index) => (
-          <div className="testimonial-card" key={index}>
-            <img src={testimonio.foto} alt={`Foto de ${testimonio.nombre}`} className="testimonial-foto" />
-            <h3>{testimonio.nombre}</h3>
-            <p>"{testimonio.comentario}"</p>
-          </div>
-        ))}
-      </Slider>
+      <div className='slider-container'>
+        <h2>Nuestras Historias de Éxito</h2>
+        <Slider {...settings}>
+          {testimonios.map((testimonio, index) => (
+            <div className="testimonial-card" key={index}>
+              <img src={testimonio.foto} alt={`Foto de ${testimonio.nombre}`} className="testimonial-foto" />
+              <h3>{testimonio.nombre}</h3>
+              <p>"{testimonio.comentario}"</p>
+            </div>
+          ))}
+        </Slider>
+      </div>
 
       <Link to="/register">
         <button className="start-button">Comenzar</button>

@@ -15,40 +15,57 @@ body, html {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+
 }
 
 /* Header y Navbar */
 .header {
-  background-color: #FA9B2F;
+  background-color: #D68529;
   color: #ee6d0a;
-  padding: 1rem 0;
-  border-bottom: 2px solid #eaeaea;
+  padding: 0;
+  /* border-bottom: 2px solid #eaeaea; */
 }
 
 .navbar {
   display: flex;
-  justify-content: space-between;
+  padding: 1rem 1rem 1rem 1rem;
+  justify-content:end;
   align-items: center;
   padding: 0.5rem 1rem;
+  background-color: #FA9B2F;
 }
 
 .navbar-brand {
+  padding: 1.3rem 3rem 1.3rem 4rem;
   display: flex;
   align-items: center;
+  background-color: #D68529;
+  justify-content: space-between;
 }
 
 .brand-title {
+  color: white;
+  text-decoration: none;
   font-size: 1.5rem;
   font-weight: bold;
+}
+
+.brand-title a{
+  color: white;
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight:500;
 }
 
 .navbar-list {
   display: flex;
   list-style-type: none;
+  align-items: center;
 }
 
 .navbar-item {
   margin-left: 1rem;
+  justify-content: center;
 }
 
 .user-avatar {
@@ -64,20 +81,22 @@ body, html {
 .navbar-item a {
   text-decoration: none;
   padding: 0.5rem;
-  transition: background-color 0.3s;
-  color: #1d1c1c;
+  transition: background-color 0.5s;
+  color: #ffff;
   font-size: 1.1rem;
+  border-radius: 10px;
 }
 
 .navbar-item a:hover {
-  background-color: #ee6d0a;
-  border-radius: 4px;
+  background-color: #f0942b;
+  border-radius: 10px;
+  transform: scale(1);
 }
 
 /* Contenido principal */
 .App-main {
   flex: 1;
-  padding: 2rem;
+  padding: 0rem;
 }
 
 /* Estilos para las tarjetas de perros */
@@ -108,11 +127,15 @@ body, html {
 
 /* Footer */
 .footer {
-  background-color: #5c3911;
+  background-color: #D68529;
   color: white;
   text-align: center;
-  padding: 1rem;
+  padding: 2rem;
+margin-top: 1rem;
+}
 
+.footer p {
+  color: white;
 }
 
 /* Responsive */
@@ -142,7 +165,7 @@ body, html {
 .navbar-brand .brand-title {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #333;
+  color: white;
   text-decoration: none;
 }
 
