@@ -1,4 +1,4 @@
-from fastapi import APIRouter, File, UploadFile
+from fastapi import APIRouter, File, UploadFile, HTTPException
 from fastapi.responses import JSONResponse
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
@@ -10,8 +10,8 @@ import tempfile
 router = APIRouter()
 
 # Ruta de la carpeta en Google Drive
-FOLDER_ID = '1PVLp1yfjdZg1z1MiNeApUVGbuuL_hyUb'  # Reemplaza esto con tu ID de carpeta de Google Drive
-# SERVICE_ACCOUNT_FILE = 'backend/app/credencials/fotos-perritos-809194cdb9d7.json'  # Ruta al archivo de credenciales
+FOLDER_ID = '1PVLp1yfjdZg1z1MiNeApUVGbuuL_hyUb' 
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SERVICE_ACCOUNT_FILE = os.path.join(BASE_DIR, '..', 'credencials', 'fotos-perritos-809194cdb9d7.json')
 
@@ -26,30 +26,30 @@ service = build('drive', 'v3', credentials=credentials)
 
 @router.post("/foto/subir")
 async def subir_foto(foto: UploadFile = File(...)):
-    # Guardar el archivo temporalmente antes de subirlo a Google Drive
-    # temp_file_path = f"/tmp/{foto.filename}"
-    
-    # with open(temp_file_path, "wb") as buffer:
-    #     buffer.write(await foto.read())
+    try: 
+        with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+            contents = await foto.read()
+            temp_file.write(contents)
+            temp_file_path = temp_file.name 
 
-    with tempfile.NamedTemporaryFile(delete=False) as temp_file:
-        contents = await foto.read()
-        temp_file.write(contents)
-        temp_file_path = temp_file.name  # El nombre del archivo temporal
+        file_metadata = {
+            'name': foto.filename,
+            'parents': [FOLDER_ID]
+        }
+        media = MediaFileUpload(temp_file_path, mimetype=foto.content_type)
+        
+        file = service.files().create(body=file_metadata, media_body=media, fields='id').execute()
+        return JSONResponse(content={"message": "Imagen subida a Google Drive", "file_id": file.get('id')})
 
-    file_metadata = {
-        'name': foto.filename,
-        'parents': [FOLDER_ID]
-    }
-    media = MediaFileUpload(temp_file_path, mimetype=foto.content_type)
-    
-    file = service.files().create(body=file_metadata, media_body=media, fields='id').execute()
-    
-    try : 
-        os.remove(temp_file_path)
-    except PermissionError:
-        print(f"No se puede eliminar el archivo: {temp_file_path} está en uso.")
     except Exception as e:
-        print(f"Ocurrió un error al intentar eliminar el archivo: {e}")
+        raise HTTPException(status_code=500, detail=f"Error al subir la imagen: {str(e)}")
 
-    return JSONResponse(content={"message": "Imagen subida a Google Drive", "file_id": file.get('id')})
+    finally:
+        # Intenta eliminar el archivo temporal
+        if os.path.exists(temp_file_path):
+            try:
+                os.remove(temp_file_path)
+            except OSError as e:
+                print(f"Error al eliminar el archivo temporal: {e}")
+        else:
+            print("El archivo temporal ya no existe.")
