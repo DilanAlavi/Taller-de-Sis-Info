@@ -9,7 +9,7 @@ const Register = () => {
   const [nombre, setNombre] = useState('');
   const [numero, setNumero] = useState('');
   const [direccion, setDireccion] = useState('');
-  const [foto, setFoto] = useState(null);
+  // const [foto, setFoto] = useState(null);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -23,9 +23,9 @@ const Register = () => {
     formData.append('nombre', nombre);
     formData.append('numero', numero);
     formData.append('direccion', direccion);
-    if (foto) {
-      formData.append('foto', foto);
-    }
+    // if (foto) {
+    //   formData.append('foto', foto);
+    // }
 
     try {
       const response = await axios.post('http://localhost:8000/auth/register', {
@@ -46,6 +46,7 @@ const Register = () => {
 
   return (
     <div className="register-container">
+      <img className='image-login' src={`${process.env.PUBLIC_URL}/images/perros-home.jpg`} alt='perritos en un campo'/>
       <form onSubmit={handleSubmit} className="register-form">
         <h2>Registro</h2>
         {error && <p className="error-message">{error}</p>}
@@ -84,14 +85,21 @@ const Register = () => {
           onChange={(e) => setDireccion(e.target.value)}
           required
         />
-        <input
+        {/* <input
           type="file"
           accept="image/*"
           onChange={(e) => setFoto(e.target.files[0])}
-        />
-        <button type="submit">Registrarse</button>
+        /> */}
+
+        <button className='dog-button'>
+          <span class="shadow-button"></span>
+          <span class="edge-button"></span>
+          <span class="front-button text-button">Registrarse
+          </span>
+        </button>
+
         <div className="login-prompt">
-          <p>¿Ya tienes cuenta? <Link to="/login">Iniciar sesión</Link></p>
+          <p className='iniciar-sesion-text'>¿Ya tienes cuenta? <Link to="/login">Iniciar sesión</Link></p>
         </div>
       </form>
     </div>

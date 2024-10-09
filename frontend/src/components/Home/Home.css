@@ -33,18 +33,19 @@ h1 {
 }
 
 .overlay {
-  height: 50rem;
+  height: 35rem;
   margin: 0;
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
-  margin-top: 3rem;
+  margin-top: 0;
 }
 
 .text-home {
   color: black;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
   width: 60%;
   height: 10rem;
   padding: 2rem 2rem 2rem 2rem;
@@ -87,10 +88,10 @@ h1 {
 
 /* Tarjetas de perros */
 .perro-card {
-  background-color: #fa9b2fb4; /* Blanco para resaltar */
+  background-color: #5c391162; /* Blanco para resaltar */
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-  padding: 20px;
+  /* padding: 20px; */
   flex: 1 1 18rem; /* Esto está bien, pero considera agregar un max-width */
   min-width: 10rem;
   max-width: 22rem;
@@ -129,9 +130,12 @@ h1 {
 /* Imagen de perros */
 .perro-foto {
   width: 100%;
-  border-radius: 15px;
+  border-radius: 20px 20px 0 0;
   margin-bottom: 15px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); */
+  box-shadow: 0 10px 15px -5px rgba(0, 0, 0, 0.3);
+  box-shadow: inset;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 /* Texto en las tarjetas */
