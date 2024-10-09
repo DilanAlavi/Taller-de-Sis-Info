@@ -194,3 +194,9 @@ body, html {
   }
 }
 
+/* Estilos para el logo */
+.brand-logo {
+  height: 50px; 
+  width: auto;
+  margin-right: 10px;
+}

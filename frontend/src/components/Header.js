@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa'; 
 import { AuthContext } from '../AuthContext';
+import logo from '../components/Imagenes/soloLogo.png';
 
 const Header = () => {
   const { user } = useContext(AuthContext)
@@ -11,6 +12,7 @@ const Header = () => {
     <header className="header">
       <div className="navbar">
         <div className="navbar-brand">
+          <img src={logo} alt="Only Lost Pets Logo" className="brand-logo" />
           <span className="brand-title">Only Lost Pets</span>
         </div>
         <nav>
