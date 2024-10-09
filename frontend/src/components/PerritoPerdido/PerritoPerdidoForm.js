@@ -25,22 +25,8 @@ const PerritoPerdidoForm = () => {
 
     // setError('');
     
-    const formData = new FormData();
-    formData.append('raza', raza);
-    formData.append('color', color);
-    formData.append('genero', genero);
-    formData.append('nombre', nombre);
-    formData.append('usuario_id', user.id);
-    formData.append('estado_perro_id', 1);
-
-    const formEstado = new FormData();
-    formEstado.append('descripcion', descripcion);
-    formEstado.append('direccion_visto', direccion);
-    formEstado.append('fecha', date);
-    formEstado.append('estado', 1);
-    if (foto) {
-      formData.append('foto', foto);
-    }
+    const formDataFoto = new FormData();
+    formDataFoto.append("foto", foto);
 
     try {
       const response_estado = await axios.post('http://localhost:8000/perro/estado', {
@@ -50,6 +36,7 @@ const PerritoPerdidoForm = () => {
         estado: 1,
       });
       console.log(response_estado.data[0]);
+
       const response = await axios.post('http://localhost:8000/perro/data', {
         raza: raza,
         color: color,
@@ -58,7 +45,21 @@ const PerritoPerdidoForm = () => {
         usuario_id: user.id,
         estado_perro_id: response_estado.data[0].id
       });
-      console.log(response)
+      console.log("Datos perro:", response.data)
+
+      const response_foto = await fetch('http://localhost:8000/foto/subir', {
+        method: 'POST',
+        body: formDataFoto
+      });
+      const data_foto = await response_foto.json()
+      console.log("Imagen subida:", data_foto.file_id)
+
+      const response_imagen_perrito = await axios.post('http://localhost:8000/foto/post', {
+        direccion_foto: data_foto.file_id,
+        perrito_id: response.data[0].id
+      });
+      console.log('imagen bd: ', response_imagen_perrito)
+
       alert('Registro exitoso');
       navigate('/home');
     } catch (error) {
