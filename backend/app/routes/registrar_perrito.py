@@ -45,4 +45,4 @@ def resgistrar_perro(perrito: PerritoNuevo, db: Session = Depends(get_db)):
     db.add(new_perrito)
     db.commit()
     db.refresh(new_perrito)
-    return {"message": "Perrito registrado exitosamente"}
+    return {new_perrito}

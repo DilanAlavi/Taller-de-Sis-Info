@@ -45,14 +45,20 @@ const PerritoPerdidoForm = () => {
         usuario_id: user.id,
         estado_perro_id: response_estado.data[0].id
       });
-      console.log(response)
+      console.log("Datos perro:", response.data)
 
       const response_foto = await fetch('http://localhost:8000/foto/subir', {
         method: 'POST',
         body: formDataFoto
       });
       const data_foto = await response_foto.json()
-      console.log("Imagen subida:", data_foto)
+      console.log("Imagen subida:", data_foto.file_id)
+
+      const response_imagen_perrito = await axios.post('http://localhost:8000/foto/post', {
+        direccion_foto: data_foto.file_id,
+        perrito_id: response.data[0].id
+      });
+      console.log('imagen bd: ', response_imagen_perrito)
 
       alert('Registro exitoso');
       navigate('/home');
