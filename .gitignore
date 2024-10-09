@@ -25,4 +25,5 @@ backend/app/Entrenamiento/model_training/
 # Ignorar archivos compilados de Python
 backend/*.pyc
 
+backend/app/credenciales/fotos-perritos-809194cdb9d7.json
 

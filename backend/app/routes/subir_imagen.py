@@ -13,8 +13,7 @@ router = APIRouter()
 FOLDER_ID = '1PVLp1yfjdZg1z1MiNeApUVGbuuL_hyUb' 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-SERVICE_ACCOUNT_FILE = "D:/Taller Sis Info/fotos-perritos-809194cdb9d7.json"
-
+SERVICE_ACCOUNT_FILE = os.path.join(BASE_DIR, '..', 'credenciales', 'fotos-perritos-809194cdb9d7.json')
 
 
 # Configuración de credenciales y cliente de Google Drive
