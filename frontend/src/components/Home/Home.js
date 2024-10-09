@@ -186,10 +186,34 @@ const Home = () => {
   return (
     <div className="home-container">
       <img className='image-home' src={`${process.env.PUBLIC_URL}/images/home-dog.webp`} alt='perritos en un campo'/>
-      <div className='overlay'></div>
-      <h1>Encuentra a nuestros amigos perdidos</h1>
-      <p>Ayuda a reunir a estos pequeños con sus dueños</p>
-      
+      <div className='overlay'>
+        <div className='text-home'>
+          <h3>NUESTRA MISION</h3>
+          lorem djfshjkhjk  hashkdh hkhjasjkd dsahda dakjd asgjdjahdjaad  adgashgd asdjas ajdasjhdashjdashjdashj jhd asd vadjsjh jasjd jhdsagj asjd vasjdvj asjas
+        </div>
+
+        <div className='buttons'>  
+          <button className='dog-button'>
+            <span class="shadow-button"></span>
+            <span class="edge-button"></span>
+            <span class="front-button text-button"> Perdi mi Perrito
+            </span>
+          </button>
+
+          <button className='dog-button'>
+            <span class="shadow-button"></span>
+            <span class="edge-button"></span>
+            <span class="front-button text-button"> Buscar a mi Perrito
+            </span>
+          </button>
+        </div>
+
+      </div>
+
+      <div className='titulo-perros-container'>
+        <h1>Encuentra a nuestros amigos perdidos</h1>
+        <p>Ayuda a reunir a estos pequeños con sus dueños</p>
+      </div>
       <div className="perros-container">
         {perrosPerdidos.map((perro, index) => (
           <div className="perro-card" key={index}>
@@ -214,11 +238,19 @@ const Home = () => {
             </div>
           ))}
         </Slider>
+
+
+        <Link to="/register">
+          <button className="start-button">
+            <span class="shadow-button"></span>
+            <span class="edge-button"></span>
+            <span class="front-button text-button">Empezar</span>
+          </button>
+        </Link>
+
       </div>
 
-      <Link to="/register">
-        <button className="start-button">Comenzar</button>
-      </Link>
+      
     </div>
   );
 };
