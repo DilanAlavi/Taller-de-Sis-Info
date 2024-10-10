@@ -32,8 +32,30 @@ h1 {
   z-index: -1;
 }
 
+.up-button {
+  margin: 0;
+  position: fixed;
+  width: 3.5rem;
+  height: 3.5rem;
+  background-color: #ffffff46;
+  backdrop-filter: blur(2px);
+  z-index: 100;
+  right: 1rem;
+  bottom: 1rem;
+  box-shadow: 0 0 15px rgb(0, 0, 0, 0.3);
+  border: 1px solid white;
+  border-radius: 100px;
+  transition: all 0.5s ease;
+  color: black;
+}
+
+.up-button:hover {
+  background-color: white;
+  transform: scale(1.1);
+}
+
 .overlay {
-  height: 35rem;
+  height: 100vh;
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -88,9 +110,9 @@ h1 {
 
 /* Tarjetas de perros */
 .perro-card {
-  background-color: #5c391162; /* Blanco para resaltar */
+  background-color: #b873243a; /* Blanco para resaltar */
   border-radius: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sombra sutil */
   /* padding: 20px; */
   flex: 1 1 18rem; /* Esto está bien, pero considera agregar un max-width */
   min-width: 10rem;
@@ -147,25 +169,6 @@ p {
   margin-top: 3rem;
 }
 
-
-
-/* Botones */
-/* .start-button {
-  background-color: #ff8c00; 
-  color: white;
-  padding: 15px 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(255, 140, 0, 0.4); 
-  cursor: pointer;
-  margin-top: 30px;
-  font-size: 1.2rem;
-  transition: background-color 0.3s, transform 0.3s; 
-}
-
-.start-button:hover {
-  background-color: #ff701f; 
-  transform: translateY(-3px); 
-} */
 
 /* Carrusel */
 .testimonials-container {

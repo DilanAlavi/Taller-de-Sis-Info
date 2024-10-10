@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick'; // Asegúrate de que esta línea esté presente
 import './Home.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { FaArrowUp } from 'react-icons/fa';
 
 
 const perrosPerdidos = [
@@ -152,8 +153,37 @@ const testimonios = [
   },
 ];
 
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth' // Desplazamiento suave
+  });
+};
+
 const Home = () => {
   // Configuración del carrusel
+  const [showButton, setShowButton] = useState(false); // Estado para controlar visibilidad del botón
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Si el scroll es mayor a 100px, muestra el botón, si no, ocúltalo
+      if (window.scrollY > 500) {
+        setShowButton(true);
+      } else {
+        setShowButton(false);
+      }
+    };
+
+    // Agregar el evento de scroll
+    window.addEventListener('scroll', handleScroll);
+
+    // Limpiar el evento cuando se desmonte el componente
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+
   const settings = {
     dots: true,
     infinite: true,
@@ -186,6 +216,11 @@ const Home = () => {
   return (
     <div className="home-container">
       <img className='image-home' src={`${process.env.PUBLIC_URL}/images/home-dog.webp`} alt='perritos en un campo'/>
+      {showButton && (
+        <button className='up-button' onClick={scrollToTop}>
+          <FaArrowUp></FaArrowUp>
+        </button>
+      )}
       <div className='overlay'>
         <div className='text-home'>
           <h3>NUESTRA MISION</h3>

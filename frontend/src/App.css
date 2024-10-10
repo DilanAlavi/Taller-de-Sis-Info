@@ -28,7 +28,6 @@ body, html {
 
 .navbar {
   display: flex;
-  padding: 1rem 1rem 1rem 1rem;
   justify-content:end;
   align-items: center;
   padding: 0.5rem 1rem;
