@@ -9,6 +9,7 @@ import IA from './components/IA/IA';
 import DogRecognition from './components/DogRecognition/DogRecognition';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Contacto from './components/Contacto/Contacto';
 import './App.css';
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
             <Route path="/ia" element={<IA />} />
             <Route path="/dog-recognition" element={<DogRecognition />} />
             <Route path="/user" element={<User/>} />
+            <Route path="/contacto" element={<Contacto/>} />
           </Routes>
         </main>
         <Footer />
