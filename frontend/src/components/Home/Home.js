@@ -276,7 +276,7 @@ const Home = () => {
 
 
         <Link to="/register">
-          <button className="start-button">
+          <button className="start-button button-empezar">
             <span class="shadow-button"></span>
             <span class="edge-button"></span>
             <span class="front-button text-button">Empezar</span>

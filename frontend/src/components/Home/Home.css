@@ -165,8 +165,8 @@ p {
   color: #4a3c2a; /* Texto en café oscuro para contraste */
 }
 
-.start-button {
-  margin-top: 3rem;
+.button-empezar {
+  margin-top: 3rem !important;
 }
 
 

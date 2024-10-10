@@ -12,9 +12,12 @@ const Header = () => {
     <header className="header">
       <div >
         <div className="navbar-brand">
-
-          <img src={logo} alt="Only Lost Pets Logo" className="brand-logo" />
-          <span className="brand-title"><Link to="/home">Only Lost Pets</Link></span>
+        <Link to="/home">
+          <div className='logo'>
+            <img src={logo} alt="Only Lost Pets Logo" className="brand-logo" />
+            <span className="brand-title">Only Lost Pets</span>
+          </div>
+        </Link>
           {/* <li className="navbar-item">
               <Link to="/user" onClick={() => console.log("Navegando a la página de usuario")}>
                 <FaUser size={24} />
@@ -44,9 +47,6 @@ const Header = () => {
               }
             </ul>
           </nav>
-
-          <img src={logo} alt="Only Lost Pets Logo" className="brand-logo" />
-          <span className="brand-title">Only Lost Pets</span>
 
         </div>
       </div>

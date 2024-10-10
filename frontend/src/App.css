@@ -42,6 +42,18 @@ body, html {
   justify-content: space-between;
 }
 
+.navbar-brand a{
+  color: transparent;
+}
+
+.logo {
+  transition: all 0.5s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
 .brand-title {
   color: white;
   text-decoration: none;
@@ -49,7 +61,7 @@ body, html {
   font-weight: bold;
 }
 
-.brand-title a{
+.brand-title{
   color: white;
   text-decoration: none;
   font-size: 1.6rem;
@@ -159,13 +171,6 @@ body, html {
   text-align: center;
   font-size: 1.5em;
   padding: 2rem;
-}
-
-.navbar-brand .brand-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: white;
-  text-decoration: none;
 }
 
 .navbar-nav .navbar-list {
@@ -313,5 +318,10 @@ button {
   height: 50px; 
   width: auto;
   margin-right: 10px;
+}
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
