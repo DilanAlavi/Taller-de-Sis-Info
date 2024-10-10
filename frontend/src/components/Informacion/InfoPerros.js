@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './InfoPerros.css';
 
 const InfoPerros = () => {
   const [data, setData] = useState(null);
