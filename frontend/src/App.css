@@ -325,3 +325,28 @@ button {
   align-items: center;
 }
 
+.footer {
+  background-color: #D68529;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-links {
+  display: flex;
+  gap: 2rem; /* Espacio entre los enlaces */
+  margin-bottom: 1rem; /* Espacio entre los enlaces y el texto */
+  list-style: none; /* Quita los puntos de las listas */
+}
+
+.footer-link {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
