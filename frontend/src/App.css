@@ -15,40 +15,56 @@ body, html {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+
 }
 
 /* Header y Navbar */
 .header {
-  background-color: #FA9B2F;
+  background-color: #D68529;
   color: #ee6d0a;
-  padding: 1rem 0;
-  border-bottom: 2px solid #eaeaea;
+  padding: 0;
+  /* border-bottom: 2px solid #eaeaea; */
 }
 
 .navbar {
   display: flex;
-  justify-content: space-between;
+  justify-content:end;
   align-items: center;
   padding: 0.5rem 1rem;
+  background-color: #FA9B2F;
 }
 
 .navbar-brand {
+  padding: 1.3rem 3rem 1.3rem 4rem;
   display: flex;
   align-items: center;
+  background-color: #D68529;
+  justify-content: space-between;
 }
 
 .brand-title {
+  color: white;
+  text-decoration: none;
   font-size: 1.5rem;
   font-weight: bold;
+}
+
+.brand-title a{
+  color: white;
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight:500;
 }
 
 .navbar-list {
   display: flex;
   list-style-type: none;
+  align-items: center;
 }
 
 .navbar-item {
   margin-left: 1rem;
+  justify-content: center;
 }
 
 .user-avatar {
@@ -64,20 +80,22 @@ body, html {
 .navbar-item a {
   text-decoration: none;
   padding: 0.5rem;
-  transition: background-color 0.3s;
-  color: #1d1c1c;
+  transition: background-color 0.5s;
+  color: #ffff;
   font-size: 1.1rem;
+  border-radius: 10px;
 }
 
 .navbar-item a:hover {
-  background-color: #ee6d0a;
-  border-radius: 4px;
+  background-color: #f0942b;
+  border-radius: 10px;
+  transform: scale(1);
 }
 
 /* Contenido principal */
 .App-main {
   flex: 1;
-  padding: 2rem;
+  padding: 0rem;
 }
 
 /* Estilos para las tarjetas de perros */
@@ -108,11 +126,15 @@ body, html {
 
 /* Footer */
 .footer {
-  background-color: #5c3911;
+  background-color: #D68529;
   color: white;
   text-align: center;
-  padding: 1rem;
+  padding: 2rem;
 
+}
+
+.footer p {
+  color: white;
 }
 
 /* Responsive */
@@ -142,7 +164,7 @@ body, html {
 .navbar-brand .brand-title {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #333;
+  color: white;
   text-decoration: none;
 }
 
@@ -193,6 +215,98 @@ body, html {
     margin: 0.5rem 0;
   }
 }
+/* Button style */
+/* From Uiverse.io by cssbuttons-io */ 
+button {
+  position: relative;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  outline-offset: 4px;
+  transition: filter 250ms;
+  user-select: none;
+  touch-action: manipulation;
+ }
+ 
+ .shadow-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: hsl(0deg 0% 0% / 0.25);
+  will-change: transform;
+  transform: translateY(2px);
+  transition: transform
+     600ms
+     cubic-bezier(.3, .7, .4, 1);
+ }
+ 
+ .edge-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: linear-gradient(
+     to left,
+     #694013 0%,
+     #945e20 8%,
+     #945e20 92%,
+     #694013 100%
+   );
+ }
+ 
+ .front-button {
+  display: block;
+  position: relative;
+  padding: 12px 27px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  color: white;
+  /* background: hsl(345deg 100% 47%); */
+  background-color: #FA9B2F;
+  will-change: transform;
+  transform: translateY(-4px);
+  transition: transform
+     600ms
+     cubic-bezier(.3, .7, .4, 1);
+ }
+ 
+ button:hover {
+  filter: brightness(110%);
+ }
+ 
+ button:hover .front-button {
+  transform: translateY(-6px);
+  transition: transform
+     250ms
+     cubic-bezier(.3, .7, .4, 1.5);
+ }
+ 
+ button:active .front-button {
+  transform: translateY(-2px);
+  transition: transform 34ms;
+ }
+ 
+ button:hover .shadow-button {
+  transform: translateY(4px);
+  transition: transform
+     250ms
+     cubic-bezier(.3, .7, .4, 1.5);
+ }
+ 
+ button:active .shadow-button {
+  transform: translateY(1px);
+  transition: transform 34ms;
+ }
+ 
+ button:focus:not(:focus-visible) {
+  outline: none;
+ }
 
 /* Estilos para el logo */
 .brand-logo {
@@ -200,3 +314,4 @@ body, html {
   width: auto;
   margin-right: 10px;
 }
+

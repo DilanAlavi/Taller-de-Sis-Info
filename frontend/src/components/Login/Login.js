@@ -31,6 +31,7 @@ const Login = () => {
 
   return (
     <div className="login-container">
+      <img className='image-login' src={`${process.env.PUBLIC_URL}/images/perros-home.jpg`} alt='perritos en un campo'/>
       <form onSubmit={handleSubmit} className="login-form">
         <h2>Iniciar Sesión</h2>
         <input
@@ -47,9 +48,17 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit">Entrar</button>
+        {/* <button type="submit">Entrar</button> */}
+
+        <button className='dog-button'>
+          <span class="shadow-button"></span>
+          <span class="edge-button"></span>
+          <span class="front-button text-button"> Iniciar Sesion
+          </span>
+        </button>
+
         <div className="login-prompt">
-          <p>¿Aun no tienes cuenta? <Link to="/register">Registrate</Link></p>
+          <p className='registro-text'>¿Aun no tienes cuenta? <Link to="/register">Registrate</Link></p>
         </div>
       </form>
     </div>

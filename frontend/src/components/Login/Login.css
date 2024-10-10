@@ -4,22 +4,34 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f5d5b2; /* Fondo beige-naranja claro */
 }
 
 .login-form {
   background-color: #fff; /* Fondo blanco para el formulario */
   padding: 2rem;
   border-radius: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   max-width: 400px;
   width: 100%;
   text-align: center;
+  background-color: #ffffff25;
+  backdrop-filter: blur(20px);
 }
 
+.image-login {
+  margin: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+  top: 0;
+  left: 0px;
+  z-index: -1;
+}
 /* Título */
 .login-form h2 {
-  color: #6f4e37; /* Color café para el título */
+  color: #4a3c2a; /* #6f4e37 Color café para el título */
   margin-bottom: 1.5rem;
   font-size: 1.8rem; /* Tamaño más grande */
   font-weight: bold;
@@ -30,35 +42,29 @@
   width: 100%;
   padding: 0.8rem;
   margin-bottom: 1.2rem;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #fae5d3; /* Tono claro para el input */
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #dddddd00;
+  border-radius: 10px;
+  background-color: #0000002c;
+  color: white;
+  transition: border-color 0.5s ease, box-shadow 0.6s ease, transform 0.5s ease-in;
 }
+
+.login-form input::placeholder {
+  color: rgba(255, 255, 255, 0.712);
+  opacity: 0.65;
+}
+
 
 .login-form input:focus {
   outline: none;
-  border-color: #ee6d0a; /* Naranja */
-  box-shadow: 0 0 5px rgba(238, 109, 10, 0.5); /* Sombra naranja */
+  border-color: #ee6d0a;
+  /* box-shadow: 0 0 5px rgba(238, 109, 10, 0.5); */
+  box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.473); 
+  transform: scale(1.01);
 }
 
-/* Botón de login */
-.login-form button {
-  width: 100%;
-  padding: 0.8rem;
-  background-color: #ee6d0a; /* Naranja vibrante */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1.2rem;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
-}
-
-.login-form button:hover {
-  background-color: #d35f05; /* Naranja oscuro */
-  transform: translateY(-2px); /* Efecto hover con elevación */
+.dog-button {
+  margin-top: 1rem;
 }
 
 /* Enlace de ayuda */
@@ -73,3 +79,13 @@
 .login-form a:hover {
   text-decoration: underline;
 }
+
+.registro-text a {
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+  .registro-text a:hover {
+    transform: scale(1.11);
+    filter: brightness(130%);
+}
+

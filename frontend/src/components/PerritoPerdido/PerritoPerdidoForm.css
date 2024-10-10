@@ -2,52 +2,172 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
-  background-color: #fff8f0; /* Fondo suave, color crema claro */
+  padding: 3rem;
+  /* background-color: #fff8f0;  */
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  margin: auto;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  width: 100%; 
+  height: 100%;
+  /* margin: auto; */
+}
+
+.perrito-perdido-form-container h2 {
+  margin-bottom: 0.5rem;
+}
+
+.contenedor-perro-perdido {
+  
+  width: 100%;  /* Aseguramos que ocupe todo el ancho */
+  margin: 0;
+  display: flex;
+  align-items: center;  /* Alinear en el centro verticalmente */
+  justify-content: center;  /* Alinear a la derecha */
+}
+
+.nombre-perrito {
+  margin-top: 1rem;
+  max-width: 20vw;
+}
+
+.container-img-nom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-img-nom .container-img {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.container-textarea {
+  text-align: center;
+}
+
+textarea {
+  width: 30vw;
+  height: 6rem;
+  max-height: 7rem;
+  max-width: 35vw;
+  min-height: 4rem;
+  min-width: 30vw;
+  margin: 0;
+  padding: 0.8rem;
+  border: 1px solid #dddddd00;
+  border-radius: 10px;
+  background-color: #acacac2c;
+  color: rgb(73, 73, 73);
+  transition: border-color 0.5s ease, box-shadow 0.6s ease, transform 0.5s ease-in;
+  resize: none;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.container-texta-fecha-dir {
+  display: flex;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.container-dir-fecha {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-around; */
+}
+
+.container-dir-fecha input {
+  margin: 6px;
+}
+
+.container-genero-raza-color {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.subir-imagen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 1rem 0 1rem;
+}
+
+.subir-imagen div {
+  font-size: small;
 }
 
 .perrito-perdido-form {
+  position: inherit;
   display: flex;
   flex-direction: column;
   width: 100%;
+
 }
 
-.perrito-perdido-form input, 
-.perrito-perdido-form textarea, 
-.perrito-perdido-form button,
-.perrito-perdido-form select {
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-  border: 1px solid #d5a250; /* Borde color café claro */
-  border-radius: 4px;
+input {
+  font-family: 'Montserrat', sans-serif;
 }
 
-.perrito-perdido-form input,
-.perrito-perdido-form textarea,
-.perrito-perdido-form select {
-  transition: border-color 0.3s; /* Suave transición de borde */
+
+
+.img-perdido {
+  margin: 0;
+  height: 110vh;
+  opacity: 0.9;
+  filter: brightness(90%);
+  box-shadow: 5px 0 30px -5px rgba(0, 0, 0, 0.329);
+  z-index: -1;
 }
 
-.perrito-perdido-form input:focus,
-.perrito-perdido-form textarea:focus,
-.perrito-perdido-form select:focus {
-  border-color: #c47a2d; /* Borde naranja oscuro al enfocar */
+.contenedor-perro-perdido input:not(.input-img),
+.container-genero-raza-color select {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1.2rem;
+  border: 1px solid #dddddd00;
+  border-radius: 10px;
+  background-color: #acacac2c;
+  color: rgb(73, 73, 73);
+  transition: border-color 0.5s ease, box-shadow 0.6s ease, transform 0.5s ease-in;
 }
 
-.perrito-perdido-form button {
-  background-color: #ff7f50; /* Color naranja para el botón */
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s; /* Suave transición de fondo */
+.contenedor-perro-perdido input::placeholder:not(.input-img),
+textarea::placeholder,
+.contenedor-perro-perdido input[type='date']::placeholder,
+.container-genero-raza-color select::placeholder {
+  color: rgba(92, 92, 92, 0.712);
+  opacity: 0.65;
 }
 
-.perrito-perdido-form button:hover {
-  background-color: #ff6347; /* Naranja más oscuro al pasar el cursor */
+
+.contenedor-perro-perdido input:focus:not(.input-img),
+textarea:focus,
+.container-genero-raza-color select:focus {
+  outline: none;
+  border-color: #ee6d0a;
+  /* box-shadow: 0 0 5px rgba(238, 109, 10, 0.5); */
+  box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.473); 
+  transform: scale(1.01);
 }
+
+.container-genero-raza-color {
+  padding: 0 3rem 0 3rem;
+}
+
+.container-genero-raza-color select {
+  width: 12rem;
+}
+
+.datos-adicionales {
+  margin-left: 3.5rem;
+}
+
+
 
 .share-buttons {
   margin-top: 20px;
@@ -56,7 +176,7 @@
 }
 
 .share-buttons button {
-  background-color: #d18f4f; /* Color café claro para los botones de compartir */
+  background-color: #FA9B2F; /* Color café claro para los botones de compartir */
   color: white;              /* Color del texto */
   padding: 10px 15px;        /* Espaciado interno */
   border: none;              /* Sin borde */
@@ -69,9 +189,67 @@
 }
 
 .share-buttons button:hover {
-  background-color: #b37639; /* Café más oscuro al pasar el cursor */
+  background-color: #ffb055; /* Café más oscuro al pasar el cursor */
 }
 
-.share-buttons button svg {
-  margin-right: 5px;         /* Espacio entre ícono y texto */
+
+.start-button {
+  margin-top: 0.5rem;
+}
+
+.input-img {
+  margin-top: 1rem;
+  max-width: 3rem;
+  display: none;
+}
+
+.upload-logo {
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  filter: brightness(0%);
+}
+
+.upload-logo:hover {
+  transform: scale(1.15);
+}
+
+.input-img[type="file"] {
+  color: transparent;
+}
+
+.input-img[type="file"]::-webkit-file-upload-button {
+  background-color: #FA9B2F;
+  width: 3rem;
+  color: transparent;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.input-img[type="file"]::-webkit-file-upload-button:hover {
+  background-color: #ffa946;
+  /* width: 3rem; */
+}
+
+.image-perdido-preview {
+  width: 70%;
+  max-width: 10rem;
+  max-height: 8rem;
+  margin: 0.5rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.image-perdido-preview img {
+  max-width: 10rem;
+  max-height: 8rem;
+  height: auto;
+  display: block;
+  border-radius: 8px;
 }
