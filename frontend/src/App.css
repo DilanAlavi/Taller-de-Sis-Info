@@ -215,8 +215,6 @@ body, html {
     margin: 0.5rem 0;
   }
 }
-
-
 /* Button style */
 /* From Uiverse.io by cssbuttons-io */ 
 button {
@@ -309,3 +307,11 @@ button {
  button:focus:not(:focus-visible) {
   outline: none;
  }
+
+/* Estilos para el logo */
+.brand-logo {
+  height: 50px; 
+  width: auto;
+  margin-right: 10px;
+}
+
