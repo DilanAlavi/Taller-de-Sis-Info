@@ -10,6 +10,7 @@ import DogRecognition from './components/DogRecognition/DogRecognition';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Contacto from './components/Contacto/Contacto';
+import InfoPerros from './components/Informacion/InfoPerros';
 import './App.css';
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
             <Route path="/dog-recognition" element={<DogRecognition />} />
             <Route path="/user" element={<User/>} />
             <Route path="/contacto" element={<Contacto/>} />
+            <Route path="/infoPerros" element={<InfoPerros />} />
           </Routes>
         </main>
         <Footer />
