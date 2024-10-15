@@ -1,0 +1,34 @@
+.info-page {
+    padding: 20px;
+    max-width: 800px; /* Limita el ancho del contenedor para una mejor presentación */
+    margin: 0 auto; /* Centra la página */
+    line-height: 1.8; /* Mejora la legibilidad aumentando el espacio entre líneas */
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5em; /* Ajusta el tamaño del título principal */
+  }
+  
+  h2 {
+    color: #333;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 1.5em; /* Ajusta el tamaño del subtítulo */
+  }
+  
+  p {
+    text-align: justify; /* Justifica el texto para un aspecto más ordenado */
+    margin-bottom: 20px; /* Agrega espaciado entre párrafos */
+  }
+  
+  a {
+    color: #007BFF;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
