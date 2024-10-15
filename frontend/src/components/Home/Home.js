@@ -224,14 +224,14 @@ const Home = () => {
       <div className='overlay'>
         <div className='text-home'>
           <h3>NUESTRA MISION</h3>
-          lorem djfshjkhjk  hashkdh hkhjasjkd dsahda dakjd asgjdjahdjaad  adgashgd asdjas ajdasjhdashjdashjdashj jhd asd vadjsjh jasjd jhdsagj asjd vasjdvj asjas
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vel turpis eget neque malesuada vulputate non vitae dolor. Duis eu dolor eleifend, sagittis nisi quis, pulvinar tortor. Mauris non maximus nisl. Suspendisse pellentesque, ipsum sed fermentum elementum, neque dolor egestas nisl, convallis tincidunt enim ipsum in lorem. Sed sagittis ante sed velit scelerisque, at pulvinar felis semper. Nunc id pulvinar quam. Nunc non lectus ornare, mollis purus dignissim, semper augue. Proin mattis ex eu lorem venenatis, in malesuada metus porta. In ut elit in nibh faucibus venenatis at vel diam. Proin rhoncus elit quis dui faucibus blandit. Phasellus pellentesque ultricies viverra. In nisi nisi, venenatis eget lobortis venenatis, accumsan a purus. Quisque malesuada vulputate imperdiet.
         </div>
 
         <div className='buttons'>  
           <button className='dog-button'>
             <span class="shadow-button"></span>
             <span class="edge-button"></span>
-            <span class="front-button text-button"> Perdi mi Perrito
+            <span class="front-button text-button"> Perdi mi Perrito 
             </span>
           </button>
 
