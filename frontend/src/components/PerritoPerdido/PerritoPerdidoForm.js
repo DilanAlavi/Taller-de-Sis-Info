@@ -171,7 +171,7 @@ const PerritoPerdidoForm = () => {
           <div className='container-genero-raza-color'>
             <select defaultValue="" onChange={(e) => setRaza(e.target.value)}>
               <option value="" disabled>Selecciona su raza</option>
-              <option value="Golgen">Golden</option>
+              <option value="Golden">Golden</option>
               <option value="Chapi">Chapi</option>
               <option value="Bulldog">Bulldog</option>
               <option value="Pastor Aleman">Pastor Alemán</option>
