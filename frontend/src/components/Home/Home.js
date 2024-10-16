@@ -163,8 +163,7 @@ const scrollToTop = () => {
 
 
 const Home = () => {
-  // Configuración del carrusel
-  const [showButton, setShowButton] = useState(false); // Estado para controlar visibilidad del botón
+  const [showButton, setShowButton] = useState(false);
   const [perritos, setPerritos] = useState(null);
   const [loading, setLoading] = useState(true);
   const [perrosPerdidos, setPerrosPerdidos] = useState([]);
@@ -177,7 +176,7 @@ const Home = () => {
       } catch (error) {
         console.log(error);
       } finally {
-        setLoading(false); // Finaliza la carga
+        setLoading(false);
       }
     };
     perritosData();
@@ -289,7 +288,7 @@ const Home = () => {
         <p>Ayuda a reunir a estos pequeños con sus dueños</p>
       </div>
       <div className="perros-container">
-        {perrosPerdidos.map((perro, index) => (
+        {perrosPerdidos.slice(-9).map((perro, index) => (
           <div className="perro-card" key={index}>
 
             {perro.foto[0] ? (
