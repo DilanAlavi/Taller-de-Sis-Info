@@ -161,19 +161,13 @@ const scrollToTop = () => {
   });
 };
 
+
 const Home = () => {
   // Configuración del carrusel
   const [showButton, setShowButton] = useState(false); // Estado para controlar visibilidad del botón
   const [perritos, setPerritos] = useState(null);
   const [loading, setLoading] = useState(true);
   const [perrosPerdidos, setPerrosPerdidos] = useState([]);
-
-  // const agregarPerro = (nuevoPerro) => {
-  //   setPerrosPerdidos((prevPerros) => [
-  //     ...prevPerros, // Mantiene los perros que ya están en el array
-  //     nuevoPerro,    // Agrega el nuevo perro
-  //   ]);
-  // };
 
   useEffect(() => {
     const perritosData = async () => {
@@ -297,11 +291,17 @@ const Home = () => {
       <div className="perros-container">
         {perrosPerdidos.map((perro, index) => (
           <div className="perro-card" key={index}>
-            <img src={perro.foto} alt={`Foto de ${perro.nombre}`} className="perro-foto" />
+
+            {perro.foto[0] ? (
+              <img src={`http://127.0.0.1:8000/imagen/${perro.foto[0].direccion_foto}`} alt={`Foto de ${perro.nombre}`} className="perro-foto" />
+            ) : (
+              <img src="/path/to/placeholder-image.jpg" alt="Imagen no disponible" className="perro-foto" />
+            )}
+
             <h3>{perro.nombre}</h3>
             
             <div><p>{perro.estado.fecha}</p><strong>Fecha de pérdida</strong></div>
-            <div><p>{perro.estado.ubicacion}</p><strong>Última ubicación</strong></div>
+            <div><p>{perro.estado.direccion_visto}</p><strong>Última ubicación</strong></div>
             <div><p>{perro.usuario.num_celular}</p><strong>Contacto</strong></div>
           </div>
         ))}

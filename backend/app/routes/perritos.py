@@ -32,7 +32,8 @@ def get_perrito(perrito_id: int, db: Session = Depends(get_db)):
         "color": perrito.color,
         "genero": perrito.genero,
         "estado": perrito.estado_perro,
-        "usuario": perrito.usuario
+        "usuario": perrito.usuario,
+        "foto": perrito.foto_perro
     } 
 
 @router.get("/")
@@ -48,6 +49,7 @@ def get_perritos(skip: int = 0, limit: int = 50, db: Session = Depends(get_db)):
         "color": perro.color,
         "genero": perro.genero,
         "estado": perro.estado_perro,
-        "usuario": perro.usuario
+        "usuario": perro.usuario,
+        "foto": perro.foto_perro
     })
     return result
