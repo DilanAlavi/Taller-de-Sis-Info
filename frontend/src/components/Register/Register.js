@@ -92,9 +92,9 @@ const Register = () => {
         /> */}
 
         <button className='dog-button'>
-          <span class="shadow-button"></span>
-          <span class="edge-button"></span>
-          <span class="front-button text-button">Registrarse
+          <span className="shadow-button"></span>
+          <span className="edge-button"></span>
+          <span className="front-button text-button">Registrarse
           </span>
         </button>
 
