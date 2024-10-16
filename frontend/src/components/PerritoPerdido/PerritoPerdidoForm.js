@@ -193,9 +193,9 @@ const PerritoPerdidoForm = () => {
           {/* <button type="submit">Enviar Reporte</button> */}
 
           <button className="start-button">
-            <span class="shadow-button"></span>
-            <span class="edge-button"></span>
-            <span class="front-button text-button">Enviar Reporte</span>
+            <span className="shadow-button"></span>
+            <span className="edge-button"></span>
+            <span className="front-button text-button">Enviar Reporte</span>
           </button>
 
         </form>

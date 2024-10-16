@@ -51,9 +51,9 @@ const Login = () => {
         {/* <button type="submit">Entrar</button> */}
 
         <button className='dog-button'>
-          <span class="shadow-button"></span>
-          <span class="edge-button"></span>
-          <span class="front-button text-button"> Iniciar Sesion
+          <span className="shadow-button"></span>
+          <span className="edge-button"></span>
+          <span className="front-button text-button"> Iniciar Sesion
           </span>
         </button>
 
