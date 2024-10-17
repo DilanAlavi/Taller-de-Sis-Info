@@ -20,6 +20,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+__pycache__/
+
 # Ignorar la carpeta de modelo entrenado del backend
 backend/app/Entrenamiento/model_training/
 # Ignorar archivos compilados de Python

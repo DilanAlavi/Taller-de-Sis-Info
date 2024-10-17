@@ -11,6 +11,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Contacto from './components/Contacto/Contacto';
 import InfoPerros from './components/Informacion/InfoPerros';
+import PerritoVistoForm from './components/PerritoVisto/PerritoVistoForm';
 import './App.css';
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
             <Route path="/user" element={<User/>} />
             <Route path="/contacto" element={<Contacto/>} />
             <Route path="/infoPerros" element={<InfoPerros />} />
+            <Route path='/perritovistoform' element={<PerritoVistoForm/>} />
           </Routes>
         </main>
         <Footer />
