@@ -28,12 +28,12 @@ def cargar_o_crear_modelo(X_train="", y_train=""):
             keras.layers.Dense(1, activation='sigmoid') 
         ])
         
-        model.compile(optimizer=keras.optimizers.SGD(learning_rate=0.0001),
+        model.compile(optimizer=keras.optimizers.SGD(learning_rate=0.00001),
                       loss='binary_crossentropy',  
                       metrics=['accuracy'])
 
 
-        model.fit(X_train, y_train, epochs=13)  
+        model.fit(X_train, y_train, epochs=20)  
         print(model.history)
         model.save(MODEL_PATH)
         print(f"Modelo guardado en {MODEL_PATH}")
