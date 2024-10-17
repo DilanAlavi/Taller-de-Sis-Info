@@ -7,90 +7,6 @@ import 'slick-carousel/slick/slick-theme.css';
 import { FaArrowUp } from 'react-icons/fa';
 import axios from "axios";
 
-
-// let perrosIniciales = [
-//   {
-//     nombre: 'Max',
-//     foto: 'https://th.bing.com/th/id/OIP.pETFwCE2n_n41d-j0aclSQHaFQ?rs=1&pid=ImgDetMain',
-//     descripcion: 'Max es tímido con los extraños, pero le gusta mucho jugar con otros perros.',
-//     fechaPerdida: '2024-09-10',
-//     contacto: '65458420',
-//     ultimaUbicacion: 'Parque de la familia',
-//   },
-//   {
-//     nombre: 'Luna',
-//     foto: 'https://th.bing.com/th/id/OIP.mYA5d4ZAncU843C32902_gAAAA?w=474&h=355&rs=1&pid=ImgDetMain',
-//     descripcion: 'Luna es una perra mestiza de tamaño mediano con pelaje blanco con manchas cafés. Tiene una cicatriz pequeña en la pata trasera izquierda.',
-//     fechaPerdida: '2024-09-05',
-//     contacto: '78945612',
-//     ultimaUbicacion: 'Avenida del ejercito',
-//   },
-//   {
-//     nombre: 'Rocky',
-//     foto: 'https://th.bing.com/th/id/OIP.pETFwCE2n_n41d-j0aclSQHaFQ?rs=1&pid=ImgDetMain',
-//     descripcion: 'Rocky es un perro enérgico y juguetón, le encanta correr y jugar con pelotas.',
-//     fechaPerdida: '2024-09-12',
-//     contacto: '12345678',
-//     ultimaUbicacion: 'Plaza central',
-//   },
-//   {
-//     nombre: 'Bella',
-//     foto: 'https://th.bing.com/th/id/OIP.mYA5d4ZAncU843C32902_gAAAA?w=474&h=355&rs=1&pid=ImgDetMain',
-//     descripcion: 'Bella es una perra cariñosa que siempre está buscando atención y amor.',
-//     fechaPerdida: '2024-09-08',
-//     contacto: '87654321',
-//     ultimaUbicacion: 'Calle los Alpes',
-//   },
-//   {
-//     nombre: 'Coco',
-//     foto: 'https://th.bing.com/th/id/OIP.pETFwCE2n_n41d-j0aclSQHaFQ?rs=1&pid=ImgDetMain',
-//     descripcion: 'Coco es un perro pequeño, curioso y muy amigable con todos los niños.',
-//     fechaPerdida: '2024-09-15',
-//     contacto: '23456789',
-//     ultimaUbicacion: 'Parque de la amistad',
-//   },
-//   {
-//     nombre: 'Daisy',
-//     foto: 'https://th.bing.com/th/id/OIP.mYA5d4ZAncU843C32902_gAAAA?w=474&h=355&rs=1&pid=ImgDetMain',
-//     descripcion: 'Daisy es una perra dulce y juguetona, adora a los niños y juega en el parque.',
-//     fechaPerdida: '2024-09-20',
-//     contacto: '34567890',
-//     ultimaUbicacion: 'Calle las flores',
-//   },
-//   {
-//     nombre: 'Toby',
-//     foto: 'https://th.bing.com/th/id/OIP.pETFwCE2n_n41d-j0aclSQHaFQ?rs=1&pid=ImgDetMain',
-//     descripcion: 'Toby es un perro leal y guardián, siempre cuida a su familia.',
-//     fechaPerdida: '2024-09-18',
-//     contacto: '45678901',
-//     ultimaUbicacion: 'Barrio Los Árboles',
-//   },
-//   {
-//     nombre: 'Chester',
-//     foto: 'https://th.bing.com/th/id/OIP.mYA5d4ZAncU843C32902_gAAAA?w=474&h=355&rs=1&pid=ImgDetMain',
-//     descripcion: 'Chester es un perro amigable, le encanta jugar a buscar la pelota.',
-//     fechaPerdida: '2024-09-16',
-//     contacto: '56789012',
-//     ultimaUbicacion: 'Calle del Río',
-//   },
-//   {
-//     nombre: 'Nina',
-//     foto: 'https://th.bing.com/th/id/OIP.pETFwCE2n_n41d-j0aclSQHaFQ?rs=1&pid=ImgDetMain',
-//     descripcion: 'Nina es una perra pequeña y juguetona, siempre está feliz.',
-//     fechaPerdida: '2024-09-14',
-//     contacto: '67890123',
-//     ultimaUbicacion: 'Parque de los Pinos',
-//   },
-//   {
-//     nombre: 'Rex',
-//     foto: 'https://th.bing.com/th/id/OIP.mYA5d4ZAncU843C32902_gAAAA?w=474&h=355&rs=1&pid=ImgDetMain',
-//     descripcion: 'Rex es un perro grande y fuerte, pero muy cariñoso con los niños.',
-//     fechaPerdida: '2024-09-22',
-//     contacto: '78901234',
-//     ultimaUbicacion: 'Calle del Sol',
-//   },
-// ];
-
 const testimonios = [
   {
     nombre: 'Ana Rodríguez',
@@ -185,8 +101,14 @@ const Home = () => {
 
   useEffect(() => {
     if (perritos) {
-      console.log('Datos cargados:', perritos); // Este log solo se ejecutará cuando haya datos
-      setPerrosPerdidos(perritos)
+      let perritos_perdidos = []
+      for (const perro of perritos) {
+        if (perro.estado.estado === 1) {
+          perritos_perdidos.push(perro)
+        }
+      }
+      setPerrosPerdidos(perritos_perdidos)
+      console.log('Datos cargados:', perritos_perdidos); 
     }
   }, [perritos]);
 

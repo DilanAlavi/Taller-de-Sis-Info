@@ -29,6 +29,7 @@ const Header = () => {
             <ul className="navbar-list">
               {/* <li className="navbar-item"><Link to="/home">Home</Link></li> */}
               {/* <li className="navbar-item"><Link to="/register">Register</Link></li> */}
+              <li className="navbar-item"><Link to="/perritovistoform">Vi a un perrito</Link></li>
               <li className="navbar-item"><Link to="/perritoperdidoform">Perdí mi Perrito</Link></li>
               <li className="navbar-item"><Link to="/ia">Clasificador IA</Link></li>
               <li className="navbar-item"><Link to="/dog-recognition">Reconocimiento de Razas</Link></li>
