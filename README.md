@@ -6,6 +6,7 @@
 - pip install pymysql
 - pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client
 - pip install fastapi uvicorn python-multipart
+- pip install fastapi uvicorn aiohttp
 - uvicorn main:app --reload
 
 ## Frontend
