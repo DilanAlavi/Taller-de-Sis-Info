@@ -13,6 +13,7 @@ import Contacto from './components/Contacto/Contacto';
 import InfoPerros from './components/Informacion/InfoPerros';
 import PerritoVistoForm from './components/PerritoVisto/PerritoVistoForm';
 import PaginaPerrosPerdidos from './components/PaginaPerroPerdido/PaginaPerroPerdido';
+import PaginaPerrosVistos from './components/PaginaPerroVisto/PaginaPerroVisto';
 import './App.css';
 
 const App = () => {
@@ -33,6 +34,7 @@ const App = () => {
             <Route path="/infoPerros" element={<InfoPerros />} />
             <Route path='/perritovistoform' element={<PerritoVistoForm/>} />
             <Route path='/paginaperroperdido' element={<PaginaPerrosPerdidos/>} />
+            <Route path='/paginaperrovisto' element={<PaginaPerrosVistos/>} />
           </Routes>
         </main>
         <Footer />
