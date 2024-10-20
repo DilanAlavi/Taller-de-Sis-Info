@@ -33,6 +33,7 @@ const Header = () => {
               <li className="navbar-item"><Link to="/perritoperdidoform">Perdí mi Perrito</Link></li>
               <li className="navbar-item"><Link to="/ia">Clasificador IA</Link></li>
               <li className="navbar-item"><Link to="/dog-recognition">Reconocimiento de Razas</Link></li>
+              <li className="navbar-item"><Link to="/perfil-perro/1">Ver Perfil de Perro</Link></li>
               {
                 user === null
                 ? (<li className="navbar-item"><Link to="/login">Login</Link></li>
