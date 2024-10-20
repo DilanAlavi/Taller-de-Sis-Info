@@ -54,6 +54,13 @@ const PaginaPerrosPerdidos = () => {
             
             <input placeholder='Buscar perrito' />
 
+            <button className='dog-button' onClick={() => navigate("/perritoperdidoform")}>
+              <span className="shadow-button"></span>
+              <span className="edge-button"></span>
+              <span className="front-button text-button"> Perdi mi Perrito 
+              </span>
+            </button>
+
             <div className="perros-container">
                 {perrosPerdidos.map((perro, index) => (
                 <div className="perro-card" key={index} onClick={() => navigate("/perfil-perro/1", { state: {perro} })}>

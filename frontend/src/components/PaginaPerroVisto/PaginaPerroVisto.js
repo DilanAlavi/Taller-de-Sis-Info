@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import './PaginaPerroVisto.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -8,6 +9,7 @@ const PaginaPerrosVistos = () => {
     const [loading, setLoading] = useState(true);
     const [perritos, setPerritos] = useState(null);
     const [perrosPerdidos, setPerrosPerdidos] = useState([]);
+    const navigate = new useNavigate();
 
     useEffect(() => {
         const perritosData = async () => {
@@ -51,6 +53,13 @@ const PaginaPerrosVistos = () => {
             )}
             
             <input placeholder='Buscar perrito' />
+
+            <button className='dog-button' onClick={() => navigate("/perritovistoform")}>
+              <span className="shadow-button"></span>
+              <span className="edge-button"></span>
+              <span className="front-button text-button"> Vi un Perrito Perdido
+              </span>
+            </button>
 
             <div className="perros-container">
                 {perrosPerdidos.map((perro, index) => (
