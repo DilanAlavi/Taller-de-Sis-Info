@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Slider from 'react-slick'; // Asegúrate de que esta línea esté presente
 import './Home.css';
 import 'slick-carousel/slick/slick.css';
@@ -83,6 +83,7 @@ const Home = () => {
   const [perritos, setPerritos] = useState(null);
   const [loading, setLoading] = useState(true);
   const [perrosPerdidos, setPerrosPerdidos] = useState([]);
+  const navigate = new useNavigate();
 
   useEffect(() => {
     const perritosData = async () => {
@@ -188,17 +189,17 @@ const Home = () => {
         </div>
 
         <div className='buttons'>  
-          <button className='dog-button'>
+          <button className='dog-button' onClick={() => navigate("/perritoperdidoform")}>
             <span className="shadow-button"></span>
             <span className="edge-button"></span>
             <span className="front-button text-button"> Perdi mi Perrito 
             </span>
           </button>
 
-          <button className='dog-button'>
+          <button className='dog-button' onClick={() => navigate("/perritovistoform")}>
             <span className="shadow-button"></span>
             <span className="edge-button"></span>
-            <span className="front-button text-button"> Buscar a mi Perrito
+            <span className="front-button text-button"> Vi un Perrito Perdido
             </span>
           </button>
         </div>

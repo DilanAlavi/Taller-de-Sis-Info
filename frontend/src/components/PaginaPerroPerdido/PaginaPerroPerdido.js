@@ -3,11 +3,13 @@ import './PaginaPerroPerdido.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 const PaginaPerrosPerdidos = () => {
     const [loading, setLoading] = useState(true);
     const [perritos, setPerritos] = useState(null);
     const [perrosPerdidos, setPerrosPerdidos] = useState([]);
+    const navigate = new useNavigate(); 
 
     useEffect(() => {
         const perritosData = async () => {
@@ -52,9 +54,16 @@ const PaginaPerrosPerdidos = () => {
             
             <input placeholder='Buscar perrito' />
 
+            <button className='dog-button' onClick={() => navigate("/perritoperdidoform")}>
+              <span className="shadow-button"></span>
+              <span className="edge-button"></span>
+              <span className="front-button text-button"> Perdi mi Perrito 
+              </span>
+            </button>
+
             <div className="perros-container">
                 {perrosPerdidos.map((perro, index) => (
-                <div className="perro-card" key={index}>
+                <div className="perro-card" key={index} onClick={() => navigate("/perfil-perro/1", { state: {perro} })}>
 
                     {perro.foto[0] ? (
                     <img src={`http://127.0.0.1:8000/imagen/${perro.foto[0].direccion_foto}`} alt={`Foto de ${perro.nombre}`} className="perro-foto" />
