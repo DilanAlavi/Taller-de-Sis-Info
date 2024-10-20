@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import './PerfilPerro.css';
 
 const PerfilPerro = () => {
-  const [perro, setPerro] = useState(null);
+  // const [perro, setPerro] = useState(null);
   const [comentario, setComentario] = useState('');
+  const location = useLocation();
+  const { perro } = location.state;
   const [comentarios, setComentarios] = useState([
     {
       autor: 'Sony',
@@ -12,35 +15,35 @@ const PerfilPerro = () => {
     },
   ]);
 
-  useEffect(() => {
-    // Simulamos la carga de datos desde una API con un retraso
-    const fetchPerroSimulado = () => {
-      const perroFicticio = {
-        nombre: 'Brownie',
-        edad: '2 años',
-        raza: 'Yorkshire terrier',
-        descripcion: 'Pelaje color cafe claro, recien recortado, ojos color cafe oscuro y trae pechera como en la imagen',
-        estado: {
-          fecha: '24/07/2024',
-          direccion_visto: 'Calle Esteban Arce y Calle Sucre',
-        },
-        usuario: {
-          num_celular: '+591 76060036',
-        },
-        foto: [
-          {
-            direccion_foto: 'path-to-simulated-image.jpg',
-          },
-        ],
-      };
+  // useEffect(() => {
+  //   // Simulamos la carga de datos desde una API con un retraso
+  //   const fetchPerroSimulado = () => {
+  //     const perroFicticio = {
+  //       nombre: 'Brownie',
+  //       edad: '2 años',
+  //       raza: 'Yorkshire terrier',
+  //       descripcion: 'Pelaje color cafe claro, recien recortado, ojos color cafe oscuro y trae pechera como en la imagen',
+  //       estado: {
+  //         fecha: '24/07/2024',
+  //         direccion_visto: 'Calle Esteban Arce y Calle Sucre',
+  //       },
+  //       usuario: {
+  //         num_celular: '+591 76060036',
+  //       },
+  //       foto: [
+  //         {
+  //           direccion_foto: 'path-to-simulated-image.jpg',
+  //         },
+  //       ],
+  //     };
 
-      setTimeout(() => {
-        setPerro(perroFicticio);
-      }, 1000); // Simulamos un retraso de 1 segundo para cargar los datos
-    };
+  //     setTimeout(() => {
+  //       setPerro(perroFicticio);
+  //     }, 1000); // Simulamos un retraso de 1 segundo para cargar los datos
+  //   };
 
-    fetchPerroSimulado();
-  }, []);
+  //   fetchPerroSimulado();
+  // }, []);
 
   const handleComentarioChange = (e) => {
     setComentario(e.target.value);
@@ -67,15 +70,16 @@ const PerfilPerro = () => {
   return (
     <div className="perfil-perro-container">
       <div className="perfil-perro">
-        <img
-          src='/images/avatars/brownie.jpeg'
-          alt={`Foto de ${perro.nombre}`}
-          className="perfil-perro-imagen"
-        />
+        
+        {perro.foto[0] ? (
+          <img src={`http://127.0.0.1:8000/imagen/${perro.foto[0].direccion_foto}`} alt={`Foto de ${perro.nombre}`} className="perro-foto" />
+        ) : (
+          <img src="/path/to/placeholder-image.jpg" alt="Imagen no disponible" className="perro-foto" />
+        )}
+
         <h2>Nombre: {perro.nombre}</h2>
-        <p>Edad: {perro.edad}</p>
         <p>Raza: {perro.raza}</p>
-        <p>Descripción: {perro.descripcion}</p>
+        <p>Descripción: {perro.estado.descripcion}</p>
         <p>Fecha de pérdida: {perro.estado.fecha}</p>
         <p>Última ubicación: {perro.estado.direccion_visto}</p>
         <p>Contacto: {perro.usuario.num_celular}</p>
