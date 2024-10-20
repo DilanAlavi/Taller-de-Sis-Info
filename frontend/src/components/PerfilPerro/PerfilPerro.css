@@ -1,0 +1,130 @@
+.perfil-perro-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Usa el 100% de la altura de la ventana */
+    background-color: #f0e6db;
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas más pequeñas */
+    width: 100%;
+    min-height: 80vh;
+    box-sizing: border-box;
+}
+
+  
+.perfil-perro {
+    flex: 1; /* Toma el espacio disponible */
+    max-width: 400px;
+    margin: 20px;
+    width: 100%;
+    background-color: rgba(207, 203, 203, 0.8); /* Fondo blanco con transparencia */
+    border-radius: 8px; /* Esquinas redondeadas */
+    padding: 20px; /* Espaciado interno */
+    box-shadow: 0 4px 10px rgba(93, 93, 93, 0.1); /* Sombra para darle profundidad */
+    text-align: left; /* Alinea todo el texto a la izquierda */
+    height: auto;
+}
+
+.perfil-perro-imagen {
+    display: block; /* Asegura que la imagen se comporte como un bloque */
+    margin: 0 auto 20px auto; /* Centra la imagen horizontalmente */
+    width: 100%;
+    height: auto; /* Mantiene la relación de aspecto */
+    max-width: 300px; /* Limita el tamaño máximo de la imagen */
+    border-radius: 8px;
+}
+
+  
+  .comentarios-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Alinea los comentarios a la izquierda */
+    margin: 0px 100px;
+    padding-bottom: 80px;
+
+  }
+  
+  .comentarios-lista {
+    width: 100%; /* Asegúrate de que ocupa todo el ancho disponible */
+    /* max-width: 350px;  */
+    text-align: left;
+  }
+  
+  h2 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    color: #555;
+    font-size: 1rem;
+    margin: 5px 0;
+  }
+  
+  h3 {
+    color: #333;
+    font-size: 1.3rem;
+    margin-top: 20px;
+  }
+  
+  
+  .comentario {
+    background-color: #e9ecef;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .comentario-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .comentario-texto {
+    color: #555;
+    font-size: 0.95rem;
+  }
+  
+  .comentario-form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    align-items: center;
+    min-width: 100px;
+  }
+
+  
+  
+  .comentario-input {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    width: 150px;
+}
+  .comentario-boton {
+    background-color: #ee9b5b;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    margin-bottom: 5px;
+  
+  }
+  
+  .comentario-boton:hover {
+    background-color: #ee6d0a;
+  }
+
+  .comentario-input::placeholder {
+    color: #888; /* Cambia el color del placeholder */
+    font-style: italic; /* Cambia el estilo de la fuente (opcional) */
+    opacity: 0.7; /* Ajusta la opacidad para hacerlo más tenue */
+}
