@@ -1,0 +1,13 @@
+uvicorn
+fastapi
+sqlalchemy
+psycopg2-binary
+tensorflow
+pillow
+pymysql
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
+google-api-python-client
+python-multipart
+aiohttp
