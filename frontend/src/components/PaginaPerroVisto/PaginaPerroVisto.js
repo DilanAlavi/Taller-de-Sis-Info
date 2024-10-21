@@ -63,7 +63,7 @@ const PaginaPerrosVistos = () => {
 
             <div className="perros-container">
                 {perrosPerdidos.map((perro, index) => (
-                <div className="perro-card" key={index}>
+                <div className="perro-card" key={index} onClick={() => navigate("/perfil-perro/1", { state: {perro} })}>
 
                     {perro.foto[0] ? (
                     <img src={`http://127.0.0.1:8000/imagen/${perro.foto[0].direccion_foto}`} alt={`Foto de ${perro.nombre}`} className="perro-foto" />
