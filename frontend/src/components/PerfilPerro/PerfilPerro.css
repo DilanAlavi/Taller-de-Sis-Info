@@ -1,9 +1,14 @@
+.perfil-perro-page {
+  display: flex;
+  flex-direction: column;
+}
+
 .perfil-perro-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%; /* Usa el 100% de la altura de la ventana */
-    background-color: #f0e6db;
+    background-color: white;
     flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas más pequeñas */
     width: 100%;
     min-height: 80vh;

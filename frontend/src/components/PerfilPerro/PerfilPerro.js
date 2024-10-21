@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './PerfilPerro.css';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const PerfilPerro = () => {
   // const [perro, setPerro] = useState(null);
   const [comentario, setComentario] = useState('');
   const location = useLocation();
   const { perro } = location.state;
+  const navigate = useNavigate();
   const [comentarios, setComentarios] = useState([
     {
       autor: 'Sony',
@@ -68,51 +70,54 @@ const PerfilPerro = () => {
   }
 
   return (
-    <div className="perfil-perro-container">
-      <div className="perfil-perro">
-        
-        {perro.foto[0] ? (
-          <img src={`http://127.0.0.1:8000/imagen/${perro.foto[0].direccion_foto}`} alt={`Foto de ${perro.nombre}`} className="perro-foto" />
-        ) : (
-          <img src="/path/to/placeholder-image.jpg" alt="Imagen no disponible" className="perro-foto" />
-        )}
+    <div className="perfil-perro-page">
+      <FaArrowLeft onClick={() => navigate(-1)}/>
+      <div className="perfil-perro-container">
+        <div className="perfil-perro">
+          
+          {perro.foto[0] ? (
+            <img src={`http://127.0.0.1:8000/imagen/${perro.foto[0].direccion_foto}`} alt={`Foto de ${perro.nombre}`} className="perro-foto" />
+          ) : (
+            <img src="/path/to/placeholder-image.jpg" alt="Imagen no disponible" className="perro-foto" />
+          )}
 
-        <h2>Nombre: {perro.nombre}</h2>
-        <p>Raza: {perro.raza}</p>
-        <p>Descripción: {perro.estado.descripcion}</p>
-        <p>Fecha de pérdida: {perro.estado.fecha}</p>
-        <p>Última ubicación: {perro.estado.direccion_visto}</p>
-        <p>Contacto: {perro.usuario.num_celular}</p>
-      </div>
-  
-      {/* Contenedor de comentarios */}
-      <div className="comentarios-container">
-        <h3>Comentarios:</h3>
-        <div className="comentarios-lista">
-          {comentarios.map((comentario, index) => (
-            <div className="comentario" key={index}>
-              <img 
-                src={comentario.avatar} 
-                alt="Avatar del comentarista" 
-                className="comentario-avatar" 
-              />
-              <div className="comentario-texto">
-                <strong>{comentario.autor}:</strong> {comentario.texto}
-              </div>
-            </div>
-          ))}
+          <h2>Nombre: {perro.nombre}</h2>
+          <p>Raza: {perro.raza}</p>
+          <p>Descripción: {perro.estado.descripcion}</p>
+          <p>Fecha de pérdida: {perro.estado.fecha}</p>
+          <p>Última ubicación: {perro.estado.direccion_visto}</p>
+          <p>Contacto: {perro.usuario.num_celular}</p>
         </div>
-  
-        <form onSubmit={handleComentarioSubmit} className="comentario-form">
-          <textarea
-            value={comentario}
-            onChange={handleComentarioChange}
-            placeholder="Agrega un comentario..."
-            rows="3"
-            className="comentario-input"
-          />
-          <button type="submit" className="comentario-boton">Enviar</button>
-        </form>
+    
+        {/* Contenedor de comentarios */}
+        <div className="comentarios-container">
+          <h3>Comentarios:</h3>
+          <div className="comentarios-lista">
+            {comentarios.map((comentario, index) => (
+              <div className="comentario" key={index}>
+                <img 
+                  src={comentario.avatar} 
+                  alt="Avatar del comentarista" 
+                  className="comentario-avatar" 
+                />
+                <div className="comentario-texto">
+                  <strong>{comentario.autor}:</strong> {comentario.texto}
+                </div>
+              </div>
+            ))}
+          </div>
+    
+          <form onSubmit={handleComentarioSubmit} className="comentario-form">
+            <textarea
+              value={comentario}
+              onChange={handleComentarioChange}
+              placeholder="Agrega un comentario..."
+              rows="3"
+              className="comentario-input"
+            />
+            <button type="submit" className="comentario-boton">Enviar</button>
+          </form>
+        </div>
       </div>
     </div>
   );
