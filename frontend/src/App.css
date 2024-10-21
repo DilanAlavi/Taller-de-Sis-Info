@@ -337,9 +337,9 @@ button {
 
 .footer-links {
   display: flex;
-  gap: 2rem; /* Espacio entre los enlaces */
-  margin-bottom: 1rem; /* Espacio entre los enlaces y el texto */
-  list-style: none; /* Quita los puntos de las listas */
+  gap: 2rem; 
+  margin-bottom: 1rem; 
+  list-style: none; 
 }
 
 .footer-link {
@@ -350,3 +350,24 @@ button {
 .footer-link:hover {
   text-decoration: underline;
 }
+
+/* Redes sociales */
+.social-icons {
+  display: flex;
+  gap: 25px; 
+  margin-left: auto; 
+  justify-content: flex-end;
+}
+
+.social-logo {
+  width: 40px;  
+  height: 40px; 
+  object-fit: contain; 
+  transition: transform 0.3s ease;
+}
+
+.social-logo:hover {
+  transform: scale(1.2); /* Efecto hover */
+}
+
+
