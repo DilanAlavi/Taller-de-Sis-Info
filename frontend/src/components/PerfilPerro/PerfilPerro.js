@@ -81,12 +81,12 @@ const PerfilPerro = () => {
             <img src="/path/to/placeholder-image.jpg" alt="Imagen no disponible" className="perro-foto" />
           )}
 
-          <h2>Nombre: {perro.nombre}</h2>
-          <p>Raza: {perro.raza}</p>
-          <p>Descripción: {perro.estado.descripcion}</p>
-          <p>Fecha de pérdida: {perro.estado.fecha}</p>
-          <p>Última ubicación: {perro.estado.direccion_visto}</p>
-          <p>Contacto: {perro.usuario.num_celular}</p>
+          <h2>{perro.nombre}</h2>
+          <p> <strong>Raza:</strong> {perro.raza}</p>
+          <p><strong>Descripción:</strong> {perro.estado.descripcion}</p>
+          <p><strong>Fecha de pérdida:</strong> {perro.estado.fecha}</p>
+          <p><strong>Última ubicación:</strong> {perro.estado.direccion_visto}</p>
+          <p><strong>Contacto:</strong> {perro.usuario.num_celular}</p>
         </div>
     
         {/* Contenedor de comentarios */}

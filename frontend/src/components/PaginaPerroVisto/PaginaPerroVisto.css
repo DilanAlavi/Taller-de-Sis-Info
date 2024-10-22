@@ -1,0 +1,40 @@
+.perro-visto-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.perro-visto-card {
+    margin: 5px 5px 5px 5px;
+    background-color: #0000001c;
+    display: flex;
+    max-width: 80vw;
+    min-width: 50vw;
+    width: 75vw;
+    min-width: 4rem;
+    height: 8rem;
+    border-radius: 20px;
+    transition: transform 0.3s ease;
+}
+
+.perro-visto-foto {
+    max-width: 14rem;
+    height: 8rem;
+    max-height: 8rem;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+.perro-visto-card:hover  {
+    cursor: pointer;
+    transform: scale(1.01);
+}
+
+.perro-visto-informacion {
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+    width: 100%;
+    margin: 5px;
+}
