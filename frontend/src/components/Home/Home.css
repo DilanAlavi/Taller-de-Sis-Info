@@ -68,7 +68,7 @@ h1 {
 .text-home {
   color: black;
   background-color: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(10px);
   width: 60%;
   padding: 2rem 2rem 2rem 2rem;
   box-shadow: 0 7px 15px rgba(0, 0, 0, 0.315);
@@ -113,9 +113,10 @@ h1 {
 
 /* Tarjetas de perros */
 .perro-card {
-  background-color: #b873243a; /* Blanco para resaltar */
+  background-color: #0000001c;
+  /* background-color: #b873243a; */
   border-radius: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sombra sutil */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.075); /* Sombra sutil */
   /* padding: 20px; */
   flex: 1 1 18rem; /* Esto está bien, pero considera agregar un max-width */
   min-width: 10rem;
@@ -133,8 +134,13 @@ h1 {
 .perro-card p {
   display: flex;
   flex-direction: column;
-  padding-bottom: 6px;
+  /* padding-bottom: 6px; */
   align-items: center;
+  padding: 0px;
+}
+
+.perro-card div {
+  margin-bottom: 10px;
 }
 
 .perro-card strong {
@@ -145,13 +151,14 @@ h1 {
 
 .perro-card div {
   border: 0px;
-  margin: 0px;
+  margin: 0px 0px 10px 0px;
 }
 
 .perro-card:hover {
   transform: scale(1.05);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2); /* Sombra más marcada al hacer hover */
   border: 1px solid #462f1054; 
+  cursor: pointer;
 }
 
 /* Imagen de perros */
