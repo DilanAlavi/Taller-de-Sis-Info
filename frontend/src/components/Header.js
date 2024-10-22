@@ -28,18 +28,18 @@ const Header = () => {
               </Link>
           </li> */}
          <div className="social-icons">
-            <a href="https://www.facebook.com/p/jhulians-garcia-hinojosa-100001069936007/?mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer">
-              <img src={facebookLogo} alt="Facebook" className="social-logo" />
-            </a>
             <a href="https://www.instagram.com/jhuls_garcia?igsh=YjVibnQ0dnh5Zmlr" target="_blank" rel="noopener noreferrer">
               <img src={instagramLogo} alt="Instagram" className="social-logo" />
             </a>
+            
+            <a href="https://www.facebook.com/p/jhulians-garcia-hinojosa-100001069936007/?mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer">
+              <img src={facebookLogo} alt="Facebook" className="social-logo" />
+            </a>
+            
             <a href="https://wa.me/67559550" target="_blank" rel="noopener noreferrer">
               <img src={whatsappLogo} alt="WhatsApp" className="social-logo" />
             </a>
-            <a href="mailto:tucorreo@gmail.com?subject=Contacto&body=Escribe tu mensaje aquí"> 
-                <img src={correoLogo} alt="Correo" className="social-logo" />
-            </a>
+            
           </div>
 
         </div>
@@ -66,7 +66,7 @@ const Header = () => {
             </ul>
           </nav>
          
-
+ 
         </div>
       </div>
     </header>
