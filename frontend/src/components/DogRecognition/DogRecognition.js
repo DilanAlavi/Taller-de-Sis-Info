@@ -33,15 +33,35 @@ const DogRecognition = () => {
     formData.append('file', selectedFile);
 
     try {
+      console.log('Enviando solicitud al servidor...');
       const response = await axios.post('http://localhost:8000/dogs/classify', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
-      setResult(response.data);
+      
+      console.log('Respuesta del servidor:', response.data);
+      
+      if (response.data.error) {
+        console.log('Error en la respuesta:', response.data.error);
+        setResult({ error: response.data.error });
+      } else if (response.data.message) {
+        console.log('Mensaje del servidor:', response.data.message);
+        setResult({ message: response.data.message });
+      } else {
+        console.log('Coincidencias encontradas:', response.data.coincidencias);
+        setResult(response.data);
+      }
     } catch (error) {
-      console.error('Error al clasificar la imagen:', error);
-      setResult({ error: 'Error al procesar la imagen' });
+      console.error('Error completo:', error);
+      console.error('Detalles del error:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status
+      });
+      setResult({ 
+        error: error.response?.data?.detail || 'Error al procesar la imagen' 
+      });
     } finally {
       setIsLoading(false);
     }
@@ -61,21 +81,60 @@ const DogRecognition = () => {
             <img src={preview} alt="Preview" />
           </div>
         )}
-        <button type="submit" disabled={!selectedFile || isLoading}>
-          {isLoading ? 'Procesando...' : 'Reconocer Raza'}
+        <button 
+          type="submit" 
+          disabled={!selectedFile || isLoading}
+          className={isLoading ? 'loading' : ''}
+        >
+          {isLoading ? 'Buscando coincidencias...' : 'Buscar Perro'}
         </button>
       </form>
+      
       {result && (
-        <div className="result">
-          <h3>Resultado:</h3>
-          {result.error ? (
-            <p>Error: {result.error}</p>
-          ) : (
-            <>
-              <p>Raza: {result.raza}</p>
-              <p>Confianza: {(result.confianza * 100).toFixed(2)}%</p>
-            </>
+        <div className="result-container">
+          {result.error && (
+            <div className="error-message">
+              <p>Error: {result.error}</p>
+            </div>
           )}
+
+          {result.message && (
+            <div className="info-message">
+              <p>{result.message}</p>
+            </div>
+          )}
+
+          {result.coincidencias && result.coincidencias.length > 0 && (
+            <div className="coincidencias-container">
+              <h3>Coincidencias encontradas:</h3>
+              <div className="coincidencias-grid">
+                {result.coincidencias.map((coincidencia, index) => (
+                  <div key={index} className="coincidencia-card">
+                    <img 
+                      src={`https://drive.google.com/uc?export=view&id=${coincidencia.drive_id}`}
+                      alt={`Perro ${index + 1}`}
+                      className="coincidencia-imagen"
+                    />
+                    <div className="coincidencia-info">
+                      <h4>Coincidencia #{index + 1}</h4>
+                      <p><strong>Similitud:</strong> {coincidencia.similitud}</p>
+                      <p><strong>Raza:</strong> {coincidencia.raza}</p>
+                      <p><strong>Color:</strong> {coincidencia.color}</p>
+                      <p><strong>Género:</strong> {coincidencia.genero}</p>
+                      <p><strong>Ubicación:</strong> {coincidencia.ubicacion}</p>
+                      <p><strong>Fecha visto:</strong> {coincidencia.fecha}</p>
+                      <p><strong>Contacto:</strong> {coincidencia.contacto}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Para depuración */}
+          <div style={{display: 'none'}}>
+            <pre>{JSON.stringify(result, null, 2)}</pre>
+          </div>
         </div>
       )}
     </div>
