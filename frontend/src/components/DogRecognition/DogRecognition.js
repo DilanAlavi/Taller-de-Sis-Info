@@ -111,7 +111,7 @@ const DogRecognition = () => {
                 {result.coincidencias.map((coincidencia, index) => (
                   <div key={index} className="coincidencia-card">
                     <img 
-                      src={`https://drive.google.com/uc?export=view&id=${coincidencia.drive_id}`}
+                      src={`http://127.0.0.1:8000/imagen/${coincidencia.drive_id}`}
                       alt={`Perro ${index + 1}`}
                       className="coincidencia-imagen"
                     />
