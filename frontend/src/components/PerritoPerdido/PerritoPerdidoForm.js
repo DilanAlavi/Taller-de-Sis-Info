@@ -175,6 +175,8 @@ const PerritoPerdidoForm = () => {
               <option value="Chapi">Chapi</option>
               <option value="Bulldog">Bulldog</option>
               <option value="Pastor Aleman">Pastor Alemán</option>
+              <option value="Pitbull">Pitbull</option>
+              <option value="Cocker Spaniel">Cocker</option>
             </select>
             <select defaultValue="" onChange={(e) => setGenero(e.target.value)}>
               <option value="" disabled>Selecciona su género</option>
