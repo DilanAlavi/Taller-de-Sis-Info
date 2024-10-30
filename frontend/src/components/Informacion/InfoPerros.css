@@ -1,34 +1,67 @@
+
 .info-page {
-    padding: 20px;
-    max-width: 800px; /* Limita el ancho del contenedor para una mejor presentación */
-    margin: 0 auto; /* Centra la página */
-    line-height: 1.8; /* Mejora la legibilidad aumentando el espacio entre líneas */
-  }
-  
-  h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 2.5em; /* Ajusta el tamaño del título principal */
-  }
-  
-  h2 {
-    color: #333;
-    margin-top: 30px;
-    margin-bottom: 10px;
-    font-size: 1.5em; /* Ajusta el tamaño del subtítulo */
-  }
-  
-  p {
-    text-align: justify; /* Justifica el texto para un aspecto más ordenado */
-    margin-bottom: 20px; /* Agrega espaciado entre párrafos */
-  }
-  
-  a {
-    color: #007BFF;
-    text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+
+.info-page-title {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2.5em;
+}
+
+
+.perros-list {
+  margin-top: 20px;
+}
+
+.perro-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+}
+
+.perro-nombre {
+  color: #444;
+  font-size: 1.6em;
+  margin-bottom: 10px;
+}
+
+.perro-descripcion {
+  color: #555;
+}
+
+/* Secciones adicionales */
+.info-section {
+  margin-top: 30px;
+  padding: 15px;
+  border-left: 4px solid #007BFF;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+}
+
+.section-title {
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 1.5em;
+}
+
+.section-content {
+  text-align: justify;
+  margin-bottom: 20px;
+}
+
+/* Enlaces */
+.register-link {
+  color: #007BFF;
+  text-decoration: none;
+}
+
+.register-link:hover {
+  text-decoration: underline;
+}
