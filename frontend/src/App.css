@@ -379,10 +379,13 @@ button {
     height: auto;
   }
   .brand-title {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
   .navbar-brand {
-    padding: 1rem;
+    padding: 1rem 0.6rem 1rem 0.6rem;
+  }
+  .social-icons img {
+    width: 1rem;
   }
   .navbar {
     padding: 0.3rem;
@@ -408,11 +411,14 @@ button {
     display: block;
     background: none;
     border: none;
-    font-size: 20px;
+    font-size: 15px;
     cursor: pointer;
   }
   .overlay {
     justify-content: initial;
+  }
+  .overlay h3 {
+    font-size: 1rem;
   }
   .text-home {
     width: 90vw;

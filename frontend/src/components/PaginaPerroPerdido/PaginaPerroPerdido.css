@@ -1,0 +1,28 @@
+@media (max-width: 1100px) {
+    .perro-card {
+        max-width: 30vw;
+        height: auto;
+        margin: 1.5vw;
+    }
+    .perro-card .perro-foto {
+        width: 100%;
+        min-height: 16vh;
+        box-shadow: none;
+    }
+    .perros-container {
+        margin-top: 2rem;
+    }
+    .perro-card h3 {
+        font-size: 1rem;
+        margin-top: 1px;
+        margin-bottom: 2px;
+    }
+    .perro-card div p {
+        margin-bottom: 0px;
+        font-size: 0.85rem;
+    }
+    .perro-card div strong {
+        margin-bottom: 0px;
+        font-size: 0.7rem;
+    }
+}
