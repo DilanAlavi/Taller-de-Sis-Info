@@ -9,6 +9,7 @@
 - pip install fastapi uvicorn aiohttp
 - uvicorn main:app --reload
 - Si quieren instalar todo automaticamente  pip install -r requerimientos.txt
+-tensor queda pendiente
 ## Frontend
 - npm install axios react-router-dom @mui/material @emotion/react @emotion/styled
 - npm install react-router-dom
