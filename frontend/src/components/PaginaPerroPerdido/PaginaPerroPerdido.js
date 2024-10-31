@@ -10,6 +10,7 @@ const PaginaPerrosPerdidos = () => {
     const [perritos, setPerritos] = useState(null);
     const [perrosPerdidos, setPerrosPerdidos] = useState([]);
     const [generoFiltro, setGeneroFiltro] = useState(''); // Estado para el filtro de género
+    const [razaFiltro, setRazaFiltro] = useState('');
     const navigate = useNavigate(); 
 
     useEffect(() => {
@@ -28,14 +29,21 @@ const PaginaPerrosPerdidos = () => {
 
     useEffect(() => {
         if (perritos) {
+
             let perritos_perdidos = perritos.filter(perro => perro.estado.estado === 1);
+            
             if (generoFiltro) {
-                perritos_perdidos = perritos_perdidos.filter(perro => perro.genero === generoFiltro); // Filtrar por género
+                perritos_perdidos = perritos_perdidos.filter(perro => perro.genero === generoFiltro);
             }
+            
+            if (razaFiltro) {
+                perritos_perdidos = perritos_perdidos.filter(perro => perro.raza === razaFiltro);
+            }
+            
             setPerrosPerdidos(perritos_perdidos);
             console.log('Datos cargados:', perritos_perdidos); 
         }
-    }, [perritos, generoFiltro]); // Agregar generoFiltro como dependencia
+    }, [perritos, generoFiltro, razaFiltro]); // Agregar generoFiltro como dependencia
 
     return (
        <div>
@@ -56,6 +64,16 @@ const PaginaPerrosPerdidos = () => {
                 <option value="">Filtrar por género</option>
                 <option value="Macho">Macho</option>
                 <option value="Hembra">Hembra</option>
+            </select>
+
+            <select onChange={(e) => setRazaFiltro(e.target.value)} value={razaFiltro}>
+                <option value="">Filtrar por raza</option>
+                <option value="Golden">Golden</option>
+                <option value="Chapi">Chapi</option>
+                <option value="Bulldog">Bulldog</option>
+                <option value="Pastor Alemán">Pastor Alemán</option>
+                <option value="Pitbull">Pitbull</option>
+                <option value="Cocker">Cocker</option>
             </select>
 
             <button className='dog-button' onClick={() => navigate("/perritoperdidoform")}>
