@@ -38,3 +38,15 @@
     width: 100%;
     margin: 5px;
 }
+
+@media (max-width: 1100px) {
+    .perro-visto-card {
+        min-width: 90vw;
+        max-width: 95vw;
+        font-size: 0.8rem;
+    }
+    .perro-visto-foto {
+        max-width: 30%;
+        min-width: 30%;
+    }
+}

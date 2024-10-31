@@ -1,16 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaUser } from 'react-icons/fa'; 
+import { FaBars, FaUser } from 'react-icons/fa'; 
 import { AuthContext } from '../AuthContext';
 import logo from '../components/Imagenes/soloLogo.png';
 import facebookLogo from '../components/Imagenes/facebook.png';
 import instagramLogo from '../components/Imagenes/instragram.png';
 import whatsappLogo from '../components/Imagenes/whatsApp.png';
-import correoLogo from '../components/Imagenes/correo.png';
 
 const Header = () => {
   const { user } = useContext(AuthContext)
   const { logout } = useContext(AuthContext)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
     <header className="header">
@@ -45,7 +49,12 @@ const Header = () => {
         </div>
         <div className="navbar">
           <nav>
-            <ul className="navbar-list">
+
+          <button className="menu-button" onClick={toggleMenu}>
+            <FaBars />
+          </button>
+
+            <ul className={`navbar-list ${isMenuOpen ? 'active' : ''}`}>
               <li className="navbar-item"><Link to="/paginaperrovisto">Perritos vistos</Link></li>
               <li className="navbar-item"><Link to="/paginaperroperdido">Perritos perdidos</Link></li>
               <li className="navbar-item"><Link to="/ia">Clasificador IA</Link></li>

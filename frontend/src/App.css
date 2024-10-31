@@ -370,4 +370,69 @@ button {
   transform: scale(1.2); /* Efecto hover */
 }
 
+@media (max-width: 1100px) {
+  .footer-links {
+    display: none;
+  }
+  .brand-logo {
+    width: 2.5rem;
+    height: auto;
+  }
+  .brand-title {
+    font-size: 1.2rem;
+  }
+  .navbar-brand {
+    padding: 1rem 0.6rem 1rem 0.6rem;
+  }
+  .social-icons img {
+    width: 1rem;
+  }
+  .navbar {
+    padding: 0.3rem;
+  }
+  .navbar-list {
+    display: none;
+    flex-direction: column;
+    top: 60px;
+    right: 0;
+    /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); */
+    transform: translateX(100%);
+  }
 
+  /* Cuando la clase 'active' está presente, muestra el menú */
+  .navbar-list.active {
+    display: flex;
+    transform: translateX(0); /* Menú visible */
+    align-items: initial;
+  }
+
+  /* Estilo para el botón de menú */
+  .menu-button {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .overlay {
+    justify-content: initial;
+  }
+  .overlay h3 {
+    font-size: 1rem;
+  }
+  .text-home {
+    width: 90vw;
+    max-height: 95vh;
+    padding: 0.7rem;
+    font-size: 0.8rem;
+  } 
+  .buttons {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 1101px) {
+  .menu-button {
+    display: none; /* Oculta el botón de menú en pantallas grandes */
+  }
+}
