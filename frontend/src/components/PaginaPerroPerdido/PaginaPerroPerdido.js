@@ -62,8 +62,8 @@ const PaginaPerrosPerdidos = () => {
             
             <select onChange={(e) => setGeneroFiltro(e.target.value)} value={generoFiltro}>
                 <option value="">Filtrar por género</option>
-                <option value="Macho">Macho</option>
-                <option value="Hembra">Hembra</option>
+                <option value="M">Macho</option>
+                <option value="H">Hembra</option>
             </select>
 
             <select onChange={(e) => setRazaFiltro(e.target.value)} value={razaFiltro}>
@@ -71,9 +71,9 @@ const PaginaPerrosPerdidos = () => {
                 <option value="Golden">Golden</option>
                 <option value="Chapi">Chapi</option>
                 <option value="Bulldog">Bulldog</option>
-                <option value="Pastor Alemán">Pastor Alemán</option>
+                <option value="Pastor Aleman">Pastor Alemán</option>
                 <option value="Pitbull">Pitbull</option>
-                <option value="Cocker">Cocker</option>
+                <option value="Cocker Spaniel">Cocker</option>
             </select>
 
             <button className='dog-button' onClick={() => navigate("/perritoperdidoform")}>
