@@ -1,6 +1,7 @@
 # app/routes/dog_routes.py
-from fastapi import APIRouter, UploadFile, File, Depends, HTTPException
+from fastapi import APIRouter, UploadFile, File, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
+from typing import Optional
 from app.config import get_db
 from app.ml.dog_classifier import DogClassifier
 from app.models.perrito import Perrito
@@ -12,9 +13,18 @@ from datetime import datetime
 
 router = APIRouter()
 
+# Definir las razas soportadas
+SUPPORTED_BREEDS = {
+    'golden_retriever': 'Golden Retriever',
+    'cocker_spaniel': 'Cocker Spaniel',
+    'german_shepherd': 'Pastor Alemán',
+    'pitbull': 'Pitbull'
+}
+
 @router.post("/classify")
 async def classify_dog(
     file: UploadFile = File(...),
+    breed: Optional[str] = Query(None, description="Filtrar por raza específica"),
     db: Session = Depends(get_db)
 ):
     print("\n=== Nueva solicitud de clasificación de perro ===")
@@ -25,9 +35,22 @@ async def classify_dog(
         with open(temp_file, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
         
-        print("Consultando perros vistos en la base de datos...")
-        # Obtener perros en estado "visto" (0)
-        perros_vistos = db.query(EstadoPerro).filter(EstadoPerro.estado == 0).all()
+        # Construir query base
+        query = (
+            db.query(EstadoPerro)
+            .filter(EstadoPerro.estado == 0)
+        )
+
+        # Si se especifica una raza, filtrar por ella
+        if breed and breed in SUPPORTED_BREEDS:
+            print(f"Filtrando por raza: {SUPPORTED_BREEDS[breed]}")
+            query = (
+                query
+                .join(Perrito)
+                .filter(Perrito.raza == breed)
+            )
+
+        perros_vistos = query.all()
         print(f"Encontrados {len(perros_vistos)} perros en estado 'visto'")
         
         # Preparar información de Drive
@@ -52,7 +75,7 @@ async def classify_dog(
                     print(f"No se encontró foto para perro_id: {perro.id}")
                     continue
 
-                # Preparar info
+                # Preparar info con solo los campos existentes
                 info = {
                     'id': perro.id,
                     'drive_id': foto.direccion_foto,
@@ -63,11 +86,12 @@ async def classify_dog(
                     'color': perro.color,
                     'genero': perro.genero
                 }
+                
                 print(f"\nInformación preparada para perro ID {perro.id}:")
                 print(f"  - Drive ID: {foto.direccion_foto}")
                 print(f"  - Ubicación: {estado_perro.direccion_visto}")
                 print(f"  - Fecha: {estado_perro.fecha}")
-                print(f"  - Raza: {perro.raza}")
+                print(f"  - Raza: {SUPPORTED_BREEDS.get(perro.raza, perro.raza)}")
                 
                 drive_images_info.append(info)
                 
@@ -76,7 +100,10 @@ async def classify_dog(
                 continue
 
         if not drive_images_info:
-            return {"message": "No hay perros vistos para comparar"}
+            return {
+                "message": "No hay perros vistos para comparar",
+                "total_perros": 0
+            }
 
         print(f"\nIniciando clasificación con {len(drive_images_info)} imágenes...")
         
@@ -84,11 +111,17 @@ async def classify_dog(
         classifier = DogClassifier()
         result = classifier.classify_and_find_matches(temp_file, drive_images_info)
         
-        # Si hay coincidencias, formatear fechas
+        # Formatear fechas en las coincidencias
         if "coincidencias" in result and result["coincidencias"]:
             for coincidencia in result["coincidencias"]:
                 if isinstance(coincidencia["fecha"], datetime):
                     coincidencia["fecha"] = coincidencia["fecha"].strftime("%Y-%m-%d")
+                # Traducir raza a nombre amigable
+                if "raza" in coincidencia:
+                    coincidencia["raza"] = SUPPORTED_BREEDS.get(
+                        coincidencia["raza"], 
+                        coincidencia["raza"]
+                    )
         
         return result
 
@@ -108,16 +141,29 @@ async def classify_dog(
                 print(f"Error eliminando archivo temporal: {str(e)}")
 
 @router.get("/test-db")
-async def test_db(db: Session = Depends(get_db)):
+async def test_db(
+    db: Session = Depends(get_db),
+    breed: Optional[str] = Query(None, description="Filtrar por raza específica")
+):
     """Endpoint de prueba para verificar la base de datos"""
     try:
-        perros_vistos = (
+        query = (
             db.query(Perrito, EstadoPerro, Foto)
             .join(EstadoPerro, Perrito.estado_perro_id == EstadoPerro.id)
             .join(Foto, Foto.perrito_id == Perrito.id)
             .filter(EstadoPerro.estado == 0)
-            .all()
         )
+
+        # Aplicar filtro de raza si se especifica
+        if breed:
+            if breed not in SUPPORTED_BREEDS:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Raza no soportada. Razas disponibles: {list(SUPPORTED_BREEDS.values())}"
+                )
+            query = query.filter(Perrito.raza == breed)
+
+        perros_vistos = query.all()
 
         return {
             "total_perros_vistos": len(perros_vistos),
@@ -125,7 +171,9 @@ async def test_db(db: Session = Depends(get_db)):
                 {
                     "id": perro.id,
                     "nombre": perro.nombre,
-                    "raza": perro.raza,
+                    "raza": SUPPORTED_BREEDS.get(perro.raza, perro.raza),
+                    "color": perro.color,
+                    "genero": perro.genero,
                     "ubicacion": estado.direccion_visto,
                     "fecha": estado.fecha.strftime("%Y-%m-%d"),
                     "foto_id": foto.direccion_foto
