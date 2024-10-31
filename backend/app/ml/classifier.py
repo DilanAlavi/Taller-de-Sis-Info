@@ -9,7 +9,7 @@ print(BASE_DIR)
 
 # MODEL_PATH = os.path.join(BASE_DIR, '..', 'Entrenamiento', 'model_training', 'modelo_perro_entrenado.h5')
 
-MODEL_PATH = "C:\\Users\\Sebas\\Documents\\TALLER SIS INFO\\finalModel2.h5"
+MODEL_PATH = "E:\\Univerisda\\2024-2\\Gestion de Calidad\\finalModel2.h5"
 
 
 def preprocess_image(image_path, add_batch_dim=False):

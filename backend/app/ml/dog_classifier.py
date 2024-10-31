@@ -11,9 +11,28 @@ from PIL import Image
 import io
 
 class DogClassifier:
+    # Define las razas soportadas y sus etiquetas correspondientes en ImageNet
+    SUPPORTED_BREEDS = {
+        'golden_retriever': {
+            'name': 'Golden Retriever',
+            'imagenet_labels': ['golden_retriever']
+        },
+        'cocker_spaniel': {
+            'name': 'Cocker Spaniel',
+            'imagenet_labels': ['English_cocker_spaniel', 'cocker_spaniel']
+        },
+        'german_shepherd': {
+            'name': 'Pastor Alemán',
+            'imagenet_labels': ['German_shepherd', 'German_shepherd_dog', 'German_police_dog', 'alsatian']
+        },
+        'pitbull': {
+            'name': 'Pitbull',
+            'imagenet_labels': ['American_Staffordshire_terrier', 'Staffordshire_bullterrier', 'American_pit_bull_terrier']
+        }
+    }
+
     def __init__(self):
         try:
-            # Cargar el modelo pre-entrenado sin mostrar summary
             print("Inicializando modelo MobileNetV2...")
             self.model = MobileNetV2(weights="imagenet")
             
@@ -33,10 +52,10 @@ class DogClassifier:
             print(f"Error inicializando clasificador: {str(e)}")
             raise
 
-    def es_golden(self, image_path):
+    def classify_breed(self, image_path):
         """
-        Verifica si una imagen es de un Golden Retriever.
-        Retorna: (bool, float) - (es_golden, confianza)
+        Clasifica la raza del perro en la imagen.
+        Retorna: (str, float) - (raza_detectada, confianza)
         """
         try:
             # Cargar y preprocesar la imagen
@@ -46,22 +65,27 @@ class DogClassifier:
             imagen_array = tf.expand_dims(imagen_array, axis=0)
             
             # Realizar la predicción
-            predicciones = self.model.predict(imagen_array, verbose=0)  # Desactivar verbose
-            etiqueta = decode_predictions(predicciones, top=1)[0][0]
+            predicciones = self.model.predict(imagen_array, verbose=0)
+            top_predicciones = decode_predictions(predicciones, top=5)[0]  # Obtener top 5 predicciones
             
-            # Verificar si es golden retriever con un umbral más bajo (40%)
-            es_golden = etiqueta[1] == "golden_retriever"
-            confianza = float(etiqueta[2])
+            # Buscar coincidencias con las razas soportadas
+            for pred in top_predicciones:
+                etiqueta = pred[1]
+                confianza = float(pred[2])
+                
+                # Verificar cada raza soportada
+                for breed_key, breed_info in self.SUPPORTED_BREEDS.items():
+                    if etiqueta in breed_info['imagenet_labels']:
+                        print(f"\nRESULTADO para {os.path.basename(image_path)}:")
+                        print(f"Clasificación: {breed_info['name']}")
+                        print(f"Confianza: {confianza:.2%}")
+                        return breed_key, confianza
             
-            print(f"\nRESULTADO para {os.path.basename(image_path)}:")
-            print(f"Clasificación: {'Golden Retriever' if es_golden else 'No es Golden'}")
-            print(f"Confianza: {confianza:.2%}\n")
-            
-            return es_golden, confianza
+            return None, 0.0
             
         except Exception as e:
             print(f"Error procesando imagen: {str(e)}")
-            return False, 0.0
+            return None, 0.0
 
     def get_drive_image(self, file_id):
         """Obtiene una imagen de Drive y la guarda temporalmente."""
@@ -87,41 +111,38 @@ class DogClassifier:
             print(f"Error obteniendo imagen de Drive: {str(e)}")
             return None
 
-    def classify_and_find_matches(self, input_image_path, drive_images_info, threshold=0.4):  # Bajamos el umbral a 40%
-        """Clasifica la imagen y busca coincidencias si es un Golden."""
+    def classify_and_find_matches(self, input_image_path, drive_images_info, threshold=0.35):  # Bajamos el umbral a 35%
+        """Clasifica la imagen y busca coincidencias si es una de las razas soportadas."""
         try:
-            # PASO 1: Verificar si es Golden
-            es_golden, confidence = self.es_golden(input_image_path)
+            # PASO 1: Clasificar la raza
+            raza_detectada, confidence = self.classify_breed(input_image_path)
 
-            # Si no es Golden o no supera el umbral, terminar aquí
-            if not es_golden or confidence < threshold:
-                return {
-                    "mensaje": "La imagen no corresponde a un Golden Retriever",
-                    "confianza": f"{confidence:.2%}",
-                    "coincidencias": []
-                }
-
-            # PASO 2: Si es Golden, buscar coincidencias
-            print("Buscando coincidencias...")
+            # PASO 2: Buscar coincidencias incluso si la confianza es baja
             matches = []
+            
+            print(f"Buscando coincidencias...")
             
             if drive_images_info:
                 for info in drive_images_info:
                     try:
                         drive_path = self.get_drive_image(info['drive_id'])
                         if drive_path:
-                            # Verificar si la imagen en Drive también es un Golden
-                            drive_es_golden, drive_confidence = self.es_golden(drive_path)
+                            # Verificar si la imagen en Drive es de la misma raza
+                            drive_raza, drive_confidence = self.classify_breed(drive_path)
                             
-                            if drive_es_golden and drive_confidence >= threshold:
+                            # Si alguna de las imágenes es identificada como la raza buscada
+                            if (raza_detectada and drive_raza == raza_detectada) or \
+                               (drive_raza and info['raza'].lower() == raza_detectada):
                                 matches.append({
                                     'id': info['id'],
                                     'similitud': drive_confidence,
                                     'ubicacion': info.get('ubicacion', ''),
                                     'fecha': info.get('fecha', ''),
                                     'contacto': info.get('contacto', ''),
-                                    'drive_id': info['drive_id']
+                                    'drive_id': info['drive_id'],
+                                    'raza': info['raza']
                                 })
+                                print(f"Coincidencia encontrada con ID {info['id']}")
                                 
                             if os.path.exists(drive_path):
                                 os.remove(drive_path)
@@ -130,8 +151,14 @@ class DogClassifier:
                         print(f"Error procesando imagen {info['drive_id']}: {str(e)}")
                         continue
 
+            # PASO 3: Preparar respuesta
+            if not raza_detectada:
+                mensaje = "La imagen no corresponde a ninguna de las razas soportadas"
+            else:
+                mensaje = f"Es un {self.SUPPORTED_BREEDS[raza_detectada]['name']}"
+
             return {
-                "mensaje": "Es un Golden Retriever",
+                "mensaje": mensaje,
                 "confianza": f"{confidence:.2%}",
                 "coincidencias": sorted(matches, key=lambda x: x['similitud'], reverse=True)[:5]
             }
