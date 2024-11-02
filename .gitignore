@@ -23,7 +23,7 @@ yarn-error.log*
 __pycache__/
 
 # Ignorar la carpeta de modelo entrenado del backend
-backend/app/Entrenamiento/model_training/
+backend/app/ml/TallerPerritos.keras
 # Ignorar archivos compilados de Python
 backend/*.pyc
 
