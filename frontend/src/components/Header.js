@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaBars, FaUser } from 'react-icons/fa'; 
+import { FaBars, FaUser, FaFlag } from 'react-icons/fa'; 
 import { AuthContext } from '../AuthContext';
 import logo from '../components/Imagenes/soloLogo.png';
 import facebookLogo from '../components/Imagenes/facebook.png';
@@ -8,8 +8,7 @@ import instagramLogo from '../components/Imagenes/instragram.png';
 import whatsappLogo from '../components/Imagenes/whatsApp.png';
 
 const Header = () => {
-  const { user } = useContext(AuthContext)
-  const { logout } = useContext(AuthContext)
+  const { user, logout } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -18,64 +17,59 @@ const Header = () => {
 
   return (
     <header className="header">
-      <div >
+      <div>
         <div className="navbar-brand">
-        <Link to="/home">
-          <div className='logo'>
-            <img src={logo} alt="Only Lost Pets Logo" className="brand-logo" />
-            <span className="brand-title">Only Lost Pets</span>
-          </div>
-        </Link>
-          {/* <li className="navbar-item">
-              <Link to="/user" onClick={() => console.log("Navegando a la página de usuario")}>
-                <FaUser size={24} />
-              </Link>
-          </li> */}
-         <div className="social-icons">
+          <Link to="/home">
+            <div className='logo'>
+              <img src={logo} alt="Only Lost Pets Logo" className="brand-logo" />
+              <span className="brand-title">Only Lost Pets</span>
+            </div>
+          </Link>
+          <div className="social-icons">
             <a href="https://www.facebook.com/p/jhulians-garcia-hinojosa-100001069936007/?mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer">
               <img src={facebookLogo} alt="Facebook" className="social-logo" />
             </a>
-
             <a href="https://wa.me/67559550" target="_blank" rel="noopener noreferrer">
               <img src={whatsappLogo} alt="WhatsApp" className="social-logo" />
             </a>
-            
             <a href="https://www.instagram.com/jhuls_garcia?igsh=YjVibnQ0dnh5Zmlr" target="_blank" rel="noopener noreferrer">
               <img src={instagramLogo} alt="Instagram" className="social-logo" />
             </a>
-            
           </div>
-
         </div>
+        
         <div className="navbar">
           <nav>
-
-          <button className="menu-button" onClick={toggleMenu}>
-            <FaBars />
-          </button>
+            <button className="menu-button" onClick={toggleMenu}>
+              <FaBars />
+            </button>
 
             <ul className={`navbar-list ${isMenuOpen ? 'active' : ''}`}>
               <li className="navbar-item"><Link to="/paginaperrovisto">Perritos vistos</Link></li>
               <li className="navbar-item"><Link to="/paginaperroperdido">Perritos perdidos</Link></li>
               <li className="navbar-item"><Link to="/ia">Clasificador IA</Link></li>
               <li className="navbar-item"><Link to="/dog-recognition">Reconocimiento de Razas</Link></li>
-              {
-                user === null
-                ? (<li className="navbar-item"><Link to="/login">Login</Link></li>
-                ) : (
-                  <>
-                  <li className='navbar-item'><Link to="home" onClick={logout}>Cerrar Sesion</Link></li>
+              <li className="navbar-item"><Link to="/report-user">Reportar usuario</Link></li>
+              {user === null ? (
+                <li className="navbar-item"><Link to="/login">Login</Link></li>
+              ) : (
+                <>
+                  <li className="navbar-item"><Link to="home" onClick={logout}>Cerrar Sesión</Link></li>
                   <li className="navbar-item">
                     <Link to="/user" onClick={() => console.log("Navegando a la página de usuario")}>
                       <FaUser size={24} />
                     </Link>
                   </li>
-                  </>)  
-              }
+                  <li className="navbar-item">
+                    <Link to="/report-user">
+                      <FaFlag size={24} title="Reportar usuario" />
+                      <span className="report-text">Reportar Usuario</span>
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </nav>
-         
- 
         </div>
       </div>
     </header>

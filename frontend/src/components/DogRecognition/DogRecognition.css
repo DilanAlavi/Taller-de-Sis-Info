@@ -37,7 +37,7 @@
   }
   
   button:hover:not(:disabled) {
-    background-color: #ff6347;
+    background-color: #e7850d;
   }
   
   button:disabled {

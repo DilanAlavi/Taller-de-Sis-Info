@@ -3,7 +3,7 @@ import { FaFacebook, FaInstagram, FaUpload, FaWhatsapp } from 'react-icons/fa';
 import './PerritoVistoForm.css';
 import { AuthContext } from '../../AuthContext';
 import axios from 'axios';
-import { useNavigate  } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const PerritoVistoForm = () => {
   const [foto, setFoto] = useState(null);
@@ -15,14 +15,12 @@ const PerritoVistoForm = () => {
   const [date, setDate] = useState('');
   const { user } = useContext(AuthContext)
   const [preview, setPreview] = useState('');
-  // const [error, setError] = useState('')
   const navigate = useNavigate();
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setFoto(file);
     
-    // Crear una URL para previsualizar la imagen
     const fileReader = new FileReader();
     fileReader.onload = () => {
       setPreview(fileReader.result);
@@ -74,23 +72,13 @@ const PerritoVistoForm = () => {
       navigate('/home');
     } catch (error) {
       console.error('Error en registro:', error);
-      // setError(error.response?.data?.detail || 'Error en el registro. Por favor, intente de nuevo.');
     }
-
   };
 
-  const shareOnWhatsApp = () => {
-    const message = `¡Ayuda! He perdido a mi perrito. Descripción: ${descripcion}. Contacto: ${user.num_celular}.`;
+  const contactOwner = () => {
+    const message = `¡Hola! He encontrado a un perro que parece ser el que reportaste perdido. Descripción: ${descripcion}. ¿Podemos coordinar la devolución?`;
     const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
-  };
-  const shareOnFacebook = () => {
-    const message = `¡Ayuda! He perdido a mi perrito. Descripción: ${descripcion}. Contacto: ${user.num_celular}.`;
-    const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
-  };
-  const shareOnInstagram = () => {
-    alert("Instagram no permite compartir mediante enlaces directos. Comparte tu publicación manualmente.");
   };
 
   return (
@@ -108,7 +96,6 @@ const PerritoVistoForm = () => {
                 </div>
               )}
               <div className='subir-imagen'>
-
                 <input 
                   className='input-img'
                   type="file" 
@@ -151,7 +138,6 @@ const PerritoVistoForm = () => {
 
           </div>
 
-          
           <p className='datos-adicionales'>Datos opcionales del perrito:</p>
           <div className='container-genero-raza-color'>
             <select defaultValue="" onChange={(e) => setRaza(e.target.value)}>
@@ -177,8 +163,6 @@ const PerritoVistoForm = () => {
             </select>
           </div>
 
-          {/* <button type="submit">Enviar Reporte</button> */}
-
           <button className="start-button">
             <span className="shadow-button"></span>
             <span className="edge-button"></span>
@@ -186,16 +170,11 @@ const PerritoVistoForm = () => {
           </button>
 
         </form>
-        <div className="share-buttons">
-          <h3>Comparte este reporte:</h3>
-          <button onClick={shareOnWhatsApp}>
-            <FaWhatsapp /> {/* Ícono de WhatsApp */}
-          </button>
-          <button onClick={shareOnFacebook}>
-            <FaFacebook /> {/* Ícono de Facebook */}
-          </button>
-          <button onClick={shareOnInstagram}>
-            <FaInstagram /> {/* Ícono de Instagram */}
+
+        <div className="contactar-owner-container">
+          <h3>Si has encontrado un perro, contacta al propietario:</h3>
+          <button onClick={contactOwner} className="contactar-owner-button">
+            <FaWhatsapp /> Contactar al propietario
           </button>
         </div>
       </div>
