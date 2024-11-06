@@ -1,8 +1,13 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.config import get_db
 from app.models.perrito import Perrito
 from app.models.estado_perro import EstadoPerro
+from app.schemas.perrito import PerritoUpdate
+
+from app.models.foto import Foto
+from app.models.usuario import Usuario
+
 
 router = APIRouter()
 
@@ -25,6 +30,8 @@ def get_perrito(perrito_id: int, db: Session = Depends(get_db)):
     if not perrito:
         raise HTTPException(status_code=404, detail="Perrito no encontrado")
     
+
+    
     return {
         "id": perrito.id,
         "nombre": perrito.nombre,
@@ -33,8 +40,9 @@ def get_perrito(perrito_id: int, db: Session = Depends(get_db)):
         "genero": perrito.genero,
         "estado": perrito.estado_perro,
         "usuario": perrito.usuario,
-        "foto": perrito.foto_perro
-    } 
+        "foto": perrito.foto_perro,
+    }
+
 
 @router.get("/")
 def get_perritos(skip: int = 0, limit: int = 50, db: Session = Depends(get_db)):
@@ -53,3 +61,46 @@ def get_perritos(skip: int = 0, limit: int = 50, db: Session = Depends(get_db)):
         "foto": perro.foto_perro
     })
     return result
+
+
+@router.put("/{perrito_id}")
+def editar_perrito(perrito_id: int, perrito_data: PerritoUpdate, db: Session = Depends(get_db)):
+    perrito = db.query(Perrito).filter(Perrito.id == perrito_id).first()
+    if not perrito:
+        raise HTTPException(status_code=404, detail="Perrito no encontrado")
+
+    for field, value in perrito_data.dict(exclude_unset=True).items():
+        setattr(perrito, field, value)
+
+    db.commit()
+    db.refresh(perrito)
+
+    return {"message": "Perrito actualizado exitosamente", "perrito": perrito}
+
+
+@router.delete("/{perrito_id}")
+def eliminar_perrito(perrito_id: int, db: Session = Depends(get_db)):
+    perrito = db.query(Perrito).filter(Perrito.id == perrito_id).first()
+    if not perrito:
+        raise HTTPException(status_code=404, detail="Perrito no encontrado")
+
+    fotos = db.query(Foto).filter(Foto.perrito_id == perrito_id).all()
+    for foto in fotos:
+        db.delete(foto)
+
+    estados = db.query(EstadoPerro).filter(EstadoPerro.id == perrito.estado_perro_id).all()
+    for estado in estados:
+        db.delete(estado)
+
+    db.delete(perrito)
+    db.commit()
+
+    return {"message": "Perrito, sus fotos y estados eliminados exitosamente", "perrito_id": perrito_id}
+
+
+
+def es_propietario_perrito(perrito_id: int, current_user: Usuario, db: Session) -> bool:
+    perrito = db.query(Perrito).filter(Perrito.id == perrito_id).first()
+    if not perrito:
+        raise HTTPException(status_code=404, detail="Perrito no encontrado")
+    return perrito.owner_id == current_user.id
