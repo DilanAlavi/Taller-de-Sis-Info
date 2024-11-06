@@ -253,3 +253,29 @@ textarea:focus,
   display: block;
   border-radius: 8px;
 }
+.contactar-owner-container {
+  margin-top: 20px;
+  text-align: center;
+  justify-content: center;
+}
+
+.contactar-owner-button {
+  background-color: #ffa946;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contactar-owner-button:hover {
+  background-color: #ee6d0a;
+}
+
+.contactar-owner-button svg {
+  margin-right: 8px;
+}

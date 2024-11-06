@@ -53,7 +53,7 @@ const PaginaPerrosPerdidos = () => {
                 perritos && (
                 <div>
                     <h1>{perritos.nombre}</h1>
-                    {/* Muestra más datos */}
+
                 </div>
                 )
             )}
@@ -98,7 +98,6 @@ const PaginaPerrosPerdidos = () => {
                     <div><p>{perro.estado.direccion_visto}</p><strong>Última ubicación</strong></div>
                     <div><p>{perro.usuario.num_celular}</p><strong>Contacto</strong></div>
 
-                    {/* Botón para enviar mensaje de WhatsApp */}
                     <a
                         href={`https://wa.me/${perro.usuario.num_celular}?text=Hola, soy un usuario que encontró un perro y me gustaría coordinar la devolución de ${perro.nombre}.`}
                         target="_blank"

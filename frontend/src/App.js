@@ -16,6 +16,7 @@ import PaginaPerrosPerdidos from './components/PaginaPerroPerdido/PaginaPerroPer
 import PaginaPerrosVistos from './components/PaginaPerroVisto/PaginaPerroVisto';
 import PerfilPerro from './components/PerfilPerro/PerfilPerro';
 import './App.css';
+import ReportUser from './components/ResportUser';
 
 const App = () => {
   return (
@@ -37,6 +38,7 @@ const App = () => {
             <Route path='/paginaperroperdido' element={<PaginaPerrosPerdidos/>} />
             <Route path='/paginaperrovisto' element={<PaginaPerrosVistos/>} />
             <Route path="/perfil-perro/:id" element={<PerfilPerro />} />
+            <Route path="/report-user" element={<ReportUser />} />
           </Routes>
         </main>
         <Footer />
