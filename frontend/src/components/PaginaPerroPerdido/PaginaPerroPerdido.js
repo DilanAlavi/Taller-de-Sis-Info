@@ -85,22 +85,32 @@ const PaginaPerrosPerdidos = () => {
 
             <div className="perros-container">
                 {perrosPerdidos.map((perro, index) => (
-                <div className="perro-card" key={index} onClick={() => navigate("/perfil-perro/1", { state: {perro} })}>
-
+                    <div className="perro-card" key={index} onClick={() => navigate("/perfil-perro/1", { state: { perro } })}>
                     {perro.foto[0] ? (
-                    <img src={`http://127.0.0.1:8000/imagen/${perro.foto[0].direccion_foto}`} alt={`Foto de ${perro.nombre}`} className="perro-foto" />
+                        <img src={`http://127.0.0.1:8000/imagen/${perro.foto[0].direccion_foto}`} alt={`Foto de ${perro.nombre}`} className="perro-foto" />
                     ) : (
-                    <img src="/path/to/placeholder-image.jpg" alt="Imagen no disponible" className="perro-foto" />
+                        <img src="/path/to/placeholder-image.jpg" alt="Imagen no disponible" className="perro-foto" />
                     )}
 
                     <h3>{perro.nombre}</h3>
-                    
+
                     <div><p>{perro.estado.fecha}</p><strong>Fecha de pérdida</strong></div>
                     <div><p>{perro.estado.direccion_visto}</p><strong>Última ubicación</strong></div>
                     <div><p>{perro.usuario.num_celular}</p><strong>Contacto</strong></div>
-                </div>
+
+                    {/* Botón para enviar mensaje de WhatsApp */}
+                    <a
+                        href={`https://wa.me/${perro.usuario.num_celular}?text=Hola, soy un usuario que encontró un perro y me gustaría coordinar la devolución de ${perro.nombre}.`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="whatsapp-button"
+                    >
+                        Contactar por WhatsApp
+                    </a>
+                    </div>
                 ))}
             </div>
+
        </div> 
     );
 };
