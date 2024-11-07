@@ -61,6 +61,7 @@ const EditPerro = () => {
         }
       });
 
+      console.log("id usuario:", user.id.toString());
       console.log("Perrito actualizado exitosamente:", response.data);
       alert('Los cambios fueron guardados exitosamente.');
       navigate(`/perrito/${id}`); 
@@ -117,8 +118,8 @@ const EditPerro = () => {
                 value={formData.genero}
                 onChange={handleInputChange}
               >
-                <option value="macho">Macho</option>
-                <option value="hembra">Hembra</option>
+                <option value="M">Macho</option>
+                <option value="H">Hembra</option>
               </select>
             </div>
             <div>
@@ -160,7 +161,7 @@ const EditPerro = () => {
                 onChange={handleInputChange}
               />
             </div>
-            <button type="submit">Guardar Cambios</button>
+            <button type="submit" className='boton-cambios'>Guardar Cambios</button>
           </form>
         </div>
       </div>

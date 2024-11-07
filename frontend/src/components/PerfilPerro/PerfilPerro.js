@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './PerfilPerro.css';
 import { FaArrowLeft } from 'react-icons/fa';
+import { useContext } from 'react';
+import { AuthContext } from '../../AuthContext';
+import axios from 'axios';
 
 const PerfilPerro = () => {
-  // const [perro, setPerro] = useState(null);
-  const [comentario, setComentario] = useState('');
+  const { user } = useContext(AuthContext); // Obtener datos del usuario autenticado
   const location = useLocation();
-  const { perro } = location.state;
-  const navigate = useNavigate();
+  const [perro, setPerro] = useState(null); // Inicializar perro como null
+  const [comentario, setComentario] = useState('');
   const [comentarios, setComentarios] = useState([
     {
       autor: 'Sony',
@@ -17,88 +19,101 @@ const PerfilPerro = () => {
     },
   ]);
 
-  // useEffect(() => {
-  //   // Simulamos la carga de datos desde una API con un retraso
-  //   const fetchPerroSimulado = () => {
-  //     const perroFicticio = {
-  //       nombre: 'Brownie',
-  //       edad: '2 años',
-  //       raza: 'Yorkshire terrier',
-  //       descripcion: 'Pelaje color cafe claro, recien recortado, ojos color cafe oscuro y trae pechera como en la imagen',
-  //       estado: {
-  //         fecha: '24/07/2024',
-  //         direccion_visto: 'Calle Esteban Arce y Calle Sucre',
-  //       },
-  //       usuario: {
-  //         num_celular: '+591 76060036',
-  //       },
-  //       foto: [
-  //         {
-  //           direccion_foto: 'path-to-simulated-image.jpg',
-  //         },
-  //       ],
-  //     };
+  const navigate = useNavigate();
 
-  //     setTimeout(() => {
-  //       setPerro(perroFicticio);
-  //     }, 1000); // Simulamos un retraso de 1 segundo para cargar los datos
-  //   };
+  useEffect(() => {
+    if (location.state && location.state.perro) {
+      setPerro(location.state.perro); // Asegurarse de que perro esté disponible en location.state
+    }
+    
+    console.log('User:', user); // Muestra el objeto user
+    console.log('Perro:', perro); // Muestra el objeto perro
+  }, [location.state, user, perro]);
+  
 
-  //   fetchPerroSimulado();
-  // }, []);
+  if (!perro) {
+    return <p>Cargando datos del perro...</p>;
+  }
+
+  const esPropietario = perro.usuario_id === user.id; // Verifica si el usuario es el propietario del perro
+  console.log(esPropietario)
+
+  const handleEdit = () => {
+    navigate(`/editar_perro/${perro.id}`);
+  };
+
+  const handleDelete = async () => {
+    const confirmation = window.confirm('¿Estás seguro de que deseas eliminar este perro?');
+    if (confirmation) {
+      try {
+        await axios.delete(`http://localhost:8000/perritos/${perro.id}`);
+        alert('Perrito eliminado exitosamente.');
+        navigate('/perritos');
+      } catch (error) {
+        console.error('Error al eliminar el perro:', error);
+        alert('Hubo un error al eliminar el perro.');
+      }
+    }
+  };
 
   const handleComentarioChange = (e) => {
     setComentario(e.target.value);
   };
 
   const handleComentarioSubmit = (e) => {
-    e.preventDefault(); // Evita la recarga de la página
-    if (comentario.trim() === '') return; // No permite comentarios vacíos
+    e.preventDefault();
+    if (comentario.trim() === '') return;
 
     const nuevoComentario = {
-      autor: 'Nuevo Usuario', // Aquí puedes cambiar el nombre del usuario si lo deseas
+      autor: 'Nuevo Usuario',
       texto: comentario,
-      avatar: '/images/comentarista.webp', // Ruta a la imagen del comentarista
+      avatar: '/images/comentarista.webp',
     };
 
-    setComentarios([...comentarios, nuevoComentario]); // Agrega el nuevo comentario a la lista
-    setComentario(''); // Limpia el campo de entrada
+    setComentarios([...comentarios, nuevoComentario]);
+    setComentario('');
   };
-
-  if (!perro) {
-    return <p>Cargando datos del perro...</p>;
-  }
 
   return (
     <div className="perfil-perro-page">
-      <FaArrowLeft onClick={() => navigate(-1)}/>
+      <FaArrowLeft onClick={() => navigate(-1)} />
       <div className="perfil-perro-container">
         <div className="perfil-perro">
-          
           {perro.foto[0] ? (
-            <img src={`http://127.0.0.1:8000/imagen/${perro.foto[0].direccion_foto}`} alt={`Foto de ${perro.nombre}`} className="perro-foto" />
+            <img
+              src={`http://127.0.0.1:8000/imagen/${perro.foto[0].direccion_foto}`}
+              alt={`Foto de ${perro.nombre}`}
+              className="perro-foto"
+            />
           ) : (
             <img src="/path/to/placeholder-image.jpg" alt="Imagen no disponible" className="perro-foto" />
           )}
 
           <h2>{perro.nombre}</h2>
-          <p> <strong>Raza:</strong> {perro.raza}</p>
+          <p><strong>Raza:</strong> {perro.raza}</p>
           <p><strong>Descripción:</strong> {perro.estado.descripcion}</p>
           <p><strong>Fecha de pérdida:</strong> {perro.estado.fecha}</p>
           <p><strong>Última ubicación:</strong> {perro.estado.direccion_visto}</p>
           <p><strong>Contacto:</strong> {perro.usuario.num_celular}</p>
+
+          {
+            <div className="perfil-perro-actions">
+              <button onClick={handleEdit} className="editar-btn">Editar Perro</button>
+              <button onClick={handleDelete} className="eliminar-btn">Eliminar Perro</button>
+            </div>
+          }
+
         </div>
-    
-        {/* Contenedor de comentarios */}
+
         <div className="comentarios-container">
           <h3>Comentarios:</h3>
           <div className="comentarios-lista">
             {comentarios.map((comentario, index) => (
               <div className="comentario" key={index}>
-                <img 
-                  src={comentario.avatar} 
-                  alt="Avatar del comentarista" 
-                  className="comentario-avatar" 
+                <img
+                  src={comentario.avatar}
+                  alt="Avatar del comentarista"
+                  className="comentario-avatar"
                 />
                 <div className="comentario-texto">
                   <strong>{comentario.autor}:</strong> {comentario.texto}
@@ -106,7 +121,7 @@ const PerfilPerro = () => {
               </div>
             ))}
           </div>
-    
+
           <form onSubmit={handleComentarioSubmit} className="comentario-form">
             <textarea
               value={comentario}

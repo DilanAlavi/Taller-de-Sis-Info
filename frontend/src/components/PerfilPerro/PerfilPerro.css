@@ -134,3 +134,13 @@
     font-style: italic; /* Cambia el estilo de la fuente (opcional) */
     opacity: 0.7; /* Ajusta la opacidad para hacerlo más tenue */
 }
+.perfil-perro-actions {
+  display: flex;
+  gap: 1.5rem; 
+}
+
+
+.perfil-perro-actions button{
+  background-color: #ee6d0a;
+  padding: 0.5rem;
+}
