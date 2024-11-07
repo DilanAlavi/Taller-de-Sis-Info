@@ -1,0 +1,150 @@
+.perfil-perro-page {
+  padding: 20px;
+}
+
+.perfil-perro-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.perfil-perro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.perro-foto {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.perfil-perro-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+}
+
+.perfil-perro-form div {
+  margin-bottom: 0.9rem;
+}
+
+.perfil-perro-form label {
+  font-weight: bold;
+}
+
+.perfil-perro-form input,
+.perfil-perro-form select,
+.perfil-perro-form textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  background-color: #f4f4f4;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.perfil-perro-form input:focus,
+.perfil-perro-form select:focus,
+.perfil-perro-form textarea:focus {
+  border-color: #ee6d0a;
+  box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.3);
+}
+
+.perfil-perro-form textarea {
+  min-height: 4rem;
+  min-width: 2rem;
+  resize: none;
+}
+
+button {
+  background-color: #FA9B2F;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #ffb055;
+}
+
+button:focus {
+  outline: none;
+}
+
+.fa-arrow-left {
+  font-size: 2rem;
+  color: #333;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.container-genero-raza-color {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+}
+
+.container-genero-raza-color select {
+  width: 12rem;
+}
+
+.container-dir-fecha input {
+  margin: 6px;
+}
+
+textarea::placeholder,
+input::placeholder {
+  color: rgba(92, 92, 92, 0.7);
+}
+
+.container-textarea {
+  text-align: center;
+}
+
+.container-texta-fecha-dir {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.container-img-nom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-img-nom .container-img {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-img {
+  display: none;
+}
+
+.upload-logo {
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.upload-logo:hover {
+  transform: scale(1.15);
+}
