@@ -15,6 +15,7 @@ import PerritoVistoForm from './components/PerritoVisto/PerritoVistoForm';
 import PaginaPerrosPerdidos from './components/PaginaPerroPerdido/PaginaPerroPerdido';
 import PaginaPerrosVistos from './components/PaginaPerroVisto/PaginaPerroVisto';
 import PerfilPerro from './components/PerfilPerro/PerfilPerro';
+import EditPerro from './components/EditPerrito/EditPerrito';
 import './App.css';
 
 const App = () => {
@@ -37,6 +38,7 @@ const App = () => {
             <Route path='/paginaperroperdido' element={<PaginaPerrosPerdidos/>} />
             <Route path='/paginaperrovisto' element={<PaginaPerrosVistos/>} />
             <Route path="/perfil-perro/:id" element={<PerfilPerro />} />
+            <Route path="/editar_perro/:id" element={<EditPerro />} />
           </Routes>
         </main>
         <Footer />
