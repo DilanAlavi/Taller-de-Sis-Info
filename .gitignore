@@ -29,3 +29,6 @@ backend/*.pyc
 
 backend/app/credenciales/fotos-perritos-809194cdb9d7.json
 
+*.pyc
+__pycache__/
+
