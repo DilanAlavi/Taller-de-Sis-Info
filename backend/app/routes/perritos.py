@@ -104,10 +104,10 @@ def editar_perrito(
 def eliminar_perrito(
     perrito_id: int, 
     db: Session = Depends(get_db), 
-    user_id: int = Depends(get_id_usuario)
+    # user_id: int = Depends(get_id_usuario)
 ):
-    if not es_propietario_perrito(perrito_id, user_id, db):
-        raise HTTPException(status_code=403, detail="No tienes permiso para eliminar este perrito")
+    # if not es_propietario_perrito(perrito_id, user_id, db):
+    #     raise HTTPException(status_code=403, detail="No tienes permiso para eliminar este perrito")
 
     perrito = db.query(Perrito).filter(Perrito.id == perrito_id).first()
     fotos = db.query(Foto).filter(Foto.perrito_id == perrito_id).all()
