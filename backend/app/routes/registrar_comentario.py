@@ -26,12 +26,29 @@ def registrar_estado(comentario: ComentarioNuevo, db: Session = Depends(get_db))
 
 @router.get("/{comentario_id_perrito}")
 def get_estado(comentario_id_perrito: int, db: Session = Depends(get_db)):
-    comentario = db.query(Comentario).filter(Comentario.perrito_id == comentario_id_perrito).all()
-    if not comentario:
+    comentarios = db.query(Comentario).filter(Comentario.perrito_id == comentario_id_perrito).all()
+    if not comentarios:
         raise HTTPException(status_code=404, detail="Comentarios de perrito no encontrados")
-    return comentario
+    
+    result = []
+    for comentario in comentarios :
+        result.append({
+            "id": comentario.id,
+            "comentario": comentario.comentario,
+            "perrito_id": comentario.perrito_id,
+            "usuario": comentario.usuario
+        })
+    return result
 
 @router.get("")
 def get_estados(skip: int = 0, limit: int = 50, db: Session = Depends(get_db)):
-    comentario = db.query(Comentario).offset(skip).limit(limit).all()
-    return comentario
+    comentarios = db.query(Comentario).offset(skip).limit(limit).all()
+    result = []
+    for comentario in comentarios :
+        result.append({
+            "id": comentario.id,
+            "comentario": comentario.comentario,
+            "perrito_id": comentario.perrito_id,
+            "usuario": comentario.usuario
+        })
+    return result

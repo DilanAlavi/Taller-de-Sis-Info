@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { FaFacebook, FaInstagram, FaUpload, FaWhatsapp } from 'react-icons/fa';
+import { FaUpload, FaWhatsapp } from 'react-icons/fa';
 import './PerritoPerdidoForm.css';
 import { AuthContext } from '../../AuthContext';
 import axios from 'axios';

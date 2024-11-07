@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaBars, FaUser, FaFlag } from 'react-icons/fa'; 
+import { FaBars, FaUser } from 'react-icons/fa'; 
 import { AuthContext } from '../AuthContext';
 import logo from '../components/Imagenes/soloLogo.png';
 import facebookLogo from '../components/Imagenes/facebook.png';
@@ -49,7 +49,6 @@ const Header = () => {
               <li className="navbar-item"><Link to="/paginaperroperdido">Perritos perdidos</Link></li>
               <li className="navbar-item"><Link to="/ia">Clasificador IA</Link></li>
               <li className="navbar-item"><Link to="/dog-recognition">Reconocimiento de Razas</Link></li>
-              <li className="navbar-item"><Link to="/report-user">Reportar usuario</Link></li>
               {user === null ? (
                 <li className="navbar-item"><Link to="/login">Login</Link></li>
               ) : (
@@ -58,12 +57,6 @@ const Header = () => {
                   <li className="navbar-item">
                     <Link to="/user" onClick={() => console.log("Navegando a la página de usuario")}>
                       <FaUser size={24} />
-                    </Link>
-                  </li>
-                  <li className="navbar-item">
-                    <Link to="/report-user">
-                      <FaFlag size={24} title="Reportar usuario" />
-                      <span className="report-text">Reportar Usuario</span>
                     </Link>
                   </li>
                 </>
