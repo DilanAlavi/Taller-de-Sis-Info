@@ -1,68 +1,57 @@
-import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import './PerfilPerro.css';
-import { FaArrowLeft } from 'react-icons/fa';
+import { FaArrowLeft, FaFlag } from 'react-icons/fa';
+import axios from 'axios';
+import { AuthContext } from '../../AuthContext';
 
 const PerfilPerro = () => {
   // const [perro, setPerro] = useState(null);
-  const [comentario, setComentario] = useState('');
   const location = useLocation();
   const { perro } = location.state;
   const navigate = useNavigate();
-  const [comentarios, setComentarios] = useState([
-    {
-      autor: 'Sony',
-      texto: 'Vi a este perrito hoy a las 7pm (18/10/2024) en Av. Heroína y Av. 25 de Mayo.',
-      avatar: '/images/comentarista.webp',
-    },
-  ]);
+  const [comentarios, setComentarios] = useState([]);
+  const [nuevoComentario, setNuevoComentario] = useState();
+  const { user } = useContext(AuthContext);
 
-  // useEffect(() => {
-  //   // Simulamos la carga de datos desde una API con un retraso
-  //   const fetchPerroSimulado = () => {
-  //     const perroFicticio = {
-  //       nombre: 'Brownie',
-  //       edad: '2 años',
-  //       raza: 'Yorkshire terrier',
-  //       descripcion: 'Pelaje color cafe claro, recien recortado, ojos color cafe oscuro y trae pechera como en la imagen',
-  //       estado: {
-  //         fecha: '24/07/2024',
-  //         direccion_visto: 'Calle Esteban Arce y Calle Sucre',
-  //       },
-  //       usuario: {
-  //         num_celular: '+591 76060036',
-  //       },
-  //       foto: [
-  //         {
-  //           direccion_foto: 'path-to-simulated-image.jpg',
-  //         },
-  //       ],
-  //     };
-
-  //     setTimeout(() => {
-  //       setPerro(perroFicticio);
-  //     }, 1000); // Simulamos un retraso de 1 segundo para cargar los datos
-  //   };
-
-  //   fetchPerroSimulado();
-  // }, []);
-
+  useEffect(() => {
+    const comentariosData = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/comentario/${perro.id}`);
+        setComentarios(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+      };
+    comentariosData();
+  }, []);
+  
   const handleComentarioChange = (e) => {
-    setComentario(e.target.value);
+    setNuevoComentario(e.target.value);
   };
 
-  const handleComentarioSubmit = (e) => {
+  const handleComentarioSubmit = async (e) => {
     e.preventDefault(); // Evita la recarga de la página
-    if (comentario.trim() === '') return; // No permite comentarios vacíos
+    if (nuevoComentario.trim() === '') return; // No permite comentarios vacíos
 
-    const nuevoComentario = {
-      autor: 'Nuevo Usuario', // Aquí puedes cambiar el nombre del usuario si lo deseas
-      texto: comentario,
-      avatar: '/images/comentarista.webp', // Ruta a la imagen del comentarista
-    };
+    try {
+      await axios.post('http://localhost:8000/comentario/post', {
+        comentario: nuevoComentario,
+        perrito_id: perro.id,
+        usuario_id: user.id
+      });
+  
+      try {
+        const responseNuevosComentarios = await axios.get(`http://127.0.0.1:8000/comentario/${perro.id}`);
+        setComentarios(responseNuevosComentarios.data);
+      } catch (error) {
+        console.log(error);
+      }
+      setNuevoComentario('')
 
-    setComentarios([...comentarios, nuevoComentario]); // Agrega el nuevo comentario a la lista
-    setComentario(''); // Limpia el campo de entrada
+    } catch (error) {
+      console.log("Error en al registrar comentario: ", error);
+    }
   };
 
   if (!perro) {
@@ -72,6 +61,12 @@ const PerfilPerro = () => {
   return (
     <div className="perfil-perro-page">
       <FaArrowLeft onClick={() => navigate(-1)}/>
+      <Link to="/report-user">
+        <FaFlag size={24} title="Reportar usuario" />
+      </Link>
+        <span className="report-text">Reportar Usuario</span>
+      
+
       <div className="perfil-perro-container">
         <div className="perfil-perro">
           
@@ -95,13 +90,13 @@ const PerfilPerro = () => {
           <div className="comentarios-lista">
             {comentarios.map((comentario, index) => (
               <div className="comentario" key={index}>
-                <img 
+                {/* <img 
                   src={comentario.avatar} 
                   alt="Avatar del comentarista" 
                   className="comentario-avatar" 
-                />
+                /> */}
                 <div className="comentario-texto">
-                  <strong>{comentario.autor}:</strong> {comentario.texto}
+                  <strong>{comentario.usuario.nombre}:</strong> {comentario.comentario}
                 </div>
               </div>
             ))}
@@ -109,7 +104,7 @@ const PerfilPerro = () => {
     
           <form onSubmit={handleComentarioSubmit} className="comentario-form">
             <textarea
-              value={comentario}
+              value={nuevoComentario}
               onChange={handleComentarioChange}
               placeholder="Agrega un comentario..."
               rows="3"
