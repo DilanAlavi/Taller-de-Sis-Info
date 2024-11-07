@@ -48,6 +48,20 @@ const User = () => {
     }
   };
 
+  const handleDelete = async () => {
+    if (window.confirm("¿Estás seguro de que deseas eliminar tu cuenta? Esta acción es irreversible.")) {
+      try {
+        await axios.delete(`http://127.0.0.1:8000/users/delete/${user.id}`);
+        deleteUser(); 
+        setSuccessMessage("Cuenta eliminada exitosamente");
+        navigate("/"); 
+      } catch (error) {
+        setError("Error al eliminar la cuenta");
+        console.error("Error al eliminar el usuario:", error);
+      }
+    }
+  };
+
   return (
     <div className="user-container">
       <h2>Perfil del Usuario</h2>
@@ -88,6 +102,10 @@ const User = () => {
         />
         <button type="submit">Actualizar Datos</button>
       </form>
+
+      <button onClick={handleDelete} className="delete-button">
+        Eliminar Cuenta
+      </button>
       {/* {newData.foto && (
         <div className="user-photo">
           <h3>Foto de Perfil:</h3>
