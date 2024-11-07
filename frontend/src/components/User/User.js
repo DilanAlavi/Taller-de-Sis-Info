@@ -1,16 +1,17 @@
 import React, { useEffect, useState, useContext } from 'react';
 import './User.css';
 import { AuthContext } from '../../AuthContext';
+import axios from 'axios';
 
 const User = () => {
   const { user } = useContext(AuthContext);
-  const [newData, setNewData] = useState( user || {} );
+  const { edit } = useContext(AuthContext);
+  const [newData, setNewData] = useState(user || {});
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     if (user) {
-      // Actualizamos los datos del usuario logueado
       setNewData(user);
     }
   }, [user]);
@@ -23,27 +24,28 @@ const User = () => {
     }));
   };
 
-  const handleFileChange = (e) => {
-    setNewData((prevData) => ({
-      ...prevData,
-      foto: e.target.files[0],
-    }));
-  };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setSuccessMessage('');
-
-    // Simulamos la actualización de datos
-    // const updatedUserData = { ...newData };
-    // setUserData(updatedUserData);
-    setSuccessMessage('Datos actualizados exitosamente');
     
-    // Limpiar el mensaje de éxito después de 3 segundos
-    setTimeout(() => {
-      setSuccessMessage('');
-    }, 3000);
+
+    try {
+      const response = await axios.put(`http://127.0.0.1:8000/users/edit/${user.id}`, {
+        correo: newData.correo,
+        nombre: newData.nombre,
+        num_celular: newData.num_celular,
+        direccion: newData.direccion
+      });
+      console.log(response.data)
+      edit(response.data)
+
+      setSuccessMessage('Datos actualizados exitosamente');
+    } catch (error) {
+      setError('Error al actualizar los datos');
+      console.error(error);
+    }
   };
 
   return (
@@ -56,7 +58,7 @@ const User = () => {
           type="email"
           name="correo"
           placeholder="Email"
-          value={newData.correo ? newData.correo : ""}
+          value={newData.correo || ''}
           onChange={handleChange}
           required
         />
@@ -64,15 +66,15 @@ const User = () => {
           type="text"
           name="nombre"
           placeholder="Nombre"
-          value={newData.nombre ? newData.nombre : ""}
+          value={newData.nombre || ''}
           onChange={handleChange}
           required
         />
         <input
-          type="text"
-          name="numero"
+          type="number"
+          name="num_celular"
           placeholder="Número de Teléfono"
-          value={newData.num_celular ? newData.num_celular : ""}
+          value={newData.num_celular || ''}
           onChange={handleChange}
           required
         />
@@ -80,23 +82,18 @@ const User = () => {
           type="text"
           name="direccion"
           placeholder="Dirección"
-          value={newData.direccion ? newData.direccion : ""}
+          value={newData.direccion || ''}
           onChange={handleChange}
           required
         />
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleFileChange}
-        />
         <button type="submit">Actualizar Datos</button>
       </form>
-      {newData.foto && (
+      {/* {newData.foto && (
         <div className="user-photo">
           <h3>Foto de Perfil:</h3>
           <img src={URL.createObjectURL(newData.foto)} alt="Foto de perfil" />
         </div>
-      )}
+      )} */}
     </div>
   );
 };
