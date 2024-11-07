@@ -16,3 +16,4 @@ class Perrito(Base):
     usuario = relationship("Usuario")  # Relación con Usuario
     estado_perro = relationship("EstadoPerro")  # Relación con EstadoPerro
     foto_perro = relationship("Foto", back_populates="perro")
+    comentario_perro = relationship("Comentario", back_populates="perro")
