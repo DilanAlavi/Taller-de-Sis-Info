@@ -13,7 +13,7 @@ const PerfilPerro = () => {
   const [comentarios, setComentarios] = useState([]);
   const [nuevoComentario, setNuevoComentario] = useState();
   const { user } = useContext(AuthContext);
-  const [perro_, setPerro] = useState(null); 
+
 
   useEffect(() => {
     const comentariosData = async () => {
@@ -40,7 +40,7 @@ const PerfilPerro = () => {
     const confirmation = window.confirm('¿Estás seguro de que deseas eliminar este perro?');
     if (confirmation) {
       try {
-        await axios.delete(`http://localhost:8000/perritos/${perro_.id}`);
+        await axios.delete(`http://localhost:8000/perritos/${perro.id}`);
         alert('Perrito eliminado exitosamente.');
         navigate('/perritos');
       } catch (error) {
