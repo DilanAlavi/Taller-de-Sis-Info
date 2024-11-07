@@ -11,6 +11,7 @@ const PaginaPerrosPerdidos = () => {
     const [perrosPerdidos, setPerrosPerdidos] = useState([]);
     const [generoFiltro, setGeneroFiltro] = useState(''); // Estado para el filtro de género
     const [razaFiltro, setRazaFiltro] = useState('');
+    const [colorFiltro, setColorFiltro] = useState('');
     const navigate = useNavigate(); 
 
     useEffect(() => {
@@ -39,11 +40,15 @@ const PaginaPerrosPerdidos = () => {
             if (razaFiltro) {
                 perritos_perdidos = perritos_perdidos.filter(perro => perro.raza === razaFiltro);
             }
+
+            if (colorFiltro) {
+                perritos_perdidos = perritos_perdidos.filter(perro => perro.color === colorFiltro);
+            }
             
             setPerrosPerdidos(perritos_perdidos);
             console.log('Datos cargados:', perritos_perdidos); 
         }
-    }, [perritos, generoFiltro, razaFiltro]); // Agregar generoFiltro como dependencia
+    }, [perritos, generoFiltro, razaFiltro, colorFiltro]); // Agregar generoFiltro como dependencia
 
     return (
        <div>
@@ -74,6 +79,14 @@ const PaginaPerrosPerdidos = () => {
                 <option value="Pastor Aleman">Pastor Alemán</option>
                 <option value="Pitbull">Pitbull</option>
                 <option value="Cocker Spaniel">Cocker</option>
+            </select>
+
+            <select onChange={(e) => setColorFiltro(e.target.value)} value={colorFiltro}>
+                <option value="">Filtrar por color</option>
+                <option value="Cafe">Café</option>
+                <option value="Blanco">Blanco</option>
+                <option value="Beige">Beige</option>
+                <option value="Negro">Negro</option>
             </select>
 
             <button className='dog-button' onClick={() => navigate("/perritoperdidoform")}>
