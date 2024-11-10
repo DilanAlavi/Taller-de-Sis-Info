@@ -103,12 +103,12 @@ const EditPerro = () => {
                 value={formData.raza}
                 onChange={handleInputChange}
               >
-                <option value="golden">Golden</option>
-                <option value="chapi">Chapi</option>
-                <option value="bulldog">Bulldog</option>
-                <option value="pastor aleman">Pastor Alemán</option>
-                <option value="pitbul">Pitbull</option>
-                <option value="cocker">Cocker</option>
+                <option value="Golden">Golden</option>
+                <option value="Chapi">Chapi</option>
+                <option value="Bulldog">Bulldog</option>
+                <option value="Pastor Aleman">Pastor Alemán</option>
+                <option value="Pitbul">Pitbull</option>
+                <option value="Cocker Spaniel">Cocker</option>
               </select>
             </div>
             <div>
@@ -129,10 +129,10 @@ const EditPerro = () => {
                 value={formData.color}
                 onChange={handleInputChange}
               >
-                <option value="cafe">Cafe</option>
-                <option value="blanco">Blanco</option>
-                <option value="beige">Beige</option>
-                <option value="negro">Negro</option>
+                <option value="Cafe">Cafe</option>
+                <option value="Blanco">Blanco</option>
+                <option value="Beige">Beige</option>
+                <option value="Negro">Negro</option>
               </select>
             </div>
             <div>
