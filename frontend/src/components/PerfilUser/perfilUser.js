@@ -7,7 +7,7 @@ const PerfilUser = () => {
     telefono: '123456789',
     correo: 'juan.perez@example.com',
     direccion: 'Calle Falsa 123, Ciudad',
-    imagen: 'https://via.placeholder.com/150', // Imagen estándar
+    imagen: 'https://via.placeholder.com/150', 
   };
 
   const [text, setText] = useState('');
@@ -19,7 +19,7 @@ const PerfilUser = () => {
       const timer = setTimeout(() => {
         setText(text + welcomeMessage[index]);
         setIndex(index + 1);
-      }, 100); // Velocidad de la escritura (100 ms por letra)
+      }, 100); 
       return () => clearTimeout(timer);
     }
   }, [index, text, user.nombre]);
