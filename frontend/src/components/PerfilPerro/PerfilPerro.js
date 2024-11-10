@@ -8,7 +8,7 @@ import { AuthContext } from '../../AuthContext';
 const PerfilPerro = () => {
   // const [perro, setPerro] = useState(null);
   const location = useLocation();
-  const { perro } = location.state;
+  const { perro } = location.state || {};
   const navigate = useNavigate();
   const [comentarios, setComentarios] = useState([]);
   const [nuevoComentario, setNuevoComentario] = useState();
@@ -25,7 +25,7 @@ const PerfilPerro = () => {
       }
       };
     comentariosData();
-  }, []);
+  }, [perro.id, perro.descripcion]);
   
   const handleComentarioChange = (e) => {
     setNuevoComentario(e.target.value);
@@ -76,6 +76,9 @@ const PerfilPerro = () => {
   if (!perro) {
     return <p>Cargando datos del perro...</p>;
   }
+  console.log("User ID:", user.id);
+
+  console.log("Perro ID:", perro.id);
 
   return (
     <div className="perfil-perro-page">
@@ -102,11 +105,13 @@ const PerfilPerro = () => {
           <p><strong>Última ubicación:</strong> {perro.estado.direccion_visto}</p>
           <p><strong>Contacto:</strong> {perro.usuario.num_celular}</p>
         </div>
-        {
+        
+        { user.id === perro.usuario.id && (
             <div className="perfil-perro-actions">
               <button onClick={handleEdit} className="editar-btn">Editar Perro</button>
               <button onClick={handleDelete} className="eliminar-btn">Eliminar Perro</button>
             </div>
+        )
         }
     
         {/* Contenedor de comentarios */}

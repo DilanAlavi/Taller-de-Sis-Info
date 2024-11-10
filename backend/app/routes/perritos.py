@@ -79,23 +79,43 @@ def editar_perrito(
     db: Session = Depends(get_db),
     user_id: int = Depends(get_id_usuario)
 ):
-    print(f"Verificando propiedad del perrito con ID: {perrito_id} para el usuario con ID: {user_id}")
+    print(f"Contenido de estado en perrito_data: {perrito_data.estado}")
+
+    # Aquí puedes verificar si estado tiene datos
+    if perrito_data.estado is None:
+        print("El campo estado está vacío (None)")
+    else:
+        print("El campo estado tiene datos:", perrito_data.estado.dict())
+   
     
     if not es_propietario_perrito(perrito_id, user_id, db):
         raise HTTPException(status_code=403, detail="No tienes permiso para editar este perrito")
 
     perrito = db.query(Perrito).filter(Perrito.id == perrito_id).first()
+    print("Información del perrito:", perrito.estado_perro)
+
+
+
+    if perrito is None:
+        raise HTTPException(status_code=404, detail="Perrito no encontrado")
+
+    if perrito.estado_perro is None:
+        raise HTTPException(status_code=404, detail="Estado del perrito no encontrado")
 
     # Actualizar los campos básicos
     for field, value in perrito_data.dict(exclude_unset=True).items():
-        if field == "estado":  # Si el campo es 'estado', actualizamos los campos anidados
-            for estado_field, estado_value in value.dict(exclude_unset=True).items():
-                setattr(perrito.estado, estado_field, estado_value)  # Aquí 'estado' debe ser un objeto relacionado
+        if field == "estado": 
+            for estado_field, estado_value in value.items():
+                setattr(perrito.estado_perro, estado_field, estado_value)
         else:
             setattr(perrito, field, value)
 
-    db.commit()
-    db.refresh(perrito)
+    try:
+        db.commit()
+        db.refresh(perrito)
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail="Error al actualizar el perrito")
 
     return {"message": "Perrito actualizado exitosamente", "perrito": perrito}
 

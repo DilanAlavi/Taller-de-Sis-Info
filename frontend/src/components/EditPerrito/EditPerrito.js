@@ -52,9 +52,11 @@ const EditPerro = () => {
         raza: formData.raza,
         color: formData.color,
         genero: formData.genero,
-        descripcion: formData.descripcion,
-        direccion_visto: formData.direccion_visto,
-        fecha: formData.fecha,
+        estado: {
+          descripcion: formData.descripcion,
+          direccion_visto: formData.direccion_visto,
+          fecha: formData.fecha
+        }
       }, {
         headers: {
           'X-User-ID': user.id.toString(), 
@@ -64,7 +66,7 @@ const EditPerro = () => {
       console.log("id usuario:", user.id.toString());
       console.log("Perrito actualizado exitosamente:", response.data);
       alert('Los cambios fueron guardados exitosamente.');
-      navigate(`/perrito/${id}`); 
+      navigate(`/paginaperrovisto`, { state: { perro: perro } } ); 
     } catch (error) {
       console.error("Error al guardar los cambios:", error);
       alert('Hubo un error al guardar los cambios.');
@@ -103,12 +105,12 @@ const EditPerro = () => {
                 value={formData.raza}
                 onChange={handleInputChange}
               >
-                <option value="golden">Golden</option>
-                <option value="chapi">Chapi</option>
-                <option value="bulldog">Bulldog</option>
-                <option value="pastor aleman">Pastor Alemán</option>
-                <option value="pitbul">Pitbull</option>
-                <option value="cocker">Cocker</option>
+                <option value="Golden">Golden</option>
+                <option value="Chapi">Chapi</option>
+                <option value="Bulldog">Bulldog</option>
+                <option value="Pastor Aleman">Pastor Alemán</option>
+                <option value="Pitbul">Pitbull</option>
+                <option value="Cocker Spaniel">Cocker</option>
               </select>
             </div>
             <div>
@@ -129,10 +131,10 @@ const EditPerro = () => {
                 value={formData.color}
                 onChange={handleInputChange}
               >
-                <option value="cafe">Cafe</option>
-                <option value="blanco">Blanco</option>
-                <option value="beige">Beige</option>
-                <option value="negro">Negro</option>
+                <option value="Cafe">Cafe</option>
+                <option value="Blanco">Blanco</option>
+                <option value="Beige">Beige</option>
+                <option value="Negro">Negro</option>
               </select>
             </div>
             <div>

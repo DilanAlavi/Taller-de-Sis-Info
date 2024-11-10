@@ -9,7 +9,7 @@ const PaginaPerrosVistos = () => {
     const [loading, setLoading] = useState(true);
     const [perritos, setPerritos] = useState(null);
     const [perrosPerdidos, setPerrosPerdidos] = useState([]);
-    const navigate = new useNavigate();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const perritosData = async () => {
