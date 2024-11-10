@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import './User.css';
 import { AuthContext } from '../../AuthContext';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const User = () => {
   const { user } = useContext(AuthContext);
@@ -9,6 +10,8 @@ const User = () => {
   const [newData, setNewData] = useState(user || {});
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const { deleteUser } = useContext(AuthContext);
+  const { navigate } = useNavigate();
 
 
   useEffect(() => {

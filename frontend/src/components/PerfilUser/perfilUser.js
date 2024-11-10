@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './perfilUser.css';
+import { useLocation } from 'react-router-dom';
 
 const PerfilUser = () => {
-  const user = {
-    nombre: 'Juan Pérez',
-    telefono: '123456789',
-    correo: 'juan.perez@example.com',
-    direccion: 'Calle Falsa 123, Ciudad',
-    imagen: 'https://via.placeholder.com/150', 
-  };
-
+  const location = useLocation();
+  const { comentario } = location.state || {};
+  const user = comentario.usuario;
   const [text, setText] = useState('');
   const [index, setIndex] = useState(0);
 
@@ -29,7 +25,7 @@ const PerfilUser = () => {
       <h2>{text}</h2>
       <div className="perfil-user-details">
         <img
-          src={user.imagen}
+          src='https://via.placeholder.com/150'
           alt="Foto de perfil"
           className="perfil-user-image"
         />
@@ -39,11 +35,11 @@ const PerfilUser = () => {
         <p>
           <strong>Teléfono:</strong>{' '}
           <a
-            href={`https://wa.me/${user.telefono}`}
+            href={`https://wa.me/${user.num_celular}`}
             target="_blank"
             rel="noopener noreferrer"
           >
-            {user.telefono}
+            {user.num_celular}
           </a>
         </p>
         <p>
