@@ -12,6 +12,8 @@ const Footer = () => {
         <Link to="/PerritoVistoForm" className="footer-link">Reporta un Perrito Visto</Link>
         <Link to="/contacto" className="footer-link">Contacto</Link>
         <Link to="/infoPerros" className="footer-link">Información</Link>
+        <Link to="/PerfilUser" className="footer-link">Usuario</Link>
+
       </div>
       <p>© 2024 Only Lost Pets. Todos los derechos reservados.</p>
     </footer>
