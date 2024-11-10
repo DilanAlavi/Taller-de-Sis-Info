@@ -52,9 +52,11 @@ const EditPerro = () => {
         raza: formData.raza,
         color: formData.color,
         genero: formData.genero,
-        descripcion: formData.descripcion,
-        direccion_visto: formData.direccion_visto,
-        fecha: formData.fecha,
+        estado: {
+          descripcion: formData.descripcion,
+          direccion_visto: formData.direccion_visto,
+          fecha: formData.fecha
+        }
       }, {
         headers: {
           'X-User-ID': user.id.toString(), 
