@@ -37,7 +37,7 @@ const PerfilPerro = () => {
 
 
   const handleDelete = async () => {
-    const confirmation = window.confirm('¿Estás seguro de que deseas eliminar este perro?');
+    const confirmation = window.confirm('¿Estás seguro que encontraste tu perrito?');
     if (confirmation) {
       try {
         await axios.delete(`http://localhost:8000/perritos/${perro.id}`);
@@ -109,7 +109,7 @@ const PerfilPerro = () => {
         { user.id === perro.usuario.id && (
             <div className="perfil-perro-actions">
               <button onClick={handleEdit} className="editar-btn">Editar Perro</button>
-              <button onClick={handleDelete} className="eliminar-btn">Eliminar Perro</button>
+              <button onClick={handleDelete} className="eliminar-btn">Encontraste tu Perrito?</button>
             </div>
         )
         }
