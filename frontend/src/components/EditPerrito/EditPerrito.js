@@ -66,7 +66,7 @@ const EditPerro = () => {
       console.log("id usuario:", user.id.toString());
       console.log("Perrito actualizado exitosamente:", response.data);
       alert('Los cambios fueron guardados exitosamente.');
-      navigate(`/perrito/${id}`); 
+      navigate(`/paginaperrovisto`, { state: { perro: perro } } ); 
     } catch (error) {
       console.error("Error al guardar los cambios:", error);
       alert('Hubo un error al guardar los cambios.');

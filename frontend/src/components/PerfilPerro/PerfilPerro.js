@@ -8,7 +8,7 @@ import { AuthContext } from '../../AuthContext';
 const PerfilPerro = () => {
   // const [perro, setPerro] = useState(null);
   const location = useLocation();
-  const { perro } = location.state;
+  const { perro } = location.state || {};
   const navigate = useNavigate();
   const [comentarios, setComentarios] = useState([]);
   const [nuevoComentario, setNuevoComentario] = useState();
@@ -25,7 +25,7 @@ const PerfilPerro = () => {
       }
       };
     comentariosData();
-  }, [perro.id]);
+  }, [perro.id, perro.descripcion]);
   
   const handleComentarioChange = (e) => {
     setNuevoComentario(e.target.value);
