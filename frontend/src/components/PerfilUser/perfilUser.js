@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './perfilUser.css';
 
 const PerfilUser = () => {
@@ -10,9 +10,23 @@ const PerfilUser = () => {
     imagen: 'https://via.placeholder.com/150', // Imagen estándar
   };
 
+  const [text, setText] = useState('');
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const welcomeMessage = `Bienvenido, ${user.nombre}`;
+    if (index < welcomeMessage.length) {
+      const timer = setTimeout(() => {
+        setText(text + welcomeMessage[index]);
+        setIndex(index + 1);
+      }, 100); // Velocidad de la escritura (100 ms por letra)
+      return () => clearTimeout(timer);
+    }
+  }, [index, text, user.nombre]);
+
   return (
     <div className="perfil-user-container">
-      <h2>Perfil del Usuario</h2>
+      <h2>{text}</h2>
       <div className="perfil-user-details">
         <img
           src={user.imagen}

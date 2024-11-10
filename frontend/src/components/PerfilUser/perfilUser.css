@@ -1,43 +1,66 @@
 .perfil-user-container {
     max-width: 600px;
     margin: 0 auto;
+    margin-top: 60px;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    background-color: #f9f9f9;
+    background: linear-gradient(to right, #e5bf67, #de800c);  /* Degradado de la paleta */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: left;
-  }
-  
-  .perfil-user-details {
+}
+
+.perfil-user-details {
     line-height: 1.6;
-  }
-  
-  h2 {
+    color: #333;  /* Un color más oscuro para el texto */
+}
+
+h2 {
     text-align: center;
     margin-bottom: 20px;
-    color: #333;
-  }
-  
-  p {
+    color: #c35847;  /* Usando blanco para destacar el título en el degradado */
+    font-size: 2rem; /* Para que se vea más prominente */
+    white-space: nowrap;  /* Asegura que el texto no se rompa */
+    overflow: hidden;  /* Oculta el texto que no se ha mostrado aún */
+    border-right: 4px solid #c35847;  
+    width: fit-content; /* Ajusta el tamaño del contenedor al texto */
+    animation: typing 3s steps(30) 1s forwards, blink 0.75s step-end infinite; /* Animación de escritura */
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
+}
+
+p {
     margin: 10px 0;
-    color: #555;
-  }
-  
-  strong {
-    color: #000;
-  }
-  
-  a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  a:hover {
+    color: #f4f4f4; /* Color gris claro para párrafos */
+}
+
+strong {
+    color:  #c35847;  /* Para resaltar los textos importantes */
+}
+
+a {
+    color: #fff;  
+}
+
+a:hover {
     text-decoration: underline;
-  }
-  
-  .perfil-user-image {
+    color: #c35847;  /* Color de enlace al pasar el mouse */
+}
+
+.perfil-user-image {
     width: 150px;
     height: 150px;
     border-radius: 50%;
@@ -46,5 +69,6 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-  }
-  
+    border: 2px solid #c35847;  /* Borde suave en color complementario */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);  /* Sombra más intensa para darle profundidad */
+}
