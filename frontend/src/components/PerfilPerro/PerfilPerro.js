@@ -42,7 +42,7 @@ const PerfilPerro = () => {
       try {
         await axios.delete(`http://localhost:8000/perritos/${perro.id}`);
         alert('Perrito eliminado exitosamente.');
-        navigate('/perritos');
+        navigate('/paginaperrovisto');
       } catch (error) {
         console.error('Error al eliminar el perro:', error);
         alert('Hubo un error al eliminar el perro.');
@@ -119,7 +119,7 @@ const PerfilPerro = () => {
           <h3>Comentarios:</h3>
           <div className="comentarios-lista">
             {comentarios.map((comentario, index) => (
-              <div className="comentario" key={index}>
+              <div className="comentario" key={index} onClick={() => navigate("/perfil-user/", { state: {comentario} })}>
                 {/* <img 
                   src={comentario.avatar} 
                   alt="Avatar del comentarista" 
