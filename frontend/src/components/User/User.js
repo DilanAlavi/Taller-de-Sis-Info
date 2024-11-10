@@ -10,10 +10,12 @@ const User = () => {
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
+
   useEffect(() => {
     if (user) {
       setNewData(user);
     }
+    console.log(user.id)
   }, [user]);
 
   const handleChange = (e) => {
