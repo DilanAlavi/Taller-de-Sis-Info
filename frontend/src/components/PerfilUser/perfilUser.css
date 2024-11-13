@@ -23,8 +23,9 @@ h2 {
     overflow: hidden;
     border-right: 4px solid #c35847;
     width: fit-content;
-    animation: typing 3s steps(30) 1s forwards, blink 0.75s step-end infinite;
+    animation: typing 2s steps(30) 1s forwards, blink 0.75s step-end infinite, hideCursor 0s 2s forwards;
 }
+
 
 @keyframes typing {
     from {
@@ -38,6 +39,14 @@ h2 {
 @keyframes blink {
     50% {
         border-color: transparent;
+    }
+}
+@keyframes hideCursor {
+    0% {
+        border-right: 4px solid #c35847;
+    }
+    100% {
+        border-right: none;
     }
 }
 
