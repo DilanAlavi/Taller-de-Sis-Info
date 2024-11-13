@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaBars, FaUser } from 'react-icons/fa'; 
 import { AuthContext } from '../AuthContext';
 import logo from '../components/Imagenes/soloLogo.png';
@@ -10,10 +10,44 @@ import whatsappLogo from '../components/Imagenes/whatsApp.png';
 const Header = () => {
   const { user, logout } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isUserOpen, setIsUserOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const popupRef = useRef(null);
+
+
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setIsUserOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [popupRef]);
+
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const toggleUserOptions = () => {
+    setIsUserOpen(!isUserOpen);
+  };
+
+  const doLogout = () => {
+    setIsUserOpen(false);
+    navigate('/home');
+    logout();
+  };
+
+  const goPerfilUser = () => {
+    setIsUserOpen(false)
+    navigate('/user');
+  }
 
   return (
     <header className="header">
@@ -53,12 +87,17 @@ const Header = () => {
                 <li className="navbar-item"><Link to="/login">Login</Link></li>
               ) : (
                 <>
-                  <li className="navbar-item"><Link to="home" onClick={logout}>Cerrar Sesión</Link></li>
-                  <li className="navbar-item">
-                    <Link to="/user" onClick={() => console.log("Navegando a la página de usuario")}>
-                      <FaUser size={24} />
-                    </Link>
+                  <li className="navbar-item" onClick={toggleUserOptions}>
+                      <FaUser className='user-img' size={24} />
                   </li>
+
+                  { isUserOpen && (
+                    <div className='menu-user-open' ref={popupRef}>
+                      <li onClick={goPerfilUser}>Perfil</li>
+                      <li onClick={doLogout}>Cerrar Sesión</li>
+                    </div>
+                  )}
+
                 </>
               )}
             </ul>

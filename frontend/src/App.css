@@ -104,6 +104,23 @@ body, html {
   transform: scale(1);
 }
 
+.navbar-item .user-img {
+  text-decoration: none;
+  color: #ffff;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  transition: all 0.5s ease;
+
+}
+
+.navbar-item .user-img:hover {
+  background-color: #f0942b;
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+
+
 /* Contenido principal */
 .App-main {
   flex: 1;
@@ -429,6 +446,43 @@ button {
   .buttons {
     flex-direction: column;
   }
+}
+
+.menu-user-open {
+  position: absolute;
+  left: 89.2%;
+  top: 19%;
+  color: black;
+  background-color: white;
+  width: 9rem;
+  padding: 6px 5px;
+  height: auto;
+  z-index: 100;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 7%;
+    left: 7.75rem;  /* Ajusta esta distancia para controlar dónde aparece la colita */
+    transform: translateX(-108%);
+    border-width: 10px;
+    border-style: solid;
+    z-index: 101;
+    border-color: transparent white transparent transparent; /* Crea el triángulo */
+    rotate: 90deg;
+  }
+}
+
+.menu-user-open li {
+  margin: 8px 3px;
+  transition: all 0.5s ease;
+}
+.menu-user-open li:hover {
+  transform: scale(1.11);
+  background-color: wheat;
+  cursor: pointer;
 }
 
 @media (min-width: 1101px) {
