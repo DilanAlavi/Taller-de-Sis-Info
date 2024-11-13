@@ -3,6 +3,10 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from app.config import get_db
 from app.models.usuario import Usuario
+from app.models.perrito import Perrito
+from app.models.estado_perro import EstadoPerro
+from app.models.foto import Foto
+from app.models.comentarios import Comentario
 
 router = APIRouter()
 
@@ -36,3 +40,28 @@ def edit_user(user_id: int, user_update: UserUpdate, db: Session = Depends(get_d
     db.commit()
     db.refresh(user)
     return user
+
+@router.delete("/delete/{user_id}")
+def delete_user(user_id: int, db: Session = Depends(get_db)):
+    user = db.query(Usuario).filter(Usuario.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+    
+    perros = db.query(Perrito).filter(Perrito.usuario_id == user_id)
+    comentarios = db.query(Comentario).filter(Comentario.usuario_id == user_id) 
+
+    if comentarios :
+        for comentario in comentarios :
+            db.delete(comentario)
+
+    if perros: 
+        for perro in perros :
+            data = db.query(EstadoPerro).filter(EstadoPerro.id == perro.estado_perro_id).first()
+            foto = db.query(Foto).filter(Foto.perrito_id == perro.id).first()
+            db.delete(foto)
+            db.delete(perro)
+            db.delete(data)
+
+    db.delete(user)
+    db.commit()
+    return {"detail": "Usuario eliminado con éxito"}

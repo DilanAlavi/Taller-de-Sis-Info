@@ -11,7 +11,7 @@ const User = () => {
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const { deleteUser } = useContext(AuthContext);
-  const { navigate } = useNavigate();
+  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -54,12 +54,12 @@ const User = () => {
   };
 
   const handleDelete = async () => {
-    if (window.confirm("¿Estás seguro de que deseas eliminar tu cuenta? Esta acción es irreversible.")) {
+    if (window.confirm("¿Estás seguro de que deseas eliminar tu cuenta? Esta acción es irreversible y se eliminaran todos tus datos, incluyendo a los perros reportados.")) {
       try {
         await axios.delete(`http://127.0.0.1:8000/users/delete/${user.id}`);
+        navigate("/home"); 
         deleteUser(); 
         setSuccessMessage("Cuenta eliminada exitosamente");
-        navigate("/"); 
       } catch (error) {
         setError("Error al eliminar la cuenta");
         console.error("Error al eliminar el usuario:", error);
