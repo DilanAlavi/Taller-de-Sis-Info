@@ -37,7 +37,7 @@ const Register = () => {
       });
       console.log(response.data);
       alert('Registro exitoso');
-      navigate('/home');
+      navigate('/login');
     } catch (error) {
       console.error('Error en registro:', error);
       setError(error.response?.data?.detail || 'Error en el registro. Por favor, intente de nuevo.');
