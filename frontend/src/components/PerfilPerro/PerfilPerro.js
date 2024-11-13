@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import './PerfilPerro.css';
-import { FaArrowLeft, FaFlag } from 'react-icons/fa';
+import { FaArrowLeft, FaEllipsisV, FaFlag } from 'react-icons/fa';
 import axios from 'axios';
 import { AuthContext } from '../../AuthContext';
 
@@ -9,11 +9,20 @@ const PerfilPerro = () => {
   // const [perro, setPerro] = useState(null);
   const location = useLocation();
   const { perro } = location.state || {};
+
   const navigate = useNavigate();
   const [comentarios, setComentarios] = useState([]);
   const [nuevoComentario, setNuevoComentario] = useState();
+  const [nuevoComentarioEditado, setNuevoComentarioEditado] = useState();
   const { user } = useContext(AuthContext);
 
+  const [activePopupId, setActivePopupId] = useState(null);
+  const popupRef = useRef(null);
+  const [showPopupComentario, setShowPopupComentario] = useState(false);
+  const [ idComentarioEditar, setIdComentarioEditar ] = useState();
+  const [loading, setLoading] = useState(true);
+
+  
 
   useEffect(() => {
     const comentariosData = async () => {
@@ -22,13 +31,32 @@ const PerfilPerro = () => {
         setComentarios(response.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false)
       }
       };
     comentariosData();
-  }, [perro.id, perro.descripcion]);
+  }, [perro]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setActivePopupId(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [popupRef]);
+
   
   const handleComentarioChange = (e) => {
     setNuevoComentario(e.target.value);
+  };
+
+  const handleComentarioEditadoChange = (e) => {
+    setNuevoComentarioEditado(e.target.value);
   };
 
   const handleEdit = () => {
@@ -73,12 +101,65 @@ const PerfilPerro = () => {
     }
   };
 
-  if (!perro) {
-    return <p>Cargando datos del perro...</p>;
+  const handleNuevoComentario = (id) => {
+    setIdComentarioEditar(id);
+    setShowPopupComentario(!showPopupComentario)
   }
-  console.log("User ID:", user.id);
 
-  console.log("Perro ID:", perro.id);
+  const handleComentarioEdit = async (e) => {
+    e.preventDefault();
+    if (nuevoComentarioEditado.trim() === '') return;  
+
+    try {
+      await axios.put(`http://localhost:8000/comentario/edit/${idComentarioEditar}`, {
+        comentario: nuevoComentarioEditado
+      });
+      setShowPopupComentario(false)
+      try {
+        const responseNuevosComentarios = await axios.get(`http://127.0.0.1:8000/comentario/${perro.id}`);
+        setComentarios(responseNuevosComentarios.data);
+      } catch (error) {
+        console.log(error);
+      }
+      setNuevoComentario('')
+
+    } catch (error) {
+      console.log("Error en al editar comentario: ", error);
+    }
+  };
+
+  const handleComentarioDelete = async (id) => {
+    try {
+      const resposeDeleteComentario = await axios.delete(`http://localhost:8000/comentario/delete/${id}`);
+      console.log(resposeDeleteComentario);
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/comentario/${perro.id}`);
+        setComentarios(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    catch (error) {
+      console.log("Error al eliminar el comentario:", error);
+    }
+     
+  };
+
+  const togglePopup = (id) => {
+    setActivePopupId(activePopupId === id ? null : id);
+  };
+
+
+  if (!perro || !perro.id) {
+    console.log("NSKJFDSJKFDSJKFHDSJKH")
+    return (
+      <div className="perfil-perro-page" style={{textAlign:"center"}}>
+        <FaArrowLeft onClick={() => navigate(-1)}/>
+        <p style={{color:"black", fontSize:"3rem"}}>Error 404</p>
+      </div>
+    )
+  }
+
 
   return (
     <div className="perfil-perro-page">
@@ -86,9 +167,12 @@ const PerfilPerro = () => {
       <Link to="/report-user">
         <FaFlag size={24} title="Reportar usuario" />
       </Link>
-        <span className="report-text">Reportar Usuario</span>
-      
+      <span className="report-text">Reportar Usuario</span>
 
+      {loading ? (
+        <p></p> // Mostrar mensaje mientras se cargan los datos
+      ) : (
+        perro && (
       <div className="perfil-perro-container">
         <div className="perfil-perro">
           
@@ -119,18 +203,59 @@ const PerfilPerro = () => {
           <h3>Comentarios:</h3>
           <div className="comentarios-lista">
             {comentarios.map((comentario, index) => (
-              <div className="comentario" key={index} onClick={() => navigate("/perfil-user/", { state: {comentario} })}>
-                {/* <img 
-                  src={comentario.avatar} 
-                  alt="Avatar del comentarista" 
-                  className="comentario-avatar" 
-                /> */}
+              <div className="comentario" key={index}>
                 <div className="comentario-texto">
-                  <strong>{comentario.usuario.nombre}:</strong> {comentario.comentario}
+                  <img 
+                    src='https://via.placeholder.com/150'
+                    alt="Avatar del comentarista" 
+                    className="comentario-avatar" 
+                  />
+                  <strong 
+                    onClick={() => navigate(`/perfil-user/${comentario.usuario.id}`, 
+                    { state: {user: comentario.usuario} })}>{comentario.usuario.nombre}: 
+                  </strong>  {comentario.comentario}
                 </div>
+
+                <FaEllipsisV className='opciones-comentario' onClick={() => togglePopup(comentario.id)}></FaEllipsisV>
+                
+                { activePopupId === comentario.id && (
+                  <div className="popup-comentario" ref={popupRef}>
+                    { user.id === comentario.usuario.id && (
+                      <button onClick={() => handleNuevoComentario(comentario.id)}>Editar</button>
+                    )} 
+
+                    { (user.id === comentario.usuario.id || user.id === perro.usuario.id) && (
+                       <button onClick={() => handleComentarioDelete(comentario.id)}>Eliminar</button>
+                    )}
+                    
+                    <button onClick={() => {/* añadir a futuro */}}>Reportar</button>
+                    <span>{}</span>
+                    <button onClick={() => togglePopup(null)}>Cerrar</button>
+                  </div>
+                )}
               </div>
             ))}
           </div>
+
+          {showPopupComentario && (
+            <div className="popup-edit-comentario-overlay">
+              <form onSubmit={handleComentarioEdit} className="popup-edit-comentario">
+                <h4>Editar Comentario</h4>
+                <textarea 
+                  value={nuevoComentarioEditado}
+                  onChange={handleComentarioEditadoChange}
+                  placeholder="Agrega un comentario..."
+                  rows="3"
+                  className="comentario-input"
+                ></textarea>
+                <div>
+                  <button type="submit" className="comentario-boton">Enviar</button>
+                  <button onClick={() => handleNuevoComentario(null)}>Cancelar</button>
+                </div>
+              </form>
+            </div>
+          )}
+
     
           <form onSubmit={handleComentarioSubmit} className="comentario-form">
             <textarea
@@ -144,6 +269,10 @@ const PerfilPerro = () => {
           </form>
         </div>
       </div>
+        )
+      )}
+
+
     </div>
   );
 };
