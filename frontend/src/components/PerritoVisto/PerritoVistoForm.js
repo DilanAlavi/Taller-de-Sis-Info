@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { FaFacebook, FaInstagram, FaUpload, FaWhatsapp } from 'react-icons/fa';
+import { FaUpload, FaWhatsapp } from 'react-icons/fa';
 import './PerritoVistoForm.css';
 import { AuthContext } from '../../AuthContext';
 import axios from 'axios';
@@ -12,10 +12,11 @@ const PerritoVistoForm = () => {
   const [color, setColor] = useState('');
   const [genero, setGenero] = useState('');
   const [direccion, setDireccion] = useState('');
-  const [date, setDate] = useState('');
+  // const [date, setDate] = useState('');
   const { user } = useContext(AuthContext)
   const [preview, setPreview] = useState('');
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -30,17 +31,33 @@ const PerritoVistoForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(user)
-    console.log({ foto, descripcion, raza, color, direccion, date });
+    setLoading(true);
+    // console.log(user)
+    // console.log({ foto, descripcion, raza, color, direccion, date });
     
+    const currentDate = new Date().toISOString().split("T")[0];
     const formDataFoto = new FormData();
     formDataFoto.append("foto", foto);
 
     try {
+      const response_foto = await fetch('http://localhost:8000/foto/subir', {
+        method: 'POST',
+        body: formDataFoto
+      });
+
+      if(!response_foto.ok) {
+        alert("Hubo un problema en la subida de la foto, comprueba tu conexión de internet")
+        throw new Error('Error en la subida de la foto');
+      }
+
+      const data_foto = await response_foto.json()
+      console.log("Imagen subida:", data_foto.file_id)
+
+
       const response_estado = await axios.post('http://localhost:8000/perro/estado', {
         descripcion: descripcion,
         direccion_visto: direccion,
-        fecha: date,
+        fecha: currentDate,
         estado: 0,
       });
       console.log(response_estado.data[0]);
@@ -55,12 +72,7 @@ const PerritoVistoForm = () => {
       });
       console.log("Datos perro:", response.data)
 
-      const response_foto = await fetch('http://localhost:8000/foto/subir', {
-        method: 'POST',
-        body: formDataFoto
-      });
-      const data_foto = await response_foto.json()
-      console.log("Imagen subida:", data_foto.file_id)
+      
 
       const response_imagen_perrito = await axios.post('http://localhost:8000/foto/post', {
         direccion_foto: data_foto.file_id,
@@ -72,6 +84,8 @@ const PerritoVistoForm = () => {
       navigate('/home');
     } catch (error) {
       console.error('Error en registro:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -120,12 +134,12 @@ const PerritoVistoForm = () => {
                 onChange={(e) => setDireccion(e.target.value)}
                 required
               />
-              <input 
+              {/* <input 
                 type="date" 
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
                 required
-              />
+              /> */}
             </div>
             <div className='container-textarea'>
               <textarea 
@@ -163,10 +177,10 @@ const PerritoVistoForm = () => {
             </select>
           </div>
 
-          <button className="start-button">
+          <button className="start-button" type='submit' disabled={loading}>
             <span className="shadow-button"></span>
             <span className="edge-button"></span>
-            <span className="front-button text-button">Enviar Reporte</span>
+            <span className="front-button text-button ">{ loading ? "Cargando datos..." : "Enviar reporte"}</span>
           </button>
 
         </form>

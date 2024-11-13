@@ -18,6 +18,8 @@ const PerritoPerdidoForm = () => {
   const [preview, setPreview] = useState('');
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(false);
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setFoto(file);
@@ -30,10 +32,23 @@ const PerritoPerdidoForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const formDataFoto = new FormData();
     formDataFoto.append("foto", foto);
 
     try {
+      const response_foto = await fetch('http://localhost:8000/foto/subir', {
+        method: 'POST',
+        body: formDataFoto
+      });
+
+      if (!response_foto.ok) {
+        alert("Hubo un problema en la subida de la foto, comprueba tu conexión de internet")
+        throw new Error('Error en la subida de la foto');
+      }
+
+      const data_foto = await response_foto.json();
+
       const response_estado = await axios.post('http://localhost:8000/perro/estado', {
         descripcion,
         direccion_visto: direccion,
@@ -48,12 +63,6 @@ const PerritoPerdidoForm = () => {
         usuario_id: user.id,
         estado_perro_id: response_estado.data[0].id
       });
-
-      const response_foto = await fetch('http://localhost:8000/foto/subir', {
-        method: 'POST',
-        body: formDataFoto
-      });
-      const data_foto = await response_foto.json();
       
       await axios.post('http://localhost:8000/foto/post', {
         direccion_foto: data_foto.file_id,
@@ -64,6 +73,8 @@ const PerritoPerdidoForm = () => {
       navigate('/home');
     } catch (error) {
       console.error('Error en registro:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -94,6 +105,7 @@ const PerritoPerdidoForm = () => {
                   accept="image/*" 
                   onChange={handleFileChange}
                   id='file-upload'
+                  required
                 />
                 <label htmlFor="file-upload">
                   <FaUpload className='upload-logo'></FaUpload>
@@ -140,7 +152,7 @@ const PerritoPerdidoForm = () => {
 
           <p className='datos-adicionales'>Datos adicionales del perrito:</p>
           <div className='container-genero-raza-color'>
-            <select defaultValue="" onChange={(e) => setRaza(e.target.value)}>
+            <select defaultValue="" onChange={(e) => setRaza(e.target.value)} required>
               <option value="" disabled>Selecciona su raza</option>
               <option value="Golden">Golden</option>
               <option value="Chapi">Chapi</option>
@@ -149,12 +161,12 @@ const PerritoPerdidoForm = () => {
               <option value="Pitbull">Pitbull</option>
               <option value="Cocker Spaniel">Cocker</option>
             </select>
-            <select defaultValue="" onChange={(e) => setGenero(e.target.value)}>
+            <select defaultValue="" onChange={(e) => setGenero(e.target.value)} required>
               <option value="" disabled>Selecciona su género</option>
               <option value="M">Macho</option>
               <option value="H">Hembra</option>
             </select>
-            <select defaultValue="" onChange={(e) => setColor(e.target.value)}>
+            <select defaultValue="" onChange={(e) => setColor(e.target.value)} required>
               <option  value="" disabled>Selecciona su color</option>
               <option value="Cafe">Cafe</option>
               <option value="Blanco">Blanco</option>
@@ -163,10 +175,10 @@ const PerritoPerdidoForm = () => {
             </select>
           </div>
 
-          <button className="start-button">
+          <button className="start-button" type='submit' disabled={loading}>
             <span className="shadow-button"></span>
             <span className="edge-button"></span>
-            <span className="front-button text-button">Enviar Reporte</span>
+            <span className="front-button text-button">{ loading ? "Cargando datos..." : "Enviar reporte"}</span>
           </button>
         </form>
 
