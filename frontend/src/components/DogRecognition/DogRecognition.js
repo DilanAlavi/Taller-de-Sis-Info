@@ -117,7 +117,6 @@ const DogRecognition = () => {
                     />
                     <div className="coincidencia-info">
                       <h4>Coincidencia #{index + 1}</h4>
-                      <p><strong>Similitud:</strong> {coincidencia.similitud}</p>
                       <p><strong>Raza:</strong> {coincidencia.raza}</p>
                       <p><strong>Color:</strong> {coincidencia.color}</p>
                       <p><strong>Género:</strong> {coincidencia.genero}</p>
