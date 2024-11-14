@@ -28,7 +28,7 @@
   button {
     padding: 12px 24px;
     background-color: #ff7f50;
-    color: white;
+    color: rgb(157, 57, 57) !important;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -37,7 +37,7 @@
   }
   
   button:hover:not(:disabled) {
-    background-color: #e7850d;
+    background-color: #d2a6a4;
   }
   
   button:disabled {
