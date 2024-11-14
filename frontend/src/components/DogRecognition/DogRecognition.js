@@ -84,10 +84,16 @@ const DogRecognition = () => {
         <button 
           type="submit" 
           disabled={!selectedFile || isLoading}
-          className={isLoading ? 'loading' : ''}
         >
-          {isLoading ? 'Buscando coincidencias...' : 'Buscar Perro'}
+          {!isLoading ? 'Buscar Perro' : null}
         </button>
+
+        {isLoading && (
+          <div className="loading-message">
+            <span>Buscando coincidencias...</span>
+            <div className="spinner"></div>
+          </div>
+        )}
       </form>
       
       {result && (
