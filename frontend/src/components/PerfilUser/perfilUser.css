@@ -50,7 +50,7 @@ h2 {
     }
 }
 
-p {
+.perfil-user-details p {
     margin: 10px 0;
     color: #f4f4f4;
 }
@@ -79,4 +79,26 @@ a:hover {
     margin-right: auto;
     border: 2px solid #c35847;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.header-user-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.reportar-usuario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flag-report {
+    color: rgba(131, 24, 24, 0.5);
+}
+
+.flag-report:hover {
+    transform: scale(1.1);
+    color: rgba(184, 38, 38, 0.5);
 }

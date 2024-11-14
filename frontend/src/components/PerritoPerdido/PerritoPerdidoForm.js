@@ -20,177 +20,184 @@ const PerritoPerdidoForm = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    setFoto(file);
-    const fileReader = new FileReader();
-    fileReader.onload = () => {
-      setPreview(fileReader.result);
+  if(user) {
+
+    const handleFileChange = (event) => {
+      const file = event.target.files[0];
+      setFoto(file);
+      const fileReader = new FileReader();
+      fileReader.onload = () => {
+        setPreview(fileReader.result);
+      };
+      fileReader.readAsDataURL(file);
     };
-    fileReader.readAsDataURL(file);
-  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    const formDataFoto = new FormData();
-    formDataFoto.append("foto", foto);
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      setLoading(true);
+      const formDataFoto = new FormData();
+      formDataFoto.append("foto", foto);
 
-    try {
-      const response_foto = await fetch('http://localhost:8000/foto/subir', {
-        method: 'POST',
-        body: formDataFoto
-      });
+      try {
+        const response_foto = await fetch('http://localhost:8000/foto/subir', {
+          method: 'POST',
+          body: formDataFoto
+        });
 
-      if (!response_foto.ok) {
-        alert("Hubo un problema en la subida de la foto, comprueba tu conexión de internet")
-        throw new Error('Error en la subida de la foto');
+        if (!response_foto.ok) {
+          alert("Hubo un problema en la subida de la foto, comprueba tu conexión de internet")
+          throw new Error('Error en la subida de la foto');
+        }
+
+        const data_foto = await response_foto.json();
+
+        const response_estado = await axios.post('http://localhost:8000/perro/estado', {
+          descripcion,
+          direccion_visto: direccion,
+          fecha: date,
+          estado: 1,
+        });
+        const response = await axios.post('http://localhost:8000/perro/data', {
+          raza,
+          color,
+          genero,
+          nombre,
+          usuario_id: user.id,
+          estado_perro_id: response_estado.data[0].id
+        });
+        
+        await axios.post('http://localhost:8000/foto/post', {
+          direccion_foto: data_foto.file_id,
+          perrito_id: response.data[0].id
+        });
+
+        alert('Registro exitoso');
+        navigate('/home');
+      } catch (error) {
+        console.error('Error en registro:', error);
+      } finally {
+        setLoading(false);
       }
+    };
 
-      const data_foto = await response_foto.json();
+    const shareOnWhatsApp = () => {
+      const message = `¡Hola! He encontrado un perrito perdido que coincide con la descripción: ${descripcion}. ¿Podemos coordinar para que puedas recuperarlo?`;
+      const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    };
 
-      const response_estado = await axios.post('http://localhost:8000/perro/estado', {
-        descripcion,
-        direccion_visto: direccion,
-        fecha: date,
-        estado: 1,
-      });
-      const response = await axios.post('http://localhost:8000/perro/data', {
-        raza,
-        color,
-        genero,
-        nombre,
-        usuario_id: user.id,
-        estado_perro_id: response_estado.data[0].id
-      });
-      
-      await axios.post('http://localhost:8000/foto/post', {
-        direccion_foto: data_foto.file_id,
-        perrito_id: response.data[0].id
-      });
+    return (
+      <div className='contenedor-perro-perdido'>
+        <img className='img-perdido' src={`${process.env.PUBLIC_URL}/images/adiestramiento.jpeg`} alt='perritos en un campo'/>
 
-      alert('Registro exitoso');
-      navigate('/home');
-    } catch (error) {
-      console.error('Error en registro:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+        <div className="perrito-perdido-form-container">
+          <h2>Reporta un Perrito Perdido</h2>
+          <form onSubmit={handleSubmit} className="perrito-perdido-form">
+            <div className='container-img-nom'>
+              <div className='container-img'>
+                {preview && (
+                  <div className="image-perdido-preview">
+                    <img src={preview} alt="Preview" />
+                  </div>
+                )}
+                <div className='subir-imagen'>
+                  <input 
+                    className='input-img'
+                    type="file" 
+                    accept="image/*" 
+                    onChange={handleFileChange}
+                    id='file-upload'
+                    required
+                  />
+                  <label htmlFor="file-upload">
+                    <FaUpload className='upload-logo'></FaUpload>
+                  </label>
+                  <div>Subir imagen</div>
+                </div> 
+              </div>
 
-  const shareOnWhatsApp = () => {
-    const message = `¡Hola! He encontrado un perrito perdido que coincide con la descripción: ${descripcion}. ¿Podemos coordinar para que puedas recuperarlo?`;
-    const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
-  };
+              <input 
+                className='nombre-perrito'
+                type="text" 
+                placeholder="Nombre del perrito" 
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+                required
+              />
+            </div>
 
-  return (
-    <div className='contenedor-perro-perdido'>
-      <img className='img-perdido' src={`${process.env.PUBLIC_URL}/images/adiestramiento.jpeg`} alt='perritos en un campo'/>
-
-      <div className="perrito-perdido-form-container">
-        <h2>Reporta un Perrito Perdido</h2>
-        <form onSubmit={handleSubmit} className="perrito-perdido-form">
-          <div className='container-img-nom'>
-            <div className='container-img'>
-              {preview && (
-                <div className="image-perdido-preview">
-                  <img src={preview} alt="Preview" />
-                </div>
-              )}
-              <div className='subir-imagen'>
+            <div className='container-texta-fecha-dir'>
+              <div className='container-dir-fecha'>
                 <input 
-                  className='input-img'
-                  type="file" 
-                  accept="image/*" 
-                  onChange={handleFileChange}
-                  id='file-upload'
+                  type="text" 
+                  placeholder="Direccion perdido" 
+                  value={direccion}
+                  onChange={(e) => setDireccion(e.target.value)}
                   required
                 />
-                <label htmlFor="file-upload">
-                  <FaUpload className='upload-logo'></FaUpload>
-                </label>
-                <div>Subir imagen</div>
-              </div> 
+                <input 
+                  type="date" 
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  required
+                />
+              </div>
+              <div className='container-textarea'>
+                <textarea 
+                  placeholder="Descripción del perrito" 
+                  value={descripcion}
+                  onChange={(e) => setDescription(e.target.value)}
+                  required
+                />
+              </div>
             </div>
 
-            <input 
-              className='nombre-perrito'
-              type="text" 
-              placeholder="Nombre del perrito" 
-              value={nombre}
-              onChange={(e) => setNombre(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className='container-texta-fecha-dir'>
-            <div className='container-dir-fecha'>
-              <input 
-                type="text" 
-                placeholder="Direccion perdido" 
-                value={direccion}
-                onChange={(e) => setDireccion(e.target.value)}
-                required
-              />
-              <input 
-                type="date" 
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                required
-              />
+            <p className='datos-adicionales'>Datos adicionales del perrito:</p>
+            <div className='container-genero-raza-color'>
+              <select defaultValue="" onChange={(e) => setRaza(e.target.value)} required>
+                <option value="" disabled>Selecciona su raza</option>
+                <option value="Golden">Golden</option>
+                <option value="Chapi">Chapi</option>
+                <option value="Bulldog">Bulldog</option>
+                <option value="Pastor Aleman">Pastor Alemán</option>
+                <option value="Pitbull">Pitbull</option>
+                <option value="Cocker Spaniel">Cocker</option>
+              </select>
+              <select defaultValue="" onChange={(e) => setGenero(e.target.value)} required>
+                <option value="" disabled>Selecciona su género</option>
+                <option value="M">Macho</option>
+                <option value="H">Hembra</option>
+              </select>
+              <select defaultValue="" onChange={(e) => setColor(e.target.value)} required>
+                <option  value="" disabled>Selecciona su color</option>
+                <option value="Cafe">Cafe</option>
+                <option value="Blanco">Blanco</option>
+                <option value="Beige">Beige</option>
+                <option value="Negro">Negro</option>
+              </select>
             </div>
-            <div className='container-textarea'>
-              <textarea 
-                placeholder="Descripción del perrito" 
-                value={descripcion}
-                onChange={(e) => setDescription(e.target.value)}
-                required
-              />
-            </div>
+
+            <button className="start-button" type='submit' disabled={loading}>
+              <span className="shadow-button"></span>
+              <span className="edge-button"></span>
+              <span className="front-button text-button">{ loading ? "Cargando datos..." : "Enviar reporte"}</span>
+            </button>
+          </form>
+
+          <div className="share-buttons">
+            <h3>¿Has encontrado este perro?</h3>
+            <button onClick={shareOnWhatsApp}>
+              <FaWhatsapp /> Contactar al propietario
+            </button>
           </div>
-
-          <p className='datos-adicionales'>Datos adicionales del perrito:</p>
-          <div className='container-genero-raza-color'>
-            <select defaultValue="" onChange={(e) => setRaza(e.target.value)} required>
-              <option value="" disabled>Selecciona su raza</option>
-              <option value="Golden">Golden</option>
-              <option value="Chapi">Chapi</option>
-              <option value="Bulldog">Bulldog</option>
-              <option value="Pastor Aleman">Pastor Alemán</option>
-              <option value="Pitbull">Pitbull</option>
-              <option value="Cocker Spaniel">Cocker</option>
-            </select>
-            <select defaultValue="" onChange={(e) => setGenero(e.target.value)} required>
-              <option value="" disabled>Selecciona su género</option>
-              <option value="M">Macho</option>
-              <option value="H">Hembra</option>
-            </select>
-            <select defaultValue="" onChange={(e) => setColor(e.target.value)} required>
-              <option  value="" disabled>Selecciona su color</option>
-              <option value="Cafe">Cafe</option>
-              <option value="Blanco">Blanco</option>
-              <option value="Beige">Beige</option>
-              <option value="Negro">Negro</option>
-            </select>
-          </div>
-
-          <button className="start-button" type='submit' disabled={loading}>
-            <span className="shadow-button"></span>
-            <span className="edge-button"></span>
-            <span className="front-button text-button">{ loading ? "Cargando datos..." : "Enviar reporte"}</span>
-          </button>
-        </form>
-
-        <div className="share-buttons">
-          <h3>¿Has encontrado este perro?</h3>
-          <button onClick={shareOnWhatsApp}>
-            <FaWhatsapp /> Contactar al propietario
-          </button>
         </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <h1>Debes tener sesión iniciada para registrar a tu perrito perdido.</h1>
+    )
+  }
 };
 
 export default PerritoPerdidoForm;

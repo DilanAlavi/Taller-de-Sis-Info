@@ -1,7 +1,7 @@
 import React from 'react';
 import './perfilUser.css';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { FaArrowLeft } from 'react-icons/fa';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { FaArrowLeft, FaFlag } from 'react-icons/fa';
 
 const PerfilUser = () => {
   const location = useLocation();
@@ -24,7 +24,18 @@ const PerfilUser = () => {
       ) : (
         user && (
       <div className="perfil-user-container">
-        <FaArrowLeft onClick={() => navigate(-1)}/>
+
+        <div className='header-user-container'>
+          <FaArrowLeft onClick={() => navigate(-1)}/>
+            
+          <div className='reportar-usuario'>
+            <Link to="/report-user">
+              <FaFlag size={24} title="Reportar usuario" className='flag-report' />
+            </Link>
+            {/* <span className="report-text">Reportar Usuario</span> */}
+          </div>
+        </div>
+
         <div className="perfil-user-details">
           <img
             src='https://via.placeholder.com/150'

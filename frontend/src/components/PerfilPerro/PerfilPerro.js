@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './PerfilPerro.css';
-import { FaArrowLeft, FaEllipsisV, FaFlag } from 'react-icons/fa';
+import { FaArrowLeft, FaEllipsisV } from 'react-icons/fa';
 import axios from 'axios';
 import { AuthContext } from '../../AuthContext';
 
@@ -22,7 +22,6 @@ const PerfilPerro = () => {
   const [ idComentarioEditar, setIdComentarioEditar ] = useState();
   const [loading, setLoading] = useState(true);
 
-  
 
   useEffect(() => {
     const comentariosData = async () => {
@@ -151,7 +150,6 @@ const PerfilPerro = () => {
 
 
   if (!perro || !perro.id) {
-    console.log("NSKJFDSJKFDSJKFHDSJKH")
     return (
       <div className="perfil-perro-page" style={{textAlign:"center"}}>
         <FaArrowLeft onClick={() => navigate(-1)}/>
@@ -164,10 +162,6 @@ const PerfilPerro = () => {
   return (
     <div className="perfil-perro-page">
       <FaArrowLeft onClick={() => navigate(-1)}/>
-      <Link to="/report-user">
-        <FaFlag size={24} title="Reportar usuario" />
-      </Link>
-      <span className="report-text">Reportar Usuario</span>
 
       {loading ? (
         <p></p> // Mostrar mensaje mientras se cargan los datos
@@ -188,9 +182,17 @@ const PerfilPerro = () => {
           <p><strong>Fecha de pérdida:</strong> {perro.estado.fecha}</p>
           <p><strong>Última ubicación:</strong> {perro.estado.direccion_visto}</p>
           <p><strong>Contacto:</strong> {perro.usuario.num_celular}</p>
+          <a
+              href={`https://wa.me/${perro.usuario.num_celular}?text=Hola, soy un usuario que encontró un perro y me gustaría coordinar la devolución de ${perro.nombre}.`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="whatsapp-button"
+          >
+              Contactar por WhatsApp
+          </a>
         </div>
         
-        { user.id === perro.usuario.id && (
+        { user && user.id === perro.usuario.id && (
             <div className="perfil-perro-actions">
               <button onClick={handleEdit} className="editar-btn">Editar Perro</button>
               <button onClick={handleDelete} className="eliminar-btn">Encontraste tu Perrito?</button>
@@ -198,7 +200,6 @@ const PerfilPerro = () => {
         )
         }
     
-        {/* Contenedor de comentarios */}
         <div className="comentarios-container">
           <h3>Comentarios:</h3>
           <div className="comentarios-lista">
@@ -220,11 +221,11 @@ const PerfilPerro = () => {
                 
                 { activePopupId === comentario.id && (
                   <div className="popup-comentario" ref={popupRef}>
-                    { user.id === comentario.usuario.id && (
+                    { user && user.id === comentario.usuario.id && (
                       <button onClick={() => handleNuevoComentario(comentario.id)}>Editar</button>
                     )} 
 
-                    { (user.id === comentario.usuario.id || user.id === perro.usuario.id) && (
+                    { user && (user.id === comentario.usuario.id || user.id === perro.usuario.id) && (
                        <button onClick={() => handleComentarioDelete(comentario.id)}>Eliminar</button>
                     )}
                     
