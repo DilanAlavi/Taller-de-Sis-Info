@@ -19,7 +19,7 @@ import EditPerro from './components/EditPerrito/EditPerrito';
 import PerfilUser from './components/PerfilUser/perfilUser';
 import './App.css';
 import ReportUser from './components/ResportUser';
-import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 const App = () => {
   return (
