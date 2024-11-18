@@ -10,7 +10,7 @@ const User = () => {
   const [newData, setNewData] = useState(user || {});
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const { deleteUser } = useContext(AuthContext);
+  const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
 
@@ -58,7 +58,7 @@ const User = () => {
       try {
         await axios.delete(`http://127.0.0.1:8000/users/delete/${user.id}`);
         navigate("/home"); 
-        deleteUser(); 
+        logout(); 
         setSuccessMessage("Cuenta eliminada exitosamente");
       } catch (error) {
         setError("Error al eliminar la cuenta");
