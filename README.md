@@ -10,6 +10,7 @@
 - uvicorn main:app --reload
 - Si quieren instalar todo automaticamente  pip install -r requerimientos.txt
 -tensor queda pendiente
+-Nuena dependencias pip install python-jose python-multipart
 ## Frontend
 - npm install axios react-router-dom @mui/material @emotion/react @emotion/styled
 - npm install react-router-dom
