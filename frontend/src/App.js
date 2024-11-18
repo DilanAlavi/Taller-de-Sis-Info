@@ -19,6 +19,7 @@ import EditPerro from './components/EditPerrito/EditPerrito';
 import PerfilUser from './components/PerfilUser/perfilUser';
 import './App.css';
 import ReportUser from './components/ResportUser';
+import ReportList from './components/ReportList/ReportList';
 
 const App = () => {
   return (
@@ -43,6 +44,7 @@ const App = () => {
             <Route path="/perfil-perro/:id" element={<PerfilPerro />} />
             <Route path="/report-user" element={<ReportUser />} />
             <Route path="/editar_perro/:id" element={<EditPerro />} />
+            <Route path="/report-list" element={<ReportList />} />
           </Routes>
         </main>
         <Footer />
