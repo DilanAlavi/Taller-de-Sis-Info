@@ -5,8 +5,6 @@ import { AuthContext } from '../../AuthContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-
-
 const PerritoVistoForm = () => {
   const [foto, setFoto] = useState(null);
   const [descripcion, setDescription] = useState('');
@@ -19,10 +17,8 @@ const PerritoVistoForm = () => {
   const [preview, setPreview] = useState('');
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [isProcessing, setIsProcessing] = useState(false); // Para bloquear el botón durante el procesamiento
-
-
-  const [isDog, setIsDog] = useState(false); // Para habilitar/deshabilitar el botón
+  const [isProcessing, setIsProcessing] = useState(false); 
+  const [isDog, setIsDog] = useState(false); 
   
 
   if (user) {
@@ -31,15 +27,13 @@ const PerritoVistoForm = () => {
       const file = event.target.files[0];
       setFoto(file);
       
-      // Desactivar el botón mientras se procesa la imagen
       setIsProcessing(true);
-      setPreview(''); // Limpiar la vista previa mientras procesamos la nueva imagen
+      setPreview(''); 
     
       const fileReader = new FileReader();
       fileReader.onload = async () => {
         setPreview(fileReader.result);
     
-        // Enviar archivo al backend para la clasificación
         const formData = new FormData();
         formData.append('file', file);
     
@@ -53,17 +47,17 @@ const PerritoVistoForm = () => {
           const { clasificacion, confianza } = response.data;
     
           if (clasificacion === 'Perro' && parseFloat(confianza) > 60) {
-            setIsDog(true); // Imagen clasificada como perro
+            setIsDog(true); 
             alert(`La imagen corresponde a un perro. Puedes subirla.`);
           } else {
-            setIsDog(false); // Imagen clasificada como no perro
+            setIsDog(false); 
             alert(`La imagen NO corresponde a un perro. No puedes subirla.`);
           }
         } catch (error) {
           console.error('Error al clasificar la imagen:', error);
           alert('Error al procesar la imagen. Inténtalo nuevamente.');
         } finally {
-          setIsProcessing(false); // Rehabilitar el botón después del procesamiento
+          setIsProcessing(false); 
         }
       };
     
