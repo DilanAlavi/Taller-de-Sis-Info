@@ -46,7 +46,13 @@ const PerritoVistoForm = () => {
     
           const { clasificacion, confianza } = response.data;
     
-
+          if (clasificacion === 'Perro' && parseFloat(confianza) > 60) {
+            setIsDog(true);
+            alert(`La imagen corresponde a un perro. Puedes subirlo.`);
+          } else {
+            setIsDog(false);
+            alert(`La imagen NO corresponde a un perro. No puedes subirlo.`);
+          }
         } catch (error) {
           console.error('Error al clasificar la imagen:', error);
           alert('Error al procesar la imagen. Inténtalo nuevamente.');
