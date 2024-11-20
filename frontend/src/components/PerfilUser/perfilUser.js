@@ -1,6 +1,6 @@
 import React from 'react';
 import './perfilUser.css';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaFlag } from 'react-icons/fa';
 
 const PerfilUser = () => {
@@ -28,10 +28,8 @@ const PerfilUser = () => {
         <div className='header-user-container'>
           <FaArrowLeft onClick={() => navigate(-1)}/>
             
-          <div className='reportar-usuario'>
-            <Link to="/report-user">
+          <div className='reportar-usuario' onClick={() => navigate(`/report/${user.id}`, { state: {user} })}>
               <FaFlag size={24} title="Reportar usuario" className='flag-report' />
-            </Link>
             {/* <span className="report-text">Reportar Usuario</span> */}
           </div>
         </div>

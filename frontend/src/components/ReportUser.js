@@ -1,13 +1,29 @@
+import axios from 'axios';
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const ReportUser = () => {
+  const location = useLocation();
+  const { user } = location.state || {};
   const [reason, setReason] = useState('');
   const [description, setDescription] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-  const handleReportSubmit = (e) => {
+  const handleReportSubmit = async (e) => {
     e.preventDefault();
     //reporte al backend.
+    console.log(user)
+    try {
+      const response = await axios.post('http://localhost:8000/reporte/post', {
+        descripcion: description,
+        motivo: reason,
+        usuario_id: user.id
+      }) 
+      console.log(response)
+    } catch (error) {
+      console.error("Sucedio un error a la hora de enviar un reporte:", error)
+    }
+    
     setSuccessMessage('¡Gracias! Tu reporte ha sido enviado.');
     setReason('');
     setDescription('');

@@ -18,7 +18,7 @@ import PerfilPerro from './components/PerfilPerro/PerfilPerro';
 import EditPerro from './components/EditPerrito/EditPerrito';
 import PerfilUser from './components/PerfilUser/perfilUser';
 import './App.css';
-import ReportUser from './components/ResportUser';
+import ReportUser from './components/ReportUser';
 import ReportList from './components/ReportList/ReportList';
 
 const App = () => {
@@ -42,7 +42,7 @@ const App = () => {
             <Route path='/paginaperroperdido' element={<PaginaPerrosPerdidos/>} />
             <Route path='/paginaperrovisto' element={<PaginaPerrosVistos/>} />
             <Route path="/perfil-perro/:id" element={<PerfilPerro />} />
-            <Route path="/report-user" element={<ReportUser />} />
+            <Route path="/report/:id" element={<ReportUser />} />
             <Route path="/editar_perro/:id" element={<EditPerro />} />
             <Route path="/report-list" element={<ReportList />} />
           </Routes>

@@ -144,6 +144,10 @@ const PerfilPerro = () => {
      
   };
 
+  const handleReport = (usuario) => {
+    navigate(`/report/${usuario.id}`, { state:{usuario} })
+  }
+
   const togglePopup = (id) => {
     setActivePopupId(activePopupId === id ? null : id);
   };
@@ -229,7 +233,7 @@ const PerfilPerro = () => {
                        <button onClick={() => handleComentarioDelete(comentario.id)}>Eliminar</button>
                     )}
                     
-                    <button onClick={() => {/* añadir a futuro */}}>Reportar</button>
+                    <button onClick={() => handleReport(perro.usuario)}>Reportar</button>
                     <span>{}</span>
                     <button onClick={() => togglePopup(null)}>Cerrar</button>
                   </div>
