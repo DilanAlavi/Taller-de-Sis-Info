@@ -210,7 +210,7 @@ const PerritoPerdidoForm = () => {
               </select>
             </div>
 
-            <button className="start-button" type="submit">
+            <button className="start-button" type="submit" disabled={loading || !isDog || isProcessing}>
               <span className="shadow-button"></span>
               <span className="edge-button"></span>
               <span className="front-button text-button">
