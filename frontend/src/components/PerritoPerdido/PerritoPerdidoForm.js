@@ -16,18 +16,51 @@ const PerritoPerdidoForm = () => {
   const [date, setDate] = useState('');
   const { user } = useContext(AuthContext);
   const [preview, setPreview] = useState('');
-  const navigate = useNavigate();
-
   const [loading, setLoading] = useState(false);
+  const [isDog, setIsDog] = useState(false);  // Para verificar si es un perro
+  const [isProcessing, setIsProcessing] = useState(false);
+  const navigate = useNavigate();
+ 
+
+
 
   if(user) {
 
-    const handleFileChange = (event) => {
+    const handleFileChange = async (event) => {
       const file = event.target.files[0];
       setFoto(file);
+      setIsProcessing(true);  // Indicamos que estamos procesando la imagen
+      setPreview('');  // Limpiamos la vista previa antes de la carga
+
       const fileReader = new FileReader();
-      fileReader.onload = () => {
+      fileReader.onload = async () => {
         setPreview(fileReader.result);
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+          const response = await axios.post('http://localhost:8000/pets/classify_pet', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+
+          const { clasificacion, confianza } = response.data;
+
+          if (clasificacion === 'Perro' && parseFloat(confianza) > 60) {
+            setIsDog(true);  // Confirmamos que es un perro
+            alert(`La imagen corresponde a un perro. Puedes continuar con el reporte.`);
+          } else {
+            setIsDog(false);  // No es un perro
+            alert(`La imagen NO corresponde a un perro. No puedes continuar con el reporte.`);
+          }
+        } catch (error) {
+          console.error('Error al clasificar la imagen:', error);
+          alert('Error al procesar la imagen. Inténtalo nuevamente.');
+        } finally {
+          setIsProcessing(false); // Indicamos que el procesamiento terminó
+        }
       };
       fileReader.readAsDataURL(file);
     };
@@ -177,10 +210,12 @@ const PerritoPerdidoForm = () => {
               </select>
             </div>
 
-            <button className="start-button" type='submit' disabled={loading}>
+            <button className="start-button" type="submit">
               <span className="shadow-button"></span>
               <span className="edge-button"></span>
-              <span className="front-button text-button">{ loading ? "Cargando datos..." : "Enviar reporte"}</span>
+              <span className="front-button text-button">
+                {loading ? 'Cargando datos...' : 'Enviar reporte'}
+              </span>
             </button>
           </form>
 
