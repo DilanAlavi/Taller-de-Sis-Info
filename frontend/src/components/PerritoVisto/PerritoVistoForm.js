@@ -19,6 +19,8 @@ const PerritoVistoForm = () => {
   const [preview, setPreview] = useState('');
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false); // Para bloquear el botón durante el procesamiento
+
 
   const [isDog, setIsDog] = useState(false); // Para habilitar/deshabilitar el botón
   
@@ -28,12 +30,16 @@ const PerritoVistoForm = () => {
     const handleFileChange = async (event) => {
       const file = event.target.files[0];
       setFoto(file);
+      
+      // Desactivar el botón mientras se procesa la imagen
+      setIsProcessing(true);
+      setPreview(''); // Limpiar la vista previa mientras procesamos la nueva imagen
     
       const fileReader = new FileReader();
       fileReader.onload = async () => {
         setPreview(fileReader.result);
     
-        // Enviar archivo al backend
+        // Enviar archivo al backend para la clasificación
         const formData = new FormData();
         formData.append('file', file);
     
@@ -47,19 +53,23 @@ const PerritoVistoForm = () => {
           const { clasificacion, confianza } = response.data;
     
           if (clasificacion === 'Perro' && parseFloat(confianza) > 60) {
-            setIsDog(true);
-            alert(`La imagen corresponde a un perro. Puedes subirlo.`);
+            setIsDog(true); // Imagen clasificada como perro
+            alert(`La imagen corresponde a un perro. Puedes subirla.`);
           } else {
-            setIsDog(false);
-            alert(`La imagen NO corresponde a un perro. No puedes subirlo.`);
+            setIsDog(false); // Imagen clasificada como no perro
+            alert(`La imagen NO corresponde a un perro. No puedes subirla.`);
           }
         } catch (error) {
           console.error('Error al clasificar la imagen:', error);
           alert('Error al procesar la imagen. Inténtalo nuevamente.');
+        } finally {
+          setIsProcessing(false); // Rehabilitar el botón después del procesamiento
         }
       };
+    
       fileReader.readAsDataURL(file);
     };
+    
     
   
 
@@ -211,13 +221,14 @@ const PerritoVistoForm = () => {
               </select>
             </div>
 
-            <button className="start-button" type="submit">
+            <button className="start-button" type="submit" disabled={loading || !isDog || isProcessing}>
               <span className="shadow-button"></span>
               <span className="edge-button"></span>
               <span className="front-button text-button">
                 {loading ? 'Cargando datos...' : 'Enviar reporte'}
               </span>
             </button>
+
 
 
 
