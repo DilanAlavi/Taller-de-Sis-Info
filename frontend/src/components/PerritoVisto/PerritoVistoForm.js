@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState} from 'react';
 import { FaUpload, FaWhatsapp } from 'react-icons/fa';
 import './PerritoVistoForm.css';
 import { AuthContext } from '../../AuthContext';
