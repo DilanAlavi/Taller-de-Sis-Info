@@ -34,16 +34,20 @@ def classify_pet(image_path):
     model = cargar_o_crear_modelo()
     processed_image = load_and_preprocess_image(image_path)
     prediction = model.predict(processed_image)
-    print(prediction[0][0])
-    if prediction[0][0] > 0.5:
-        return "Perro"
+    confidence = prediction[0][0]  
+    
+    if confidence > 0.5:
+        return "Perro", confidence
     else:
-        return "No perro"
+        return "No perro", confidence
+
 
 
 def classify_pet_api(image_path):
     try:
-        result = classify_pet(image_path)
-        return {"clasificacion": result, "confianza": "Alta"}
+        result, confidence = classify_pet(image_path)
+        
+        return {"clasificacion": result, "confianza": f"{confidence * 100:.2f}%"}
     except Exception as e:
         return {"error": str(e)}
+

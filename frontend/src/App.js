@@ -5,7 +5,6 @@ import Home from './components/Home/Home';
 import Register from './components/Register/Register';
 import PerritoPerdidoForm from './components/PerritoPerdido/PerritoPerdidoForm';
 import User from './components/User/User';
-import IA from './components/IA/IA';
 import DogRecognition from './components/DogRecognition/DogRecognition';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -36,7 +35,6 @@ const App = () => {
             <Route path="/home" element={<ProtectedRoute element={<Home />} />} />
             
             <Route path="/perritoperdidoform" element={<PerritoPerdidoForm />} />
-            <Route path="/ia" element={<IA />} />
             <Route path="/dog-recognition" element={<DogRecognition />} />
             <Route path="/perfil-user/:id" element={<PerfilUser />} />
             {/* Ruta protegida */}

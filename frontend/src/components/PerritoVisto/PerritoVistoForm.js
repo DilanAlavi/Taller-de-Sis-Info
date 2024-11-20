@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { FaUpload, FaWhatsapp } from 'react-icons/fa';
 import './PerritoVistoForm.css';
 import { AuthContext } from '../../AuthContext';
@@ -17,19 +17,55 @@ const PerritoVistoForm = () => {
   const [preview, setPreview] = useState('');
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false); 
+  const [isDog, setIsDog] = useState(false); 
+  
 
   if (user) {
 
-    const handleFileChange = (event) => {
+    const handleFileChange = async (event) => {
       const file = event.target.files[0];
       setFoto(file);
       
+      setIsProcessing(true);
+      setPreview(''); 
+    
       const fileReader = new FileReader();
-      fileReader.onload = () => {
+      fileReader.onload = async () => {
         setPreview(fileReader.result);
+    
+        const formData = new FormData();
+        formData.append('file', file);
+    
+        try {
+          const response = await axios.post('http://localhost:8000/pets/classify_pet', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+    
+          const { clasificacion, confianza } = response.data;
+    
+          if (clasificacion === 'Perro' && parseFloat(confianza) > 60) {
+            setIsDog(true); 
+            alert(`La imagen corresponde a un perro. Puedes subirla.`);
+          } else {
+            setIsDog(false); 
+            alert(`La imagen NO corresponde a un perro. No puedes subirla.`);
+          }
+        } catch (error) {
+          console.error('Error al clasificar la imagen:', error);
+          alert('Error al procesar la imagen. Inténtalo nuevamente.');
+        } finally {
+          setIsProcessing(false); 
+        }
       };
+    
       fileReader.readAsDataURL(file);
     };
+    
+    
+  
 
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -179,11 +215,16 @@ const PerritoVistoForm = () => {
               </select>
             </div>
 
-            <button className="start-button" type='submit' disabled={loading}>
+            <button className="start-button" type="submit" disabled={loading || !isDog || isProcessing}>
               <span className="shadow-button"></span>
               <span className="edge-button"></span>
-              <span className="front-button text-button ">{ loading ? "Cargando datos..." : "Enviar reporte"}</span>
+              <span className="front-button text-button">
+                {loading ? 'Cargando datos...' : 'Enviar reporte'}
+              </span>
             </button>
+
+
+
 
           </form>
 
