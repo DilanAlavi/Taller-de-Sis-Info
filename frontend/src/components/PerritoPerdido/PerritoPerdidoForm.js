@@ -17,7 +17,7 @@ const PerritoPerdidoForm = () => {
   const { user } = useContext(AuthContext);
   const [preview, setPreview] = useState('');
   const [loading, setLoading] = useState(false);
-  const [isDog, setIsDog] = useState(false);  // Para verificar si es un perro
+  const [isDog, setIsDog] = useState(false);  
   const [isProcessing, setIsProcessing] = useState(false);
   const navigate = useNavigate();
  
@@ -29,8 +29,8 @@ const PerritoPerdidoForm = () => {
     const handleFileChange = async (event) => {
       const file = event.target.files[0];
       setFoto(file);
-      setIsProcessing(true);  // Indicamos que estamos procesando la imagen
-      setPreview('');  // Limpiamos la vista previa antes de la carga
+      setIsProcessing(true);  
+      setPreview('');  
 
       const fileReader = new FileReader();
       fileReader.onload = async () => {
@@ -49,17 +49,17 @@ const PerritoPerdidoForm = () => {
           const { clasificacion, confianza } = response.data;
 
           if (clasificacion === 'Perro' && parseFloat(confianza) > 60) {
-            setIsDog(true);  // Confirmamos que es un perro
+            setIsDog(true);  
             alert(`La imagen corresponde a un perro. Puedes continuar con el reporte.`);
           } else {
-            setIsDog(false);  // No es un perro
+            setIsDog(false);  
             alert(`La imagen NO corresponde a un perro. No puedes continuar con el reporte.`);
           }
         } catch (error) {
           console.error('Error al clasificar la imagen:', error);
           alert('Error al procesar la imagen. Inténtalo nuevamente.');
         } finally {
-          setIsProcessing(false); // Indicamos que el procesamiento terminó
+          setIsProcessing(false); 
         }
       };
       fileReader.readAsDataURL(file);
