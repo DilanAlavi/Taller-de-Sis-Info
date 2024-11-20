@@ -1,17 +1,44 @@
+import axios from 'axios';
 import React, { useState } from 'react';
+import { FaArrowLeft } from 'react-icons/fa';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const ReportUser = () => {
+  const location = useLocation();
+  const { user } = location.state || {};
   const [reason, setReason] = useState('');
   const [description, setDescription] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
 
-  const handleReportSubmit = (e) => {
+  const handleReportSubmit = async (e) => {
     e.preventDefault();
     //reporte al backend.
+    console.log(user)
+    try {
+      const response = await axios.post('http://localhost:8000/reporte/post', {
+        descripcion: description,
+        motivo: reason,
+        usuario_id: user.id
+      }) 
+      console.log(response)
+    } catch (error) {
+      console.error("Sucedio un error a la hora de enviar un reporte:", error)
+    }
+    
     setSuccessMessage('¡Gracias! Tu reporte ha sido enviado.');
     setReason('');
     setDescription('');
   };
+
+  if (!user || !user.id) {
+    return (
+      <div className="perfil-perro-page" style={{textAlign:"center"}}>
+        <FaArrowLeft onClick={() => navigate(-1)}/>
+        <p style={{color:"black", fontSize:"3rem"}}>Error 404</p>
+      </div>
+    )
+  }
 
   return (
     <div 
@@ -26,6 +53,7 @@ const ReportUser = () => {
         fontFamily: 'Arial, sans-serif',
       }}
     >
+      <FaArrowLeft onClick={() => navigate(-1)}/>
       <h2 style={{ fontSize: '24px', marginBottom: '20px', textAlign: 'center' }}>
         Reportar Usuario
       </h2>
@@ -63,6 +91,7 @@ const ReportUser = () => {
         <label style={{ display: 'block', marginBottom: '10px' }}>
           Descripción (opcional):
           <textarea
+          maxLength={100}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Proporcione detalles adicionales aquí..."
@@ -73,7 +102,7 @@ const ReportUser = () => {
               borderRadius: '4px',
               border: '1px solid #ccc',
               minHeight: '100px',
-              resize: 'vertical',
+              resize: 'none',
             }}
           />
         </label>

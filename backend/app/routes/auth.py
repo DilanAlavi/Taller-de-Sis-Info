@@ -37,7 +37,8 @@ def create_access_token(data: dict) -> str:
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 # Ruta para iniciar sesión
-@router.post("/login", response_model=Token)
+@router.post("/login")
+# , response_model=Token
 def login(user: UserLogin, db: Session = Depends(get_db)):
     # Buscar usuario en la base de datos
     db_user = db.query(Usuario).filter(Usuario.correo == user.correo).first()
@@ -48,7 +49,7 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
         )
     # Crear token JWT
     access_token = create_access_token(data={"sub": db_user.correo})
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {"access_token": access_token, "token_type": "bearer", "user": db_user}
 
 # Ruta para registrar un nuevo usuario
 @router.post("/register", status_code=201)

@@ -144,6 +144,10 @@ const PerfilPerro = () => {
      
   };
 
+  const handleReport = (reportUser) => {
+    navigate(`/report/${reportUser.id}`, { state:{user: reportUser} })
+  }
+
   const togglePopup = (id) => {
     setActivePopupId(activePopupId === id ? null : id);
   };
@@ -213,7 +217,7 @@ const PerfilPerro = () => {
                   />
                   <strong 
                     onClick={() => navigate(`/perfil-user/${comentario.usuario.id}`, 
-                    { state: {user: comentario.usuario} })}>{comentario.usuario.nombre}: 
+                    { state: {actualUser: comentario.usuario} })}>{comentario.usuario.nombre}: 
                   </strong>  {comentario.comentario}
                 </div>
 
@@ -229,9 +233,12 @@ const PerfilPerro = () => {
                        <button onClick={() => handleComentarioDelete(comentario.id)}>Eliminar</button>
                     )}
                     
-                    <button onClick={() => {/* añadir a futuro */}}>Reportar</button>
-                    <span>{}</span>
-                    <button onClick={() => togglePopup(null)}>Cerrar</button>
+                    { user && (user.id !== comentario.usuario.id) && (
+                      <button onClick={() => handleReport(comentario.usuario)}>Reportar</button>
+                    )}
+
+                    {/* <span>{}</span> */}
+                    <button style={{backgroundColor:'rgb(255, 101, 101)'}} onClick={() => togglePopup(null)}>Cerrar</button>
                   </div>
                 )}
               </div>
