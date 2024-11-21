@@ -20,6 +20,7 @@ const ReportList = () => {
       data();
   }, []);
 
+
   return (
     <div>
       {(loading && !reportes) ? (
@@ -27,7 +28,7 @@ const ReportList = () => {
           <span>Cargando reportes...</span>
           <div className="spinner"></div>
         </div>
-      ) : (
+      ) : ( reportes && (
         <div className="report-list-container">
           <h1>Lista de Reportes de Usuarios</h1>
           {reportes && reportes.length === 0 ? (
@@ -45,7 +46,7 @@ const ReportList = () => {
                 </tr>
               </thead>
               <tbody>
-                {reportes.map((report) => (
+                {reportes && reportes.map((report) => (
                   <tr key={report.id}>
                     <td>{report.id}</td>
                     <td>{report.usuario.nombre}</td>
@@ -57,7 +58,7 @@ const ReportList = () => {
             </table>
           )}
         </div>
-      )}
+      ))}
     </div>
   );
 };
