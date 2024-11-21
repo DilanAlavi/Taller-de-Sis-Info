@@ -6,16 +6,16 @@
 }
 
 .perro-visto-card {
-  margin: 5px 5px 5px 5px;
-  background-color: #0000001c;
+  margin: 5px;
+  background-color: rgba(76, 175, 80, 0.1); /* Verde primario con transparencia */
   display: flex;
-  max-width: 80vw;
-  min-width: 50vw;
   width: 75vw;
   min-width: 4rem;
+  max-width: 80vw;
   height: 8rem;
   border-radius: 20px;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(76, 175, 80, 0.2);
 }
 
 .perro-visto-foto {
@@ -26,28 +26,32 @@
   object-fit: cover;
 }
 
-.perro-visto-card:hover  {
+.perro-visto-card:hover {
   cursor: pointer;
   transform: scale(1.01);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.15);
+  border: 1px solid rgba(76, 175, 80, 0.3);
 }
 
 .perro-visto-informacion {
   display: flex;
-  justify-content:space-around;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
   margin: 5px;
+  color: #388E3C; /* Verde oscuro para el texto */
 }
 
 @media (max-width: 1100px) {
   .perro-visto-card {
-      min-width: 90vw;
-      max-width: 95vw;
-      font-size: 0.8rem;
+    min-width: 90vw;
+    max-width: 95vw;
+    font-size: 0.8rem;
   }
+  
   .perro-visto-foto {
-      max-width: 30%;
-      min-width: 30%;
+    max-width: 30%;
+    min-width: 30%;
   }
 }
 

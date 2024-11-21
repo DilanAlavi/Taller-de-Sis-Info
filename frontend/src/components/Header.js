@@ -87,6 +87,7 @@ const Header = () => {
                 <li className="navbar-item"><Link to="/report-list">Reportes</Link></li>
               )}
               
+              <li className="navbar-item"><Link to="/recaudacionFondos">Donaciones</Link></li>
               {user === null ? (
                 <li className="navbar-item"><Link to="/login">Login</Link></li>
               ) : (

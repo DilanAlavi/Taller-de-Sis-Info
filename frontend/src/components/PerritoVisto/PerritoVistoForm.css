@@ -3,12 +3,8 @@
   flex-direction: column;
   align-items: center;
   padding: 3rem;
-  /* background-color: #fff8f0;  */
-  border-radius: 8px;
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
-  width: 100%; 
+  width: 100%;
   height: 100%;
-  /* margin: auto; */
 }
 
 .perrito-perdido-form-container h2 {
@@ -22,6 +18,29 @@
   display: flex;
   align-items: center;  /* Alinear en el centro verticalmente */
   justify-content: center;  /* Alinear a la derecha */
+}
+.share-buttons button,
+.contactar-owner-button {
+  background-color: #4CAF50;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.share-buttons button:hover,
+.contactar-owner-button:hover {
+  background-color: #388E3C;
+}
+
+.input-img[type="file"]::-webkit-file-upload-button {
+  background-color: #4CAF50;
+}
+
+.input-img[type="file"]::-webkit-file-upload-button:hover {
+  background-color: #388E3C;
+}
+
+.upload-logo:hover {
+  filter: brightness(90%);
 }
 
 .nombre-perrito {
@@ -125,15 +144,14 @@ input {
 }
 
 .contenedor-perro-perdido input:not(.input-img),
-.container-genero-raza-color select {
-  width: 100%;
+.container-genero-raza-color select,
+textarea {
   padding: 0.8rem;
-  margin-bottom: 1.2rem;
-  border: 1px solid #dddddd00;
+  border: 1px solid rgba(76, 175, 80, 0.1);
   border-radius: 10px;
-  background-color: #acacac2c;
-  color: rgb(73, 73, 73);
-  transition: border-color 0.5s ease, box-shadow 0.6s ease, transform 0.5s ease-in;
+  background-color: rgba(76, 175, 80, 0.05);
+  color: #388E3C;
+  transition: all 0.3s ease;
 }
 
 .contenedor-perro-perdido input::placeholder:not(.input-img),
@@ -149,11 +167,11 @@ textarea::placeholder,
 textarea:focus,
 .container-genero-raza-color select:focus {
   outline: none;
-  border-color: #ee6d0a;
-  /* box-shadow: 0 0 5px rgba(238, 109, 10, 0.5); */
-  box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.473); 
+  border-color: #4CAF50;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.2);
   transform: scale(1.01);
 }
+
 
 .container-genero-raza-color {
   padding: 0 3rem 0 3rem;
@@ -176,7 +194,6 @@ textarea:focus,
 }
 
 .share-buttons button {
-  background-color: #FA9B2F; /* Color café claro para los botones de compartir */
   color: white;              /* Color del texto */
   padding: 10px 15px;        /* Espaciado interno */
   border: none;              /* Sin borde */
@@ -189,7 +206,7 @@ textarea:focus,
 }
 
 .share-buttons button:hover {
-  background-color: #ffb055; /* Café más oscuro al pasar el cursor */
+  background-color: #5aa13e; /* Café más oscuro al pasar el cursor */
 }
 
 
