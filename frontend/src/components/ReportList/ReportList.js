@@ -30,11 +30,11 @@ const ReportList = () => {
       ) : (
         <div className="report-list-container">
           <h1>Lista de Reportes de Usuarios</h1>
-          {reportes && reportes.length === 0 ? (
+          {!reportes ? (
             <div className="no-reports-message">
               <span>No existen reportes.</span>
             </div>
-          ) : (
+          ) : ( 
             <table className="report-table">
               <thead>
                 <tr>
@@ -45,7 +45,7 @@ const ReportList = () => {
                 </tr>
               </thead>
               <tbody>
-                {reportes.map((report) => (
+                {reportes && reportes.map((report) => (
                   <tr key={report.id}>
                     <td>{report.id}</td>
                     <td>{report.usuario.nombre}</td>
