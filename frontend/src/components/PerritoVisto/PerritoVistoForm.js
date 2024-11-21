@@ -224,9 +224,9 @@ const PerritoVistoForm = () => {
             </button>}       
           </form>
           {isProcessing && (
-              <div className="loading-message">
+              <div className="loading-messages">
                 <span>Verificando imagen...</span>
-                <div className="spinner"></div>
+                <div className="spinners"></div>
               </div>
             )}
           
