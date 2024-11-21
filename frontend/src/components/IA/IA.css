@@ -2,7 +2,6 @@
   max-width: 500px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f8f1e7; /* Color beige claro como fondo */
   border-radius: 12px; /* Bordes redondeados */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
@@ -52,13 +51,13 @@ button:disabled {
 .result {
   margin-top: 20px;
   padding: 15px;
-  background-color: #f3e6d2; /* Color beige claro para el fondo del resultado */
+  background-color: #91e689; /* Color beige claro para el fondo del resultado */
   border-radius: 8px; /* Bordes suaves */
-  border-left: 4px solid #d38e2d; /* Línea lateral de color para resaltar */
+  border-left: 4px solid #b3ecad; /* Línea lateral de color para resaltar */
 }
 
 .result h3 {
   margin-top: 0;
   font-size: 18px; /* Tamaño de fuente más grande */
-  color: #6f4c3e; /* Color marrón oscuro para el texto */
+
 }

@@ -54,7 +54,7 @@
 .perfil-perro-form input:focus,
 .perfil-perro-form select:focus,
 .perfil-perro-form textarea:focus {
-  border-color: #ee6d0a;
+  border-color: #70f696;
   box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.3);
 }
 
@@ -76,7 +76,7 @@ button {
 }
 
 button:hover {
-  background-color: #ffb055;
+  background-color: #49c788;
 }
 
 button:focus {
@@ -84,7 +84,7 @@ button:focus {
 }
 
 .boton-cambios{
-  background-color: #ffb055;
+  background-color: #4ba551;
   padding: 0.5rem;
 }
 

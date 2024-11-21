@@ -38,7 +38,7 @@
 }
 
 .delete-button {
-  background-color: #ff4d4d;
+  background-color: #ec5f5c;
   color: white;
   border: none;
   padding: 10px 15px;
@@ -48,7 +48,7 @@
 }
 
 .delete-button:hover {
-  background-color: #ff1a1a;
+  background-color: #b37039;
 }
 
 /* Mensaje de confirmación o error */
