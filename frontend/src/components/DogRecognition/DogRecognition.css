@@ -27,8 +27,8 @@
   
   button {
     padding: 12px 24px;
-    background-color: #ff7f50;
-    color: rgb(157, 57, 57) !important;
+    background-color: #a5d390;
+   
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -37,11 +37,11 @@
   }
   
   button:hover:not(:disabled) {
-    background-color: #d2a6a4;
+    background-color: #4bb02f;
   }
   
   button:disabled {
-    background-color: #cccccc;
+    background-color: #a3d7a4;
     cursor: not-allowed;
   }
   
@@ -119,7 +119,7 @@
   
   .coincidencia-info h4 {
     margin: 0 0 10px 0;
-    color: #ff7f50;
+    color: #5b9a34;
   }
   
   .coincidencia-info p {
