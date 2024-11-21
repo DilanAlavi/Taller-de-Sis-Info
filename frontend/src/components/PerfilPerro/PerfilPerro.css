@@ -144,7 +144,7 @@
   }
   
   .comentario-boton:hover {
-    background-color: #ee6d0a;
+    background-color: #7ac030;
   }
 
   .comentario-input::placeholder {
@@ -159,7 +159,7 @@
 
 
 .perfil-perro-actions button{
-  background-color: #ee6d0a;
+  background-color: #25d366;
   padding: 0.5rem;
 }
 
@@ -249,7 +249,7 @@
 .popup-edit-comentario button {
   margin: 5px 10px;
   padding: 8px 12px;
-  background-color: #FA9B2F;
+  background-color: #2ed03b;
   color: white;
   border: none;
   border-radius: 4px;

@@ -90,7 +90,7 @@ const DogRecognition = () => {
 
         {isLoading && (
           <div className="loading-message">
-            <span>Buscando coincidencias...</span>
+
             <div className="spinner"></div>
           </div>
         )}
