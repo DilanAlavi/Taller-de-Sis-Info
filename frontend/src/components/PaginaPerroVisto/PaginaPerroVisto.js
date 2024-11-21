@@ -40,18 +40,8 @@ const PaginaPerrosVistos = () => {
 
 
     return (
-       <div>
-            {loading ? (
-                <p>Cargando perritos...</p> // Mostrar mensaje mientras se cargan los datos
-            ) : (
-                perritos && (
-                <div>
-                    <h1>{perritos.nombre}</h1>
-                    {/* Muestra más datos */}
-                </div>
-                )
-            )}
-            
+
+       <div>            
             <input placeholder='Buscar perrito' />
 
             <button className='dog-button' onClick={() => navigate("/perritovistoform")}>
@@ -79,8 +69,16 @@ const PaginaPerrosVistos = () => {
                 </div>
                 ))}
             </div>
+            
+            {loading && (
+              <div className="loading-message">
+              <span>Cargando imagenes...</span>
+              <div className="spinner"></div>
+            </div>
+            )}
 
        </div> 
+       
     );
 };
 
