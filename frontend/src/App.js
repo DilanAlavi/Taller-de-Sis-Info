@@ -20,6 +20,7 @@ import './App.css';
 import ReportUser from './components/ReportUser';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import ReportList from './components/ReportList/ReportList';
+import RecaudacionFondos from './components/RecaudacionDeFondos/recaudacionFondos'
 
 const App = () => {
   return (
@@ -48,6 +49,7 @@ const App = () => {
             <Route path="/report/:id" element={<ReportUser />} />
             <Route path="/editar_perro/:id" element={<EditPerro />} />
             <Route path="/report-list" element={<ReportList />} />
+            <Route path="/recaudacionFondos" element={<RecaudacionFondos />} />
           </Routes>
         </main>
         <Footer />
