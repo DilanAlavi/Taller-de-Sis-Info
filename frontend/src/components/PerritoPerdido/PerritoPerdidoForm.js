@@ -217,14 +217,13 @@ const PerritoPerdidoForm = () => {
                 {loading ? 'Cargando datos...' : 'Enviar reporte'}
               </span>
             </button>}
-
-            {isProcessing && (
-              <div className="loading-message">
+          </form>
+          {isProcessing && (
+              <div className="loading-messagess">
                 <span>Verificando imagen...</span>
-                <div className="spinner"></div>
+                <div className="spinnerss"></div>
               </div>
             )}
-          </form>
 
           <div className="share-buttons">
             <h3>¿Has encontrado este perro?</h3>
