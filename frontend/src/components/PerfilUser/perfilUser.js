@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './perfilUser.css';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaFlag } from 'react-icons/fa';
+import { AuthContext } from '../../AuthContext';
+
 
 const PerfilUser = () => {
   const location = useLocation();
-  const { user } = location.state || {};
+  const { actualUser } = location.state || {};
+  const {user} = useContext(AuthContext);
   const navigate = useNavigate();
 
-  if (!user) {
+  if (!actualUser) {
     return (
       <div className="perfil-user-container" style={{textAlign:"center"}}>
         <FaArrowLeft onClick={() => navigate(-1)}/>
@@ -19,21 +22,23 @@ const PerfilUser = () => {
 
   return (
     <div>
-      {!user ? (
-        <p></p> // Mostrar mensaje mientras se cargan los datos
+      {!actualUser ? (
+        <p></p>
       ) : (
-        user && (
+        actualUser && (
       <div className="perfil-user-container">
 
         <div className='header-user-container'>
           <FaArrowLeft onClick={() => navigate(-1)}/>
-            
-          <div className='reportar-usuario'>
-            <Link to="/report-user">
-              <FaFlag size={24} title="Reportar usuario" className='flag-report' />
-            </Link>
-            {/* <span className="report-text">Reportar Usuario</span> */}
-          </div>
+          
+          { (user && user.id !== actualUser.id) && (
+            <div className='reportar-usuario' onClick={() => navigate(`/report/${actualUser.id}`, { state: {user: actualUser} })}>
+                <FaFlag size={24} title="Reportar usuario" className='flag-report' />
+              {/* <span className="report-text">Reportar Usuario</span> */}
+            </div>
+          )}
+
+
         </div>
 
         <div className="perfil-user-details">
@@ -43,24 +48,24 @@ const PerfilUser = () => {
             className="perfil-user-image"
           />
           <p>
-            <strong>Nombre:</strong> {user.nombre}
+            <strong>Nombre:</strong> {actualUser.nombre}
           </p>
           <p>
             <strong>Teléfono:</strong>{' '}
             <a
-              href={`https://wa.me/${user.num_celular}`}
+              href={`https://wa.me/${actualUser.num_celular}`}
               target="_blank"
               rel="noopener noreferrer"
             >
-              {user.num_celular}
+              {actualUser.num_celular}
             </a>
           </p>
           <p>
             <strong>Correo:</strong>{' '}
-            <a href={`mailto:${user.correo}`}>{user.correo}</a>
+            <a href={`mailto:${actualUser.correo}`}>{actualUser.correo}</a>
           </p>
           <p>
-            <strong>Dirección:</strong> {user.direccion}
+            <strong>Dirección:</strong> {actualUser.direccion}
           </p>
         </div>
       </div>

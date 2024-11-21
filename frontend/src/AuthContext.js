@@ -5,25 +5,33 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
-    const token = localStorage.getItem('access_token');
-    if (token) {
-      setUser({ token });
+    const loggedToken = localStorage.getItem('access_token');
+    const loggedUser = localStorage.getItem('user');
+    if (loggedUser && loggedToken) {
+      setToken({ loggedToken });
+      setUser(JSON.parse(loggedUser));
     }
     setLoading(false); 
   }, []);
 
   // iniciar sesión 
-  const login = (data) => {
-    setUser({ token: data.access_token });
-    localStorage.setItem('access_token', data.access_token);
+  
+  const login = (userData) => {
+    setToken({ token: userData.access_token });
+    setUser(userData.user);
+    localStorage.setItem('access_token', userData.access_token);
+    localStorage.setItem('user', JSON.stringify(userData));
   };
 
   const logout = () => {
+    setToken(null);
     setUser(null);
     localStorage.removeItem('access_token');
+    localStorage.removeItem('user');
   };
 
 
@@ -32,7 +40,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, token }}>
       {children}
     </AuthContext.Provider>
   );

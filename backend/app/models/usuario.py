@@ -13,3 +13,4 @@ class Usuario(Base):
     num_celular = Column(Integer)
 
     comentario_perro = relationship("Comentario", back_populates="usuario")
+    reporte_usuario = relationship("Reporte", back_populates="usuario")
