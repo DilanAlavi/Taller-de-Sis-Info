@@ -23,9 +23,13 @@ const ReportList = () => {
     }, []);
 
   return (
+
     <div>
     {(loading && !reportes) ? (
-      <p>Cargando reportes</p>
+      <div className="loading-message">
+      <span>Cargando reportes...</span>
+      <div className="spinner"></div>
+    </div>
     ) : (
       <div className="report-list-container">
         <h1>Lista de Reportes de Usuarios</h1>
