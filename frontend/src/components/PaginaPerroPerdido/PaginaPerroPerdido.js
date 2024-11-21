@@ -51,18 +51,7 @@ const PaginaPerrosPerdidos = () => {
     }, [perritos, generoFiltro, razaFiltro, colorFiltro]); // Agregar generoFiltro como dependencia
 
     return (
-       <div>
-            {loading ? (
-                <p>Cargando perritos...</p> // Mostrar mensaje mientras se cargan los datos
-            ) : (
-                perritos && (
-                <div>
-                    <h1>{perritos.nombre}</h1>
-
-                </div>
-                )
-            )}
-            
+       <div>            
             <input placeholder='Buscar perrito' />
             
             <select onChange={(e) => setGeneroFiltro(e.target.value)} value={generoFiltro}>
@@ -113,6 +102,12 @@ const PaginaPerrosPerdidos = () => {
                     </div>
                 ))}
             </div>
+            {loading && (
+              <div className="loading-message">
+              <span>Cargando imagenes...</span>
+              <div className="spinner"></div>
+            </div>
+            )}
 
        </div> 
     );
