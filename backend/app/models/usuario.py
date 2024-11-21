@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 from app.config import Base
 
@@ -11,6 +11,8 @@ class Usuario(Base):
     password = Column(String(45))
     direccion = Column(String(200))
     num_celular = Column(Integer)
+    rol_id = Column(Integer, ForeignKey("rol.id"), nullable=False)
 
     comentario_perro = relationship("Comentario", back_populates="usuario")
     reporte_usuario = relationship("Reporte", back_populates="usuario")
+    rol = relationship("Rol", back_populates="usuario")

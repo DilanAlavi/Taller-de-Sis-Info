@@ -4,6 +4,7 @@ from jose import jwt, JWTError
 from datetime import datetime, timedelta
 from app.config import get_db
 from app.models.usuario import Usuario
+from app.models.rol import Rol
 from pydantic import BaseModel, EmailStr
 
 router = APIRouter()
@@ -60,12 +61,15 @@ def register(user: UserRegister, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="El correo ya está registrado")
     
     # Crear y guardar el nuevo usuario
+    db_rol = db.query(Rol).filter(Rol.rol == 'user').first()
+
     new_user = Usuario(
         nombre=user.nombre,
         correo=user.correo,
         password=user.password,  #sin hashear
         direccion=user.direccion,
         num_celular=user.num_celular,
+        rol_id=db_rol.id,
     )
     db.add(new_user)
     db.commit()
