@@ -210,13 +210,20 @@ const PerritoPerdidoForm = () => {
               </select>
             </div>
 
-            <button className="start-button" type="submit" disabled={loading || !isDog || isProcessing}>
+            {!isProcessing && <button className="start-button" type="submit" disabled={loading || !isDog || isProcessing}>
               <span className="shadow-button"></span>
               <span className="edge-button"></span>
               <span className="front-button text-button">
                 {loading ? 'Cargando datos...' : 'Enviar reporte'}
               </span>
-            </button>
+            </button>}
+
+            {isProcessing && (
+              <div className="loading-message">
+                <span>Verificando imagen...</span>
+                <div className="spinner"></div>
+              </div>
+            )}
           </form>
 
           <div className="share-buttons">
