@@ -4,7 +4,8 @@ import './PerfilPerro.css';
 import { FaArrowLeft, FaEllipsisV } from 'react-icons/fa';
 import axios from 'axios';
 import { AuthContext } from '../../AuthContext';
-
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = 'http://localhost:8000';
 const PerfilPerro = () => {
   // const [perro, setPerro] = useState(null);
   const location = useLocation();

@@ -4,7 +4,8 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import { AuthContext } from '../../AuthContext';
-
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = 'http://localhost:8000';
 const EditPerro = () => {
   const { user } = useContext(AuthContext);
   const { id } = useParams();

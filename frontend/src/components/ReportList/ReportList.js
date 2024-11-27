@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './ReportList.css';
 import axios from 'axios';
-
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = 'http://localhost:8000';
 const ReportList = () => {
   const [loading, setLoading] = useState(true);
   const [reportes, setReportes] = useState(null);

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; // Importa Link de react-router-dom
 import axios from 'axios';
 import './InfoPerros.css';
-
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = 'http://localhost:8000';
 const InfoPerros = () => {
   const [data, setData] = useState(null);
 

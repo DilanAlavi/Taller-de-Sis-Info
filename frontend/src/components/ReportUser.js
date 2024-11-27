@@ -3,6 +3,10 @@ import React, { useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = 'http://localhost:8000';
+
 const ReportUser = () => {
   const location = useLocation();
   const { user } = location.state || {};

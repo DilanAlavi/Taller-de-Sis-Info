@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './DogRecognition.css';
-
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = 'http://localhost:8000';
 const DogRecognition = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState('');

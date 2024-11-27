@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-
+import Cookies from 'js-cookie';
 // Crear el contexto de autenticación
 export const AuthContext = createContext();
 
@@ -28,11 +28,23 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
+    // Limpiar los estados
     setToken(null);
     setUser(null);
+  
+    // Eliminar el token y el usuario del localStorage y cookies
     localStorage.removeItem('access_token');
     localStorage.removeItem('user');
+    Cookies.remove('access_token'); 
+  
+    // Verificar si el token fue eliminado correctamente
+    const tokenFromLocalStorage = localStorage.getItem('access_token');
+    console.log("Token después de logout:", tokenFromLocalStorage); // Debería ser null
+  
+    const tokenFromCookies = Cookies.get('access_token');
+    console.log("Token en cookies después de logout:", tokenFromCookies); // Debería ser undefined o null
   };
+  
 
 
   if (loading) {

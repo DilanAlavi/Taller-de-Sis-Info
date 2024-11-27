@@ -4,7 +4,8 @@ import './PaginaPerroVisto.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import axios from "axios";
-
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = 'http://localhost:8000';
 const PaginaPerrosVistos = () => {
     const [loading, setLoading] = useState(true);
     const [perritos, setPerritos] = useState(null);

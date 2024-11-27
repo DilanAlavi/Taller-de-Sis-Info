@@ -6,7 +6,8 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { FaArrowUp } from 'react-icons/fa';
 import axios from "axios";
-
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = 'http://localhost:8000';
 const testimonios = [
   {
     nombre: 'Ana Rodríguez',

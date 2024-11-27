@@ -3,7 +3,8 @@ import './User.css';
 import { AuthContext } from '../../AuthContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = 'http://localhost:8000';
 const User = () => {
   const { user } = useContext(AuthContext);
   const { edit } = useContext(AuthContext);

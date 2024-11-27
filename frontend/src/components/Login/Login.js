@@ -3,7 +3,11 @@ import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';
 import { AuthContext } from '../../AuthContext';
+import Cookies from 'js-cookie';
 
+
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = 'http://localhost:8000';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,6 +26,12 @@ const Login = () => {
       console.log(response.data);
       alert('Login exitoso');
       navigate('/home');
+
+      Cookies.set('access_token', response.data.access_token, { 
+        expires: 1,  // Expira en 1 día, ajusta según sea necesario
+        secure: false, // Ponlo en true si usas HTTPS
+        sameSite: 'Lax' // Puedes cambiar a 'None' si estás en desarrollo cruzado
+      });
 
     } catch (error) {
       console.error('Error en login:', error.response.data);
