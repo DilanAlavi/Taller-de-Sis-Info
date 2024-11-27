@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Response, Request
 from sqlalchemy.orm import Session
 from jose import jwt, JWTError
 from datetime import datetime, timedelta
@@ -6,13 +6,15 @@ from app.config import get_db
 from app.models.usuario import Usuario
 from app.models.rol import Rol
 from pydantic import BaseModel, EmailStr
+from fastapi.responses import JSONResponse
+
 
 router = APIRouter()
 
 # Configuración de JWT
 SECRET_KEY = "Choquito"  # clave para cambiar
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = 0.1
 
 # Modelos 
 class UserLogin(BaseModel):
@@ -30,27 +32,36 @@ class Token(BaseModel):
     access_token: str
     token_type: str
 
-# crear tokens
+class UserLogin(BaseModel):
+    correo: EmailStr
+    password: str
+
 def create_access_token(data: dict) -> str:
     to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
+
 # Ruta para iniciar sesión
 @router.post("/login")
-# , response_model=Token
-def login(user: UserLogin, db: Session = Depends(get_db)):
-    # Buscar usuario en la base de datos
+def login(user: UserLogin, response: Response, db: Session = Depends(get_db)):
     db_user = db.query(Usuario).filter(Usuario.correo == user.correo).first()
-    if not db_user or db_user.password != user.password:  # Contraseña sin hashear
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Correo o contraseña incorrectos",
-        )
-    # Crear token JWT
+    if not db_user or db_user.password != user.password:
+        raise HTTPException(status_code=401, detail="Credenciales incorrectas")
+
+    # Crear y almacenar el token en una cookie segura
     access_token = create_access_token(data={"sub": db_user.correo})
-    return {"access_token": access_token, "token_type": "bearer", "user": db_user}
+    response.set_cookie(
+        key="access_token",
+        value=access_token,
+        httponly=True,
+        secure=False,  # Usa False para pruebas locales si no tienes HTTPS
+        samesite="Lax",  # Cambia a 'Lax' si necesitas más flexibilidad
+        domain="localhost"
+    )
+
+    return {"message": "Login exitoso", "user": db_user, "access_token": access_token}
 
 # Ruta para registrar un nuevo usuario
 @router.post("/register", status_code=201)
@@ -78,3 +89,19 @@ def register(user: UserRegister, db: Session = Depends(get_db)):
     # Crear token JWT para el nuevo usuario
     access_token = create_access_token(data={"sub": new_user.correo})
     return {"message": "Usuario registrado exitosamente", "access_token": access_token}
+
+
+@router.get("/profile")
+def profile(request: Request):
+    token = request.cookies.get("access_token")
+    if not token:
+        raise HTTPException(status_code=401, detail="No autenticado")
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        user_email = payload.get("sub")
+        if user_email is None:
+            raise HTTPException(status_code=401, detail="Token inválido")
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Token inválido o expirado")
+
+    return {"message": "Token válido", "user_email": user_email}

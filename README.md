@@ -28,4 +28,5 @@ solo cambia en DB_PASSWORD por tu contraseña real
 - npm install react-icons
 - npm install react-slick slick-carousel
 - Mas dependecias nuevas -> npm install @tensorflow/tfjs
+- npm install js-cookie
 - npm start
