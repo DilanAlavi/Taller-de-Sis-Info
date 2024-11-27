@@ -34,8 +34,6 @@ const User = () => {
     e.preventDefault();
     setError('');
     setSuccessMessage('');
-    
-
     try {
       const response = await axios.put(`http://127.0.0.1:8000/users/edit/${user.id}`, {
         correo: newData.correo,
