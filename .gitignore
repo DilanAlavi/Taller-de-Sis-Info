@@ -28,6 +28,7 @@ backend/app/ml/TallerPerritos.keras
 backend/app/ml/__pycache__/
 backend/app/routes/__pycache__/
 backend/app/__pycache__
+backend/app/models/__pycache__
 
 backend/app/credenciales/fotos-perritos-809194cdb9d7.json
 
