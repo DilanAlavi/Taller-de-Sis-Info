@@ -196,7 +196,7 @@ const PerfilPerro = () => {
           </a>
         </div>
         
-        { ((user && user.id === perro.usuario.id) || user.rol_id === 2) && (
+        { ((user && user.id === perro.usuario.id) || (user && user.rol_id === 2)) && (
             <div className="perfil-perro-actions">
               <button onClick={handleEdit} className="editar-btn">Editar Perro</button>
               <button onClick={handleDelete} className="eliminar-btn">Encontraste tu Perrito?</button>
@@ -229,7 +229,7 @@ const PerfilPerro = () => {
                       <button onClick={() => handleNuevoComentario(comentario.id)}>Editar</button>
                     )} 
 
-                    { user && (user.id === comentario.usuario.id || user.id === perro.usuario.id || user.rol_id === 2) && (
+                    { user && (user.id === comentario.usuario.id || user.id === perro.usuario.id || (user && user.rol_id === 2)) && (
                        <button onClick={() => handleComentarioDelete(comentario.id)}>Eliminar</button>
                     )}
                     
@@ -272,8 +272,9 @@ const PerfilPerro = () => {
               placeholder="Agrega un comentario..."
               rows="3"
               className="comentario-input"
+              disabled={user ? false : true}
             />
-            <button type="submit" className="comentario-boton">Enviar</button>
+            <button type="submit" className="comentario-boton" disabled={user ? false : true}>Enviar</button>
           </form>
         </div>
       </div>
