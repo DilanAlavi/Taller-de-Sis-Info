@@ -4,7 +4,7 @@
     margin-top: 20px;
     padding: 20px;
     border-radius: 8px;
-    background: linear-gradient(to right, #e5bf67, #de800c);
+    background: linear-gradient(to right, #57ee77, #0b7a1a);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: left;
 }
@@ -56,7 +56,7 @@ h2 {
 }
 
 strong {
-    color: #47c34d;
+    color: #338b37;
 }
 
 a {
