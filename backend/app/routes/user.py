@@ -57,20 +57,23 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
     if not user:
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
     
-    perros = db.query(Perrito).filter(Perrito.usuario_id == user_id)
-    comentarios = db.query(Comentario).filter(Comentario.usuario_id == user_id) 
+    perros = db.query(Perrito).filter(Perrito.usuario_id == user_id).all()
+    comentarios = db.query(Comentario).filter(Comentario.usuario_id == user_id).all()
 
     if comentarios :
         for comentario in comentarios :
-            db.delete(comentario)
+            if comentario: 
+                db.delete(comentario)
 
     if perros: 
         for perro in perros :
-            data = db.query(EstadoPerro).filter(EstadoPerro.id == perro.estado_perro_id).first()
-            foto = db.query(Foto).filter(Foto.perrito_id == perro.id).first()
-            db.delete(foto)
-            db.delete(perro)
-            db.delete(data)
+            if perro:
+                data = db.query(EstadoPerro).filter(EstadoPerro.id == perro.estado_perro_id).first()
+                foto = db.query(Foto).filter(Foto.perrito_id == perro.id).first()
+                db.delete(foto)
+                db.delete(data)
+                db.delete(perro)
+                
 
     db.delete(user)
     db.commit()
