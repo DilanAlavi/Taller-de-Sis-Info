@@ -30,7 +30,7 @@ const RecaudacionFondos = () => {
     if (qrRef.current) {
       qrCode.append(qrRef.current);
     }
-  }, []);
+  });
 
   return (
     <div className="fundraiser-page">

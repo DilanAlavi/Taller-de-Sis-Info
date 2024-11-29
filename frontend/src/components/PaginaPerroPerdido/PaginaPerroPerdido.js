@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = 'http://localhost:8000';
 
-
 const PaginaPerrosPerdidos = () => {
   const [loading, setLoading] = useState(true);
   const [perritos, setPerritos] = useState(null);
