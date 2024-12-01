@@ -9,9 +9,42 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const { login } = useContext(AuthContext)
   const navigate = useNavigate();
+  const [errors, setErrors] = useState({});
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email) return 'El correo no puede estar vacío';
+    if (email.length > 75) return 'El correo no puede exceder 75 caracteres';
+    if (!emailRegex.test(email)) return 'El formato del correo no es válido';
+    return null;
+  };
+
+  const validatePassword = (password) => {
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%&*]).{8,}$/;
+    if (!password) return 'La contraseña no puede estar vacía';
+    if (!passwordRegex.test(password)) {
+      return 'La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial (@, #, $, %, &, *)';
+    }
+    return null;
+  };
+
+  const validateFields = () => {
+    const emailError = validateEmail(email);
+    const passwordError = validatePassword(password);
+
+    setErrors({
+      email: emailError,
+      password: passwordError,
+    });
+
+    return !emailError && !passwordError;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateFields()) return; 
+
     try {
       const response = await axios.post('http://localhost:8000/auth/login', {
         correo: email,
@@ -25,7 +58,26 @@ const Login = () => {
 
     } catch (error) {
       console.error('Error en login:', error.response.data);
-      alert('Error en login: ' + error.response.data.detail);
+      // alert('Error en login: ' + error.response.data.detail);
+      if (error.response?.status === 404) {
+        // El correo no está registrado en el sistema
+        setErrors({
+          ...errors,
+          general: 'La cuenta no existe, regístrese por favor.',
+        });
+      } else if (error.response?.status === 401) {
+        // Las credenciales son incorrectas
+        setErrors({
+          ...errors,
+          general: 'Usuario y contraseña incorrecta.',
+        });
+      } else {
+        // Otro error
+        setErrors({
+          ...errors,
+          general: 'Ocurrió un error inesperado. Inténtelo de nuevo más tarde.',
+        });
+      }
     }
   };
 
@@ -41,6 +93,9 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
+
+        {errors.email && <small className="error-message">{errors.email}</small>}
+
         <input
           type="password"
           placeholder="Contraseña"
@@ -48,6 +103,14 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+
+        {errors.password && (
+          <small className="error-message">{errors.password}</small>
+        )}
+
+        {errors.general && (
+          <small className="error-message">{errors.general}</small>
+        )}
         {/* <button type="submit">Entrar</button> */}
 
         <button className='dog-button'>

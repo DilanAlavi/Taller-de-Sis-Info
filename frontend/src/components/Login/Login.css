@@ -88,3 +88,11 @@
     filter: brightness(130%);
 }
 
+.error-message {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  display: block;
+  text-align: left;
+}
