@@ -104,3 +104,73 @@
   transform: scale(1.11);
   filter: brightness(130%);
 }
+
+.error-message {
+  color: #ff4d4d; /* Bright red for visibility */
+  font-size: 0.85rem;
+  margin-top: -10px;
+  margin-bottom: 15px;
+  text-align: left;
+  font-weight: 500;
+  padding-left: 5px;
+  
+  /* Animation for error appearance */
+  animation: errorFadeIn 0.3s ease-out;
+  
+  /* Optional: slight shake effect */
+  animation-name: errorFadeIn, errorShake;
+  animation-duration: 0.3s, 0.5s;
+  animation-delay: 0s, 0.3s;
+}
+
+/* Fade-in animation for error messages */
+@keyframes errorFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Optional shake animation to draw attention */
+@keyframes errorShake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(5px);
+  }
+}
+
+.password-hint {
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.password-hint ul {
+  margin: 5px 0 0 20px;
+  padding: 0;
+}
+
+.password-hint li {
+  margin-bottom: 5px;
+}
+.success-message {
+  color: green;
+  background-color: #e6f3e6;
+  border: 1px solid green;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  text-align: center;
+}
