@@ -6,80 +6,98 @@ import 'slick-carousel/slick/slick-theme.css';
 import axios from "axios";
 
 const PaginaPerrosVistos = () => {
-    const [loading, setLoading] = useState(true);
-    const [perritos, setPerritos] = useState(null);
-    const [perrosPerdidos, setPerrosPerdidos] = useState([]);
-    const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [perritos, setPerritos] = useState(null);
+  const [perrosPerdidos, setPerrosPerdidos] = useState([]);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        const perritosData = async () => {
-          try {
-            const response = await axios.get('http://127.0.0.1:8000/perritos/');
-            setPerritos(response.data);
-          } catch (error) {
-            console.log(error);
-          } finally {
-            setLoading(false);
-          }
-        };
-        perritosData();
-      }, []);
+  useEffect(() => {
+    const perritosData = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/perritos/');
+        setPerritos(response.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    perritosData();
+  }, []);
 
-      useEffect(() => {
-        if (perritos) {
-          let perritos_perdidos = []
-          for (const perro of perritos) {
-            if (perro.estado.estado === 0) {
-              perritos_perdidos.push(perro)
-            }
-          }
-          setPerrosPerdidos(perritos_perdidos)
-          console.log('Datos cargados:', perritos_perdidos); 
+  useEffect(() => {
+    if (perritos) {
+      let perritos_perdidos = []
+      for (const perro of perritos) {
+        if (perro.estado.estado === 0) {
+          perritos_perdidos.push(perro)
         }
-      }, [perritos]);
+      }
+      setPerrosPerdidos(perritos_perdidos)
+      console.log('Datos cargados:', perritos_perdidos);
+    }
+  }, [perritos]);
 
-
-    return (
-
-       <div>            
-            <input placeholder='Buscar perrito' />
-
-            <button className='dog-button' onClick={() => navigate("/perritovistoform")}>
-              <span className="shadow-button"></span>
-              <span className="edge-button"></span>
-              <span className="front-button text-button"> Vi un Perrito Perdido
-              </span>
-            </button>
-
-            <div className="perro-visto-container">
-                {perrosPerdidos.map((perro, index) => (
-                <div className="perro-visto-card" key={index} onClick={() => navigate(`/perfil-perro/${perro.id}`, { state: {perro} })}>
-
-                    {perro.foto[0] ? (
-                    <img src={`http://127.0.0.1:8000/imagen/${perro.foto[0].direccion_foto}`} alt={`Foto de ${perro.nombre}`} className="perro-visto-foto" />
-                    ) : (
-                    <img src="/path/to/placeholder-image.jpg" alt="Imagen no disponible" className="perro-visto-foto" />
-                    )}
-                    
-                    <div className='perro-visto-informacion'>
-                      <div><p>{perro.estado.fecha}</p><strong>Fecha visto</strong></div>
-                      <div><p>{perro.estado.direccion_visto}</p><strong>Última ubicación</strong></div>
-                      <div><p>{perro.usuario.num_celular}</p><strong>Contacto</strong></div>
-                    </div>
-                </div>
-                ))}
-            </div>
-            
-            {loading && (
-              <div className="loading-message">
-              <span>Cargando imagenes...</span>
-              <div className="spinner"></div>
-            </div>
+  return (
+    <div>
+      <button 
+        className='dog-button' 
+        onClick={() => navigate("/perritovistoform")}
+      >
+        <span className="shadow-button"></span>
+        <span className="edge-button"></span>
+        <span className="front-button text-button">
+          Vi un Perrito Perdido
+        </span>
+      </button>
+      
+      <div className="perro-visto-container">
+        {perrosPerdidos.map((perro, index) => (
+          <div 
+            className="perro-visto-card" 
+            key={index} 
+            onClick={() => navigate(`/perfil-perro/${perro.id}`, { state: {perro} })}
+          >
+            {perro.foto[0] ? (
+              <img 
+                src={`http://127.0.0.1:8000/imagen/${perro.foto[0].direccion_foto}`} 
+                alt={`Foto de ${perro.nombre}`} 
+                className="perro-visto-foto" 
+              />
+            ) : (
+              <img 
+                src="/path/to/placeholder-image.jpg" 
+                alt="Imagen no disponible" 
+                className="perro-visto-foto" 
+              />
             )}
+            
+            <div className='perro-visto-informacion'>
+              <div>
+                <p>{perro.estado.fecha}</p>
+                <strong>Fecha visto</strong>
+              </div>
+              <div>
+                <p>{perro.estado.direccion_visto}</p>
+                <strong>Última ubicación</strong>
+              </div>
+              <div>
+                <p>{perro.usuario.num_celular}</p>
+                <strong>Contacto</strong>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
 
-       </div> 
-       
-    );
+      {loading && (
+        <div className="loading-message">
+          <span>Cargando imagenes...</span>
+          <div className="spinner"></div>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default PaginaPerrosVistos;
