@@ -11,7 +11,7 @@ const DogRecognition = () => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
-
+    
     const reader = new FileReader();
     reader.onloadend = () => {
       setPreview(reader.result);
@@ -21,7 +21,8 @@ const DogRecognition = () => {
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     if (!selectedFile) {
       alert('Por favor, selecciona una imagen primero.');
       return;
@@ -38,9 +39,9 @@ const DogRecognition = () => {
           'Content-Type': 'multipart/form-data'
         }
       });
-
+      
       console.log('Respuesta del servidor:', response.data);
-
+      
       if (response.data.error) {
         console.log('Error en la respuesta:', response.data.error);
         setResult({ error: response.data.error });
@@ -69,13 +70,10 @@ const DogRecognition = () => {
   return (
     <div className="dog-recognition-container">
       <h2>Reconoce a tu Perro</h2>
-      <div className="dog-recognition-form">
+      <form onSubmit={handleSubmit} className="dog-recognition-form">
         <input 
           type="file" 
-          onChange={(e) => {
-            handleFileChange(e);
-            handleSubmit(); // Llama a handleSubmit al seleccionar el archivo
-          }} 
+          onChange={handleFileChange} 
           accept="image/*"
         />
         {preview && (
@@ -83,12 +81,20 @@ const DogRecognition = () => {
             <img src={preview} alt="Preview" />
           </div>
         )}
+        <button 
+          type="submit" 
+          disabled={!selectedFile || isLoading}
+        >
+          {!isLoading ? 'Buscar Perro' : null}
+        </button>
+
         {isLoading && (
           <div className="loading-message">
+
             <div className="spinner"></div>
           </div>
         )}
-      </div>
+      </form>
       
       {result && (
         <div className="result-container">

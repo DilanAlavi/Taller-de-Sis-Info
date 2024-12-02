@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
     setToken({ token: userData.access_token });
     setUser(userData.user);
     localStorage.setItem('access_token', userData.access_token);
-    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('user', JSON.stringify(userData.user));
   };
 
   const edit = (userData) => {
