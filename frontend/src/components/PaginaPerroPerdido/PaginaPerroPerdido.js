@@ -43,16 +43,15 @@ const PaginaPerrosPerdidos = () => {
       }
 
       setPerrosPerdidos(perritos_perdidos);
-      console.log("Datos cargados:", perritos_perdidos);
     }
   }, [perritos, generoFiltro, razaFiltro, colorFiltro]);
 
   return (
-    <div className="pagina-perros-perdidos">
-      <h1 className="titulo">Perros Perdidos</h1>
+    <div id="pagina-perros-perdidos" className="pagina-perros-perdidos">
+      <h1 id="titulo-perros-perdidos" className="titulo">Perros Perdidos</h1>
 
-      <div className="filtro-container">
-        <div>
+      <div id="filtro-container" className="filtro-container">
+        <div className="filtro-item">
           <label htmlFor="generoFiltro" className="filtro-label">Género:</label>
           <select
             id="generoFiltro"
@@ -66,7 +65,7 @@ const PaginaPerrosPerdidos = () => {
           </select>
         </div>
 
-        <div>
+        <div className="filtro-item">
           <label htmlFor="razaFiltro" className="filtro-label">Raza:</label>
           <select
             id="razaFiltro"
@@ -84,7 +83,7 @@ const PaginaPerrosPerdidos = () => {
           </select>
         </div>
 
-        <div>
+        <div className="filtro-item">
           <label htmlFor="colorFiltro" className="filtro-label">Color:</label>
           <select
             id="colorFiltro"
@@ -101,6 +100,7 @@ const PaginaPerrosPerdidos = () => {
         </div>
 
         <button
+
           className="dog-button"
           onClick={() => navigate("/perritoperdidoform")}
         >
@@ -110,7 +110,7 @@ const PaginaPerrosPerdidos = () => {
         </button>
       </div>
 
-      <div className="perros-container">
+      <div id="perros-container" className="perros-container">
         {perrosPerdidos.map((perro, index) => (
           <div
             className="perro-card"
@@ -131,18 +131,18 @@ const PaginaPerrosPerdidos = () => {
               />
             )}
 
-            <h3>{perro.nombre}</h3>
+            <h3 className="perro-nombre">{perro.nombre}</h3>
 
-            <div>
-              <p>{perro.estado.fecha}</p>
+            <div className="perro-info">
+              <p className="perro-fecha">{perro.estado.fecha}</p>
               <strong>Fecha de pérdida</strong>
             </div>
-            <div>
-              <p>{perro.estado.direccion_visto}</p>
+            <div className="perro-info">
+              <p className="perro-ubicacion">{perro.estado.direccion_visto}</p>
               <strong>Última ubicación</strong>
             </div>
-            <div>
-              <p>{perro.usuario.num_celular}</p>
+            <div className="perro-info">
+              <p className="perro-contacto">{perro.usuario.num_celular}</p>
               <strong>Contacto</strong>
             </div>
           </div>
@@ -150,7 +150,7 @@ const PaginaPerrosPerdidos = () => {
       </div>
 
       {loading && (
-        <div className="loading-message">
+        <div id="loading-message" className="loading-message">
           <span>Cargando imágenes...</span>
           <div className="spinner"></div>
         </div>
