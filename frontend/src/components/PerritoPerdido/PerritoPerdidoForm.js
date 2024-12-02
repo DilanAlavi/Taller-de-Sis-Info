@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { FaUpload, FaWhatsapp } from 'react-icons/fa';
+import { FaUpload } from 'react-icons/fa';
 import './PerritoPerdidoForm.css';
 import { AuthContext } from '../../AuthContext';
 import axios from 'axios';
@@ -28,41 +28,50 @@ const PerritoPerdidoForm = () => {
 
     const handleFileChange = async (event) => {
       const file = event.target.files[0];
-      setFoto(file);
-      setIsProcessing(true);  
-      setPreview('');  
 
-      const fileReader = new FileReader();
-      fileReader.onload = async () => {
-        setPreview(fileReader.result);
-
-        const formData = new FormData();
-        formData.append('file', file);
-
-        try {
-          const response = await axios.post('http://localhost:8000/pets/classify_pet', formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          });
-
-          const { clasificacion, confianza } = response.data;
-
-          if (clasificacion === 'Perro' && parseFloat(confianza) > 60) {
-            setIsDog(true);  
-            alert(`La imagen corresponde a un perro. Puedes continuar con el reporte.`);
-          } else {
-            setIsDog(false);  
-            alert(`La imagen NO corresponde a un perro. No puedes continuar con el reporte.`);
-          }
-        } catch (error) {
-          console.error('Error al clasificar la imagen:', error);
-          alert('Error al procesar la imagen. Inténtalo nuevamente.');
-        } finally {
-          setIsProcessing(false); 
+      if (file) {
+        const maxSize = 5 * 1024 * 1024; 
+        if (file.size > maxSize) {
+          alert('El archivo no puede ser mayor de 5 MB.');
+          return;
         }
-      };
-      fileReader.readAsDataURL(file);
+
+        setFoto(file);
+        setIsProcessing(true);  
+        setPreview('');  
+
+        const fileReader = new FileReader();
+        fileReader.onload = async () => {
+          setPreview(fileReader.result);
+
+          const formData = new FormData();
+          formData.append('file', file);
+
+          try {
+            const response = await axios.post('http://localhost:8000/pets/classify_pet', formData, {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            });
+
+            const { clasificacion, confianza } = response.data;
+
+            if (clasificacion === 'Perro' && parseFloat(confianza) > 60) {
+              setIsDog(true);  
+              alert(`La imagen corresponde a un perro. Puedes continuar con el reporte.`);
+            } else {
+              setIsDog(false);  
+              alert(`La imagen NO corresponde a un perro. No puedes continuar con el reporte.`);
+            }
+          } catch (error) {
+            console.error('Error al clasificar la imagen:', error);
+            alert('Error al procesar la imagen. Inténtalo nuevamente.');
+          } finally {
+            setIsProcessing(false); 
+          }
+        };
+        fileReader.readAsDataURL(file);
+      }
     };
 
     const handleSubmit = async (e) => {
@@ -113,12 +122,6 @@ const PerritoPerdidoForm = () => {
       }
     };
 
-    const shareOnWhatsApp = () => {
-      const message = `¡Hola! He encontrado un perrito perdido que coincide con la descripción: ${descripcion}. ¿Podemos coordinar para que puedas recuperarlo?`;
-      const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
-      window.open(url, '_blank');
-    };
-
     return (
       <div className='contenedor-perro-perdido'>
         <img className='img-perdido' src={`${process.env.PUBLIC_URL}/images/adiestramiento.jpeg`} alt='perritos en un campo'/>
@@ -137,7 +140,7 @@ const PerritoPerdidoForm = () => {
                   <input 
                     className='input-img'
                     type="file" 
-                    accept="image/*" 
+                    accept="image/jpeg, image/png, image/jpg" 
                     onChange={handleFileChange}
                     id='file-upload'
                     required
@@ -154,7 +157,11 @@ const PerritoPerdidoForm = () => {
                 type="text" 
                 placeholder="Nombre del perrito" 
                 value={nombre}
-                onChange={(e) => setNombre(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^[a-zA-Z\s]*$/.test(value) && value.length <= 45) { setNombre(value) }
+                }}
+                  maxLength={45}
                 required
               />
             </div>
@@ -166,12 +173,26 @@ const PerritoPerdidoForm = () => {
                   placeholder="Direccion perdido" 
                   value={direccion}
                   onChange={(e) => setDireccion(e.target.value)}
+                  maxLength={150}
                   required
                 />
                 <input 
                   type="date" 
                   value={date}
-                  onChange={(e) => setDate(e.target.value)}
+                  onChange={(e) => {
+                    const selectedDate = new Date(e.target.value); // Fecha seleccionada
+                    const today = new Date(); // Fecha actual
+                    const minDate = new Date(); // Configura la fecha mínima
+                    minDate.setFullYear(today.getFullYear() - 1); // Permitir hasta 100 años atrás
+                
+                    if (selectedDate > today) {
+                      alert("La fecha no puede ser en el futuro.");
+                    } else if (selectedDate < minDate) {
+                      alert("La fecha no puede ser tan antigua.");
+                    } else {
+                      setDate(e.target.value); // Actualiza solo si es válida
+                    }
+                  }}
                   required
                 />
               </div>
@@ -180,7 +201,7 @@ const PerritoPerdidoForm = () => {
                   placeholder="Descripción del perrito" 
                   value={descripcion}
                   onChange={(e) => setDescription(e.target.value)}
-                  required
+                  maxLength={500}
                 />
               </div>
             </div>
@@ -225,12 +246,6 @@ const PerritoPerdidoForm = () => {
               </div>
             )}
 
-          <div className="share-buttons">
-            <h3>¿Has encontrado este perro?</h3>
-            <button onClick={shareOnWhatsApp}>
-              <FaWhatsapp /> Contactar al propietario
-            </button>
-          </div>
         </div>
       </div>
     );

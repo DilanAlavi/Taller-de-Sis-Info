@@ -1,5 +1,5 @@
 import React, { useContext, useState} from 'react';
-import { FaUpload, FaWhatsapp } from 'react-icons/fa';
+import { FaUpload } from 'react-icons/fa';
 import './PerritoVistoForm.css';
 import { AuthContext } from '../../AuthContext';
 import axios from 'axios';
@@ -25,43 +25,52 @@ const PerritoVistoForm = () => {
 
     const handleFileChange = async (event) => {
       const file = event.target.files[0];
-      setFoto(file);
-      
-      setIsProcessing(true);
-      setPreview(''); 
-    
-      const fileReader = new FileReader();
-      fileReader.onload = async () => {
-        setPreview(fileReader.result);
-    
-        const formData = new FormData();
-        formData.append('file', file);
-    
-        try {
-          const response = await axios.post('http://localhost:8000/pets/classify_pet', formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          });
-    
-          const { clasificacion, confianza } = response.data;
-    
-          if (clasificacion === 'Perro' && parseFloat(confianza) > 60) {
-            setIsDog(true); 
-            alert(`La imagen corresponde a un perro. Puedes subirla.`);
-          } else {
-            setIsDog(false); 
-            alert(`La imagen NO corresponde a un perro. No puedes subirla.`);
-          }
-        } catch (error) {
-          console.error('Error al clasificar la imagen:', error);
-          alert('Error al procesar la imagen. Inténtalo nuevamente.');
-        } finally {
-          setIsProcessing(false); 
+
+      if (file) {
+        const maxSize = 1 * 1024 * 1024; 
+        if (file.size > maxSize) {
+          alert('El archivo no puede ser mayor de 5 MB.');
+          return;
         }
-      };
+
+        setFoto(file);
+        setIsProcessing(true);
+        setPreview(''); 
+      
+        const fileReader = new FileReader();
+        fileReader.onload = async () => {
+          setPreview(fileReader.result);
+      
+          const formData = new FormData();
+          formData.append('file', file);
+      
+          try {
+            const response = await axios.post('http://localhost:8000/pets/classify_pet', formData, {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            });
+      
+            const { clasificacion, confianza } = response.data;
+      
+            if (clasificacion === 'Perro' && parseFloat(confianza) > 60) {
+              setIsDog(true); 
+              alert(`La imagen corresponde a un perro. Puedes subirla.`);
+            } else {
+              setIsDog(false); 
+              alert(`La imagen NO corresponde a un perro. No puedes subirla.`);
+            }
+          } catch (error) {
+            console.error('Error al clasificar la imagen:', error);
+            alert('Error al procesar la imagen. Inténtalo nuevamente.');
+          } finally {
+            setIsProcessing(false); 
+          }
+          
+        };
     
-      fileReader.readAsDataURL(file);
+        fileReader.readAsDataURL(file);
+      }
     };
     
     
@@ -127,11 +136,6 @@ const PerritoVistoForm = () => {
       }
     };
 
-    const contactOwner = () => {
-      const message = `¡Hola! He encontrado a un perro que parece ser el que reportaste perdido. Descripción: ${descripcion}. ¿Podemos coordinar la devolución?`;
-      const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
-      window.open(url, '_blank');
-    };
 
     return (
       <div className='contenedor-perro-perdido'>
@@ -151,7 +155,7 @@ const PerritoVistoForm = () => {
                   <input 
                     className='input-img'
                     type="file" 
-                    accept="image/*" 
+                    accept="image/jpeg, image/png, image/jpg" 
                     onChange={handleFileChange}
                     id='file-upload'
                   />
@@ -170,20 +174,16 @@ const PerritoVistoForm = () => {
                   placeholder="Direccion perdido" 
                   value={direccion}
                   onChange={(e) => setDireccion(e.target.value)}
+                  maxLength={150}
                   required
                 />
-                {/* <input 
-                  type="date" 
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                  required
-                /> */}
               </div>
               <div className='container-textarea'>
                 <textarea 
                   placeholder="Descripción del perrito" 
                   value={descripcion}
                   onChange={(e) => setDescription(e.target.value)}
+                  maxLength={500}
                   required
                 />
               </div>
@@ -231,12 +231,7 @@ const PerritoVistoForm = () => {
             )}
           
 
-          <div className="contactar-owner-container">
-            <h3>Si has encontrado un perro, contacta al propietario:</h3>
-            <button onClick={contactOwner} className="contactar-owner-button">
-              <FaWhatsapp /> Contactar al propietario
-            </button>
-          </div>
+          
         </div>
 
         <img className='img-perdido' src={`${process.env.PUBLIC_URL}/images/confiable.webp`} alt='perro'/>
