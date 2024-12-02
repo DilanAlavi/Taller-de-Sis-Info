@@ -158,6 +158,7 @@ const PerritoVistoForm = () => {
                     accept="image/jpeg, image/png, image/jpg" 
                     onChange={handleFileChange}
                     id='file-upload'
+                    required
                   />
                   <label htmlFor="file-upload">
                     <FaUpload className='upload-logo'></FaUpload>
