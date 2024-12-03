@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './DogRecognition.css';
+import getAuthHeaders from '../../apiClient/apiClient'
 
 const DogRecognition = () => {
+  const navigate = useNavigate();
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState('');
   const [result, setResult] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (result && result.error) {
+      navigate('/errorPage');
+    }
+  }, [result, navigate]);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -36,7 +45,8 @@ const DogRecognition = () => {
       console.log('Enviando solicitud al servidor...');
       const response = await axios.post('http://localhost:8000/dogs/classify', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': 'multipart/form-data',
+          ...getAuthHeaders(),
         }
       });
       
@@ -100,7 +110,7 @@ const DogRecognition = () => {
         <div className="result-container">
           {result.error && (
             <div className="error-message">
-              <p>Error: {result.error}</p>
+              <p>Error: {typeof result.error === 'string' ? result.error : JSON.stringify(result.error)}</p>
             </div>
           )}
 

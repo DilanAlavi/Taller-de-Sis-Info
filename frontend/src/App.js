@@ -21,35 +21,38 @@ import ReportUser from './components/ReportUser';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import ReportList from './components/ReportList/ReportList';
 import RecaudacionFondos from './components/RecaudacionDeFondos/recaudacionFondos'
+import ErrorPage from './errorPage/errorPage';
 
 const App = () => {
   return (
     <Router>
       <div className="App">
-        <Header />
+      <Header />
         <main className="App-main">
           <Routes>
+            <Route path="/perritoperdidoform" element={<ProtectedRoute element={<PerritoPerdidoForm />} />} />
+            <Route path="/dog-recognition" element={<ProtectedRoute element={<DogRecognition />} />} />
+            <Route path="/user" element={<ProtectedRoute element={<User />} />} />
+            <Route path='/perritovistoform' element={<ProtectedRoute element={<PerritoVistoForm />} />} />
+            <Route path="/report/:id" element={<ProtectedRoute element={<ReportUser />} />} />
+            <Route path="/report-list" element={<ProtectedRoute element={<ReportList />} />} />
+
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            
-            {/* Ruta protegida */}
-            <Route path="/home" element={<ProtectedRoute element={<Home />} />} />
-            
-            <Route path="/perritoperdidoform" element={<PerritoPerdidoForm />} />
-            <Route path="/dog-recognition" element={<DogRecognition />} />
+
+        
+            <Route path="/home" element={<Home />} />
             <Route path="/perfil-user/:id" element={<PerfilUser />} />
-            {/* Ruta protegida */}
-            <Route path="/user" element={<ProtectedRoute element={<User />} />} />
             <Route path="/contacto" element={<Contacto />} />
             <Route path="/infoPerros" element={<InfoPerros />} />
-            <Route path='/perritovistoform' element={<PerritoVistoForm />} />
             <Route path='/paginaperroperdido' element={<PaginaPerrosPerdidos />} />
             <Route path='/paginaperrovisto' element={<PaginaPerrosVistos />} />
             <Route path="/perfil-perro/:id" element={<PerfilPerro />} />
-            <Route path="/report/:id" element={<ReportUser />} />
             <Route path="/editar_perro/:id" element={<EditPerro />} />
-            <Route path="/report-list" element={<ReportList />} />
             <Route path="/recaudacionFondos" element={<RecaudacionFondos />} />
+
+
+            <Route path="/errorPage" element={<ErrorPage />} />
           </Routes>
         </main>
         <Footer />
