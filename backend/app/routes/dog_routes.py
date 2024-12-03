@@ -1,5 +1,5 @@
 # app/routes/dog_routes.py
-from fastapi import APIRouter, UploadFile, File, Depends, HTTPException, Query
+from fastapi import APIRouter, UploadFile, File, Depends, HTTPException, Query, Header
 from sqlalchemy.orm import Session
 from typing import Optional
 from app.config import get_db
@@ -10,8 +10,13 @@ from app.models.foto import Foto
 import shutil
 import os
 from datetime import datetime
+from jose import JWTError, jwt
+
 
 router = APIRouter()
+
+SECRET_KEY = "Choquito"  # clave para cambiar
+ALGORITHM = "HS256"
 
 # Definir las razas soportadas
 SUPPORTED_BREEDS = {
@@ -20,6 +25,22 @@ SUPPORTED_BREEDS = {
     'german_shepherd': 'Pastor Alemán',
     'pitbull': 'Pitbull'
 }
+
+
+
+# Función para extraer y validar el token
+def get_token_from_header(authorization: str = Header(...)):
+    if not authorization:
+        raise HTTPException(status_code=401, detail="Token no proporcionado")
+    
+    token = authorization.split(" ")[1]  # El formato debe ser "Bearer <token>"
+    
+    try:
+        # Validar el token usando JWT
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return payload  # Puedes devolver la información del usuario decodificada del token
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Token inválido")
 
 @router.post("/classify")
 async def classify_dog(
