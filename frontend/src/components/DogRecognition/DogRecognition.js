@@ -21,6 +21,18 @@ const DogRecognition = () => {
       setPreview('');
       return;
     }
+      // Validación del nombre del archivo
+    const fileName = file.name;
+    const validFileNameRegex = /^[a-zA-Z0-9._-]+$/;
+    
+    if (!validFileNameRegex.test(fileName.split('.')[0])) {
+      console.error('Error: El nombre del archivo contiene caracteres no permitidos');
+      alert('Por favor, usa solo letras, números, guiones y puntos en el nombre del archivo. No se permiten espacios ni caracteres especiales.');
+      event.target.value = '';
+      setSelectedFile(null);
+      setPreview('');
+      return;
+    }
   
     setSelectedFile(file);
     
