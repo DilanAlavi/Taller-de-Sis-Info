@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../src/AuthContext';
 import './errorPage.css';
 
 const ErrorPage = () => {
@@ -9,10 +8,10 @@ const ErrorPage = () => {
 
   useEffect(() => {
     if (!token) {
-      // Si no hay usuario (es decir, no ha iniciado sesión), redirige a la página de inicio de sesión después de unos segundos
-      setTimeout(() => {
+      const timeoutId = setTimeout(() => {
         navigate('/login');
-      }, 6000); 
+      }, 4000); 
+      return () => clearTimeout(timeoutId);
     }
   }, [token, navigate]);
 

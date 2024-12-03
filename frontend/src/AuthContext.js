@@ -1,4 +1,12 @@
 import React, { createContext, useState, useEffect } from 'react';
+import {
+  saveToken,
+  getToken,
+  removeToken,
+  saveUser,
+  getUser,
+  removeUser,
+} from './localStorageHelper'; // Importar las funciones de manejo de localStorage
 
 // Crear el contexto de autenticación
 export const AuthContext = createContext();
@@ -6,49 +14,46 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
 
+  // Cargar el token y los datos del usuario desde el localStorage al iniciar
   useEffect(() => {
-    const loggedToken = localStorage.getItem('access_token');
-    const loggedUser = localStorage.getItem('user');
-    if (loggedUser && loggedToken) {
-      setToken({ loggedToken });
-      setUser(JSON.parse(loggedUser));
+    const storedToken = getToken();
+    const storedUser = getUser();
+    if (storedToken && storedUser) {
+      setToken(storedToken);
+      setUser(storedUser);
     }
-    setLoading(false); 
+    setLoading(false);
   }, []);
 
-  // iniciar sesión 
-  
+  // Iniciar sesión: guardar token y usuario en el estado y en el localStorage
   const login = (userData) => {
-    setToken({ token: userData.access_token });
+    setToken(userData.access_token);
     setUser(userData.user);
-    localStorage.setItem('access_token', userData.access_token);
-    localStorage.setItem('user', JSON.stringify(userData.user));
+    saveToken(userData.access_token);
+    saveUser(userData.user);
   };
 
-  const edit = (userData) => {
-    setUser(userData)
-    localStorage.setItem('user', userData)
-  }
-
+  // Cerrar sesión: limpiar el estado y eliminar datos del localStorage
   const logout = () => {
     setToken(null);
     setUser(null);
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('user');
-  };
+    removeToken();
+    removeUser();
 
+    // Verificar si los datos fueron eliminados correctamente
+    console.log("Token después de logout:", getToken()); // Debería ser null
+    console.log("Usuario después de logout:", getUser()); // Debería ser null
+  };
 
   if (loading) {
     return <div>Cargando...</div>;
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, edit, token }}>
+    <AuthContext.Provider value={{ user, login, logout, token }}>
       {children}
     </AuthContext.Provider>
   );
 };
-
-
