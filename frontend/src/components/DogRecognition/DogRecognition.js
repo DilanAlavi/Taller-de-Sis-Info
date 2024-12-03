@@ -10,6 +10,18 @@ const DogRecognition = () => {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    
+    if (file && !allowedTypes.includes(file.type)) {
+      console.error('Error: Por favor, selecciona una imagen en formato JPG, JPEG o PNG');
+      alert('Por favor, selecciona una imagen en formato JPG, JPEG o PNG');
+      // Clear the file input
+      event.target.value = '';
+      setSelectedFile(null);
+      setPreview('');
+      return;
+    }
+  
     setSelectedFile(file);
     
     const reader = new FileReader();
