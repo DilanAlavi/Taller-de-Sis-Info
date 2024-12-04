@@ -28,51 +28,59 @@ const PerritoPerdidoForm = () => {
 
     const handleFileChange = async (event) => {
       const file = event.target.files[0];
-
+    
       if (file) {
-        const maxSize = 5 * 1024 * 1024; 
+        // Validar el tipo de archivo
+        const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+        if (!validTypes.includes(file.type)) {
+          alert("Formato de archivo no soportado. Por favor, sube un archivo JPG o PNG.");
+          return;
+        }
+    
+        const maxSize = 5 * 1024 * 1024; // 5 MB
         if (file.size > maxSize) {
           alert('El archivo no puede ser mayor de 5 MB.');
           return;
         }
-
+    
         setFoto(file);
-        setIsProcessing(true);  
-        setPreview('');  
-
+        setIsProcessing(true);
+        setPreview('');
+    
         const fileReader = new FileReader();
         fileReader.onload = async () => {
           setPreview(fileReader.result);
-
+    
           const formData = new FormData();
           formData.append('file', file);
-
+    
           try {
             const response = await axios.post('http://localhost:8000/pets/classify_pet', formData, {
               headers: {
                 'Content-Type': 'multipart/form-data',
               },
             });
-
+    
             const { clasificacion, confianza } = response.data;
-
+    
             if (clasificacion === 'Perro' && parseFloat(confianza) > 60) {
-              setIsDog(true);  
+              setIsDog(true);
               alert(`La imagen corresponde a un perro. Puedes continuar con el reporte.`);
             } else {
-              setIsDog(false);  
+              setIsDog(false);
               alert(`La imagen NO corresponde a un perro. No puedes continuar con el reporte.`);
             }
           } catch (error) {
             console.error('Error al clasificar la imagen:', error);
             alert('Error al procesar la imagen. Inténtalo nuevamente.');
           } finally {
-            setIsProcessing(false); 
+            setIsProcessing(false);
           }
         };
         fileReader.readAsDataURL(file);
       }
     };
+    
 
     const handleSubmit = async (e) => {
       e.preventDefault();
