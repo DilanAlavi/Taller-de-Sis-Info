@@ -8,7 +8,9 @@ from app.models.rol import Rol
 from pydantic import BaseModel, EmailStr
 from fastapi.responses import JSONResponse
 import uuid
+from passlib.context import CryptContext
 
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 router = APIRouter()
 session_id = str(uuid.uuid4())
@@ -34,9 +36,7 @@ class Token(BaseModel):
     access_token: str
     token_type: str
 
-class UserLogin(BaseModel):
-    correo: EmailStr
-    password: str
+
 
 def create_access_token(data: dict, session_id: str) -> str:
     to_encode = data.copy()
@@ -48,25 +48,31 @@ def create_access_token(data: dict, session_id: str) -> str:
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 
+# Función para hashear la contraseña
+def get_password_hash(password: str) -> str:
+    return pwd_context.hash(password)
 
+# Función para verificar la contraseña
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    return pwd_context.verify(plain_password, hashed_password)
+
+# Ruta para login
 @router.post("/login")
 def login(user: UserLogin, response: Response, db: Session = Depends(get_db)):
     db_user = db.query(Usuario).filter(Usuario.correo == user.correo).first()
-    if not db_user or db_user.password != user.password:
+    if not db_user or not verify_password(user.password, db_user.password):
         raise HTTPException(status_code=401, detail="Credenciales incorrectas")
     
     # Generar un nuevo session_id
     session_id = str(uuid.uuid4())
 
     # Actualiza el usuario con el nuevo session_id
-    db_user.session_id = session_id  # Asegúrate de tener este campo en el modelo de usuario
+    db_user.session_id = session_id
     db.commit()
     db.refresh(db_user)
 
     access_token = create_access_token(data={"sub": db_user.correo}, session_id=session_id)
     return {"message": "Login exitoso", "user": {"nombre": db_user.nombre, "correo": db_user.correo, "rol_id": db_user.rol_id}, "access_token": access_token}
-
-
 
 # Ruta para registrar un nuevo usuario
 @router.post("/register", status_code=201)
@@ -82,7 +88,7 @@ def register(user: UserRegister, db: Session = Depends(get_db)):
     new_user = Usuario(
         nombre=user.nombre,
         correo=user.correo,
-        password=user.password,  #sin hashear
+        password=get_password_hash(user.password),  # Hashear la contraseña
         direccion=user.direccion,
         num_celular=user.num_celular,
         rol_id=db_rol.id,
