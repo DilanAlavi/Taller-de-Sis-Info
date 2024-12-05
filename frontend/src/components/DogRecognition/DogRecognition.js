@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './DogRecognition.css';
 import getAuthHeaders from '../../apiClient/apiClient'
+import { FaUpload } from 'react-icons/fa';
 
 const DogRecognition = () => {
   const navigate = useNavigate();
@@ -20,37 +21,39 @@ const DogRecognition = () => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+
+    if(file) {
+      if (file && !allowedTypes.includes(file.type)) {
+        console.error('Error: Por favor, selecciona una imagen en formato JPG, JPEG o PNG');
+        alert('Por favor, selecciona una imagen en formato JPG, JPEG o PNG');
+        // Clear the file input
+        event.target.value = '';
+        setSelectedFile(null);
+        setPreview('');
+        return;
+      }
+        // Validación del nombre del archivo
+      const fileName = file.name;
+      const validFileNameRegex = /^[a-zA-Z0-9._-]+$/;
+      
+      if (!validFileNameRegex.test(fileName.split('.')[0])) {
+        console.error('Error: El nombre del archivo contiene caracteres no permitidos');
+        alert('Por favor, usa solo letras, números, guiones y puntos en el nombre del archivo. No se permiten espacios ni caracteres especiales.');
+        event.target.value = '';
+        setSelectedFile(null);
+        setPreview('');
+        return;
+      }
     
-    if (file && !allowedTypes.includes(file.type)) {
-      console.error('Error: Por favor, selecciona una imagen en formato JPG, JPEG o PNG');
-      alert('Por favor, selecciona una imagen en formato JPG, JPEG o PNG');
-      // Clear the file input
-      event.target.value = '';
-      setSelectedFile(null);
-      setPreview('');
-      return;
-    }
-      // Validación del nombre del archivo
-    const fileName = file.name;
-    const validFileNameRegex = /^[a-zA-Z0-9._-]+$/;
-    
-    if (!validFileNameRegex.test(fileName.split('.')[0])) {
-      console.error('Error: El nombre del archivo contiene caracteres no permitidos');
-      alert('Por favor, usa solo letras, números, guiones y puntos en el nombre del archivo. No se permiten espacios ni caracteres especiales.');
-      event.target.value = '';
-      setSelectedFile(null);
-      setPreview('');
-      return;
-    }
-  
-    setSelectedFile(file);
-    
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setPreview(reader.result);
-    };
-    if (file) {
-      reader.readAsDataURL(file);
+      setSelectedFile(file);
+      
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result);
+      };
+      if (file) {
+        reader.readAsDataURL(file);
+      }
     }
   };
 
@@ -105,21 +108,32 @@ const DogRecognition = () => {
     <div className="dog-recognition-container">
       <h2>Reconoce a tu Perro</h2>
       <form onSubmit={handleSubmit} className="dog-recognition-form">
+
+      <div className='subir-imagen'>
         <input 
+          className='input-img'
           type="file" 
-          onChange={handleFileChange} 
-          accept="image/*"
+          accept="image/jpeg, image/png, image/jpg" 
+          onChange={handleFileChange}
+          id='file-upload'
+          required
         />
+        <label htmlFor="file-upload">
+          <FaUpload className='upload-logo'></FaUpload>
+        </label>
+        <div>Subir imagen</div>
+      </div>
         {preview && (
           <div className="image-preview">
             <img src={preview} alt="Preview" />
           </div>
         )}
-        <button 
-          type="submit" 
-          disabled={!selectedFile || isLoading}
-        >
-          {!isLoading ? 'Buscar Perro' : null}
+
+        <button className='dog-button' type="submit" disabled={!selectedFile || isLoading}>
+          <span className="shadow-button"></span>
+          <span className="edge-button"></span>
+          <span className="front-button text-button"> {!isLoading ? 'Buscar Perro' : null}
+          </span>
         </button>
 
         {isLoading && (

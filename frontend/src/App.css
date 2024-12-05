@@ -451,6 +451,9 @@ button:focus:not(:focus-visible) {
   .text-home {
     margin-top: 5rem;
   }
+  .coincidencia-card {
+    max-width: 80%;
+  }
 }
 
 @media (min-width: 1101px) {

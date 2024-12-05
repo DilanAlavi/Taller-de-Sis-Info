@@ -113,6 +113,7 @@ const PaginaPerrosVistos = () => {
             <option value="Negro">Negro</option>
           </select>
         </div>
+        
         <button 
           className='dog-button' 
           onClick={() => navigate("/perritovistoform")}
