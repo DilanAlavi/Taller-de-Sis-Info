@@ -73,6 +73,7 @@ h1 {
   padding: 2rem 2rem 2rem 2rem;
   box-shadow: 0 7px 15px rgba(0, 0, 0, 0.315);
   border-radius: 20px;
+  z-index: 2;
 }
 
 .text-home h3 {
