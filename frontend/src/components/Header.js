@@ -56,7 +56,7 @@ const Header = () => {
           <Link to="/home">
             <div className='logo'>
               <img src={logo} alt="Only Lost Pets Logo" className="brand-logo" />
-              <span className="brand-title">Only Lost Pets</span>
+              <span className="brand-title">Only Lost Dogs</span>
             </div>
           </Link>
           <div className="social-icons">

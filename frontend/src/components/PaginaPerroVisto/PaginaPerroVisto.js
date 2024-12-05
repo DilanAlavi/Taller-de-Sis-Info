@@ -30,20 +30,7 @@ const PaginaPerrosVistos = () => {
 
   useEffect(() => {
     if (perritos) {
-      let perritos_perdidos = []
-      for (const perro of perritos) {
-        if (perro.estado.estado === 0) {
-          perritos_perdidos.push(perro)
-        }
-      }
-      setPerrosPerdidos(perritos_perdidos)
-      console.log('Datos cargados:', perritos_perdidos);
-    }
-  }, [perritos]);
-
-  useEffect(() => {
-    if (perritos) {
-      let perritos_perdidos = perritos.filter((perro) => perro.estado.estado === 1);
+      let perritos_perdidos = perritos.filter((perro) => perro.estado.estado === 0);
 
       if (generoFiltro) {
         perritos_perdidos = perritos_perdidos.filter((perro) => perro.genero === generoFiltro);
