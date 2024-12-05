@@ -1,59 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import axios from 'axios';
 import './DogRecognition.css';
-import getAuthHeaders from '../../apiClient/apiClient'
 import { FaUpload } from 'react-icons/fa';
 
 const DogRecognition = () => {
-  const navigate = useNavigate();
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState('');
   const [result, setResult] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    if (result && result.error) {
-      navigate('/errorPage');
-    }
-  }, [result, navigate]);
-
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-
-    if(file) {
-      if (file && !allowedTypes.includes(file.type)) {
-        console.error('Error: Por favor, selecciona una imagen en formato JPG, JPEG o PNG');
-        alert('Por favor, selecciona una imagen en formato JPG, JPEG o PNG');
-        // Clear the file input
-        event.target.value = '';
-        setSelectedFile(null);
-        setPreview('');
-        return;
-      }
-        // Validación del nombre del archivo
-      const fileName = file.name;
-      const validFileNameRegex = /^[a-zA-Z0-9._-]+$/;
-      
-      if (!validFileNameRegex.test(fileName.split('.')[0])) {
-        console.error('Error: El nombre del archivo contiene caracteres no permitidos');
-        alert('Por favor, usa solo letras, números, guiones y puntos en el nombre del archivo. No se permiten espacios ni caracteres especiales.');
-        event.target.value = '';
-        setSelectedFile(null);
-        setPreview('');
-        return;
-      }
     
-      setSelectedFile(file);
-      
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result);
-      };
-      if (file) {
-        reader.readAsDataURL(file);
-      }
+    if (file && !allowedTypes.includes(file.type)) {
+      console.error('Error: Por favor, selecciona una imagen en formato JPG, JPEG o PNG');
+      alert('Por favor, selecciona una imagen en formato JPG, JPEG o PNG');
+      event.target.value = '';
+      setSelectedFile(null);
+      setPreview('');
+      return;
+    }
+
+    const fileName = file.name;
+    const validFileNameRegex = /^[a-zA-Z0-9._-]+$/;
+    
+    if (!validFileNameRegex.test(fileName.split('.')[0])) {
+      console.error('Error: El nombre del archivo contiene caracteres no permitidos');
+      alert('Por favor, usa solo letras, números, guiones y puntos en el nombre del archivo. No se permiten espacios ni caracteres especiales.');
+      event.target.value = '';
+      setSelectedFile(null);
+      setPreview('');
+      return;
+    }
+  
+    setSelectedFile(file);
+    
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreview(reader.result);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
     }
   };
 
@@ -72,22 +60,23 @@ const DogRecognition = () => {
       console.log('Enviando solicitud al servidor...');
       const response = await axios.post('http://localhost:8000/dogs/classify', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
-          ...getAuthHeaders(),
+          'Content-Type': 'multipart/form-data'
         }
       });
       
       console.log('Respuesta del servidor:', response.data);
       
       if (response.data.error) {
-        console.log('Error en la respuesta:', response.data.error);
         setResult({ error: response.data.error });
       } else if (response.data.message) {
-        console.log('Mensaje del servidor:', response.data.message);
         setResult({ message: response.data.message });
       } else {
-        console.log('Coincidencias encontradas:', response.data.coincidencias);
-        setResult(response.data);
+        const coincidencias = response.data.coincidencias;
+        if (!coincidencias || coincidencias.length === 0) {
+          setResult({ message: 'No se encontraron coincidencias' });
+        } else {
+          setResult(response.data);
+        }
       }
     } catch (error) {
       console.error('Error completo:', error);
@@ -108,8 +97,7 @@ const DogRecognition = () => {
     <div className="dog-recognition-container">
       <h2>Reconoce a tu Perro</h2>
       <form onSubmit={handleSubmit} className="dog-recognition-form">
-
-      <div className='subir-imagen'>
+        <div className='subir-imagen'>
         <input 
           className='input-img'
           type="file" 
@@ -128,7 +116,6 @@ const DogRecognition = () => {
             <img src={preview} alt="Preview" />
           </div>
         )}
-
         <button className='dog-button' type="submit" disabled={!selectedFile || isLoading}>
           <span className="shadow-button"></span>
           <span className="edge-button"></span>
@@ -138,7 +125,6 @@ const DogRecognition = () => {
 
         {isLoading && (
           <div className="loading-message">
-
             <div className="spinner"></div>
           </div>
         )}
@@ -148,7 +134,7 @@ const DogRecognition = () => {
         <div className="result-container">
           {result.error && (
             <div className="error-message">
-              <p>Error: {typeof result.error === 'string' ? result.error : JSON.stringify(result.error)}</p>
+              <p>Error: {result.error}</p>
             </div>
           )}
 
@@ -183,11 +169,6 @@ const DogRecognition = () => {
               </div>
             </div>
           )}
-
-          {/* Para depuración */}
-          <div style={{display: 'none'}}>
-            <pre>{JSON.stringify(result, null, 2)}</pre>
-          </div>
         </div>
       )}
     </div>
