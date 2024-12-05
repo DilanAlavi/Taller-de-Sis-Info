@@ -7,6 +7,7 @@ const ProtectedRoute = ({ element }) => {
   const { logout } = useContext(AuthContext);
   const [isAuthenticated, setIsAuthenticated] = useState(null); // Estado para controlar la autenticación
   const token = localStorage.getItem('access_token');
+  const { correoUser } = useContext(AuthContext);
 
   useEffect(() => {
     const validateToken = async () => {
@@ -17,6 +18,7 @@ const ProtectedRoute = ({ element }) => {
       try {
         await axios.get('http://localhost:8000/auth/profile', {
           headers: { Authorization: `Bearer ${token}` },
+          params: { correo: correoUser },
         });
         setIsAuthenticated(true); 
       } catch (error) {

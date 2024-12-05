@@ -150,17 +150,14 @@ def get_token_from_header(authorization: str = Header(...), db: Session = Depend
 
 @router.get("/profile")
 def profile(request: Request, db: Session = Depends(get_db), token: dict = Depends(get_token_from_header)):
-    user_email = token.get("sub")
-    session_id = token.get("session_id")
-
-    if not user_email or not session_id:
+    session_id = token.get("session_id")   # AQUI CAMBIO MUCHAS COSAS
+    correo_user = request.query_params.get("correo")
+    if not session_id or not correo_user:
         raise HTTPException(status_code=401, detail="Token inválido")
 
-    # Consulta al usuario en la base de datos
-    db_user = db.query(Usuario).filter(Usuario.correo == user_email).first()
+    db_user = db.query(Usuario).filter(Usuario.correo == correo_user).first()
 
     if not db_user or db_user.session_id != session_id:
         raise HTTPException(status_code=401, detail="Sesión inválida o cerrada")
 
-    return {"message": "Token válido", "user_email": user_email}
-
+    return {"message": "Token válido"}

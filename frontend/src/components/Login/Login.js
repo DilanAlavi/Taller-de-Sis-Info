@@ -10,6 +10,7 @@ const Login = () => {
   const { login } = useContext(AuthContext)
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
+  const { setcorreoUser } = useContext(AuthContext);
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -42,6 +43,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setcorreoUser(email);
 
     if (!validateFields()) return; 
 
