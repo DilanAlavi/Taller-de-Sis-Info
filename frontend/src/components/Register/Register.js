@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import './Register.css';
 import { AuthContext } from '../../AuthContext';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -15,6 +16,7 @@ const Register = () => {
   const [generalError, setGeneralError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const { login } = useContext(AuthContext);
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -22,6 +24,9 @@ const Register = () => {
   const handleNumeroChange = (e) => {
     const numericValue = e.target.value.replace(/\D/g, '');
     setNumero(numericValue);
+  };
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   const validatePassword = (pw) => {
@@ -124,15 +129,28 @@ const Register = () => {
         />
         {error.email && <span className="error-message">{error.email}</span>}
   
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          onFocus={() => setShowPasswordHint(true)}
-          onBlur={() => setShowPasswordHint(false)}
-          required
-        />
+        <div className="password-container-register" style={{ position: 'relative' }}>
+          <input
+            type={showPassword ? 'text' : 'password'}
+            placeholder="Contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            onFocus={() => setShowPasswordHint(true)}
+            onBlur={() => setShowPasswordHint(false)}
+            required
+          />
+          
+          <button
+            type="button"
+            className="toggle-password-reg"
+            onClick={togglePasswordVisibility}
+            aria-label="Mostrar/Ocultar Contraseña"
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </button>
+        </div>
+
+
         {showPasswordHint && (
           <div className="password-hint">
             La contraseña debe tener:

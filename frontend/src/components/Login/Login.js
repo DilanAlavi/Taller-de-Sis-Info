@@ -3,6 +3,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';
 import { AuthContext } from '../../AuthContext';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -11,6 +13,12 @@ const Login = () => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const { setcorreoUser } = useContext(AuthContext);
+  const [showPassword, setShowPassword] = useState(false);
+
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev); // Alternar visibilidad de contraseña
+  };
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -98,13 +106,23 @@ const Login = () => {
 
         {errors.email && <small className="error-message">{errors.email}</small>}
 
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <div className="password-container">
+          <input
+            type={showPassword ? 'text' : 'password'}
+            placeholder="Contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button
+            type="button"
+            className="toggle-password"
+            onClick={togglePasswordVisibility}
+          >
+            {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+          </button>
+        </div>
+
 
         {errors.password && (
           <small className="error-message">{errors.password}</small>
