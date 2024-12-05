@@ -56,26 +56,26 @@
   gap: 20px;
 }
 
-.perro-card {
+/* .perro-card {
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 15px;
   width: 220px;
   text-align: center;
   transition: transform 0.3s ease;
-}
+} */
 
 .perro-card:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.perro-foto {
-  width: 100%;
+/* .perro-foto { */
+  /* width: 100%;
   height: 150px;
   object-fit: cover;
   border-radius: 10px;
-}
+} */
 
 .perro-info {
   margin-top: 10px;

@@ -27,7 +27,7 @@ const PerritoVistoForm = () => {
       const file = event.target.files[0];
 
       if (file) {
-        const maxSize = 1 * 1024 * 1024; 
+        const maxSize = 7 * 1024 * 1024; 
         if (file.size > maxSize) {
           alert('El archivo no puede ser mayor de 5 MB.');
           return;

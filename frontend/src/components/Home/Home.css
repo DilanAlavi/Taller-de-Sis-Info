@@ -103,6 +103,7 @@ h1 {
 .perros-container {
   background-color: white;
   display: flex;
+  padding: 1rem 5rem 3rem 5rem;
   flex-wrap: wrap;
   gap: 10px;
   justify-content: center; /* O puedes usar `space-between` o `space-around` para distribuir mejor */
@@ -115,16 +116,16 @@ h1 {
 /* Tarjetas de perros */
 .perro-card {
   background-color: #0000001c;
-  /* background-color: #b873243a; */
   border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.075); /* Sombra sutil */
-  /* padding: 20px; */
   flex: 1 1 18rem; /* Esto está bien, pero considera agregar un max-width */
-  min-width: 10rem;
-  max-width: 22rem;
-  margin: 25px; /* Agrega un margen para evitar que se peguen */
+  min-width: 20vw;
+  width: 23vw;
+  max-width: 25vw;
+  margin: 20px; /* Agrega un margen para evitar que se peguen */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
+  border: 1px solid #adadad41;
 }
 
 

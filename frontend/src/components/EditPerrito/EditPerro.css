@@ -16,13 +16,7 @@
   width: 100%;
 }
 
-.perro-foto {
-  width: 100%;
-  /* max-width: 300px; */
-  height: auto;
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
+
 
 .perfil-perro-form {
   display: flex;
