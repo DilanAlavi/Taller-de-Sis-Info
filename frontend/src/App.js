@@ -22,6 +22,7 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import ReportList from './components/ReportList/ReportList';
 import RecaudacionFondos from './components/RecaudacionDeFondos/recaudacionFondos'
 import ErrorPage from './errorPage/errorPage';
+import PaginaNoEncontrada from './paginaNoEncontrada/PaginaNoEncontrada';
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
       <Header />
         <main className="App-main">
           <Routes>
+            <Route path="/" element={<Login/>}/>
             <Route path="/perritoperdidoform" element={<ProtectedRoute element={<PerritoPerdidoForm />} />} />
             <Route path="/dog-recognition" element={<ProtectedRoute element={<DogRecognition />} />} />
             <Route path="/user" element={<ProtectedRoute element={<User />} />} />
@@ -53,6 +55,7 @@ const App = () => {
 
 
             <Route path="/errorPage" element={<ErrorPage />} />
+            <Route path="/*" element={<PaginaNoEncontrada />} />
           </Routes>
         </main>
         <Footer />
