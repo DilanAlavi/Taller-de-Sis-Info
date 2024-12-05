@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import './Register.css';
+import { AuthContext } from '../../AuthContext';
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -13,6 +14,7 @@ const Register = () => {
   const [showPasswordHint, setShowPasswordHint] = useState(false);
   const [generalError, setGeneralError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const { login } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -43,18 +45,6 @@ const Register = () => {
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       errors.email = 'Debe estar en un formato válido (usuario@dominio.com).';
     } 
-
-    // Email registration check
-    if (!errors.email) {
-      try {
-        const response = await axios.post('http://localhost:8000/auth/check-email', { correo: email });
-        if (response.data.exists) {
-          errors.email = 'Este correo ya tiene una cuenta registrada.';
-        }
-      } catch (error) {
-        console.error('Error al verificar el correo:', error);
-      }
-    }
   
     // Password validation
     const passwordErrors = validatePassword(password);
@@ -103,12 +93,13 @@ const Register = () => {
       });
       
       // Mostrar mensaje de éxito
-      setSuccessMessage('¡Registro exitoso! Serás redirigido a iniciar sesión.');
+      setSuccessMessage('¡Registro exitoso! Serás redirigido a la página principal.');
       
       // Redirigir después de un breve retraso para mostrar el mensaje
       setTimeout(() => {
-        navigate('/login');
+        navigate('/home');
       }, 2000);
+      login(response.data);
 
     } catch (error) {
       console.error('Error en registro:', error);

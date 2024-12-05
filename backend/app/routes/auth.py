@@ -72,34 +72,54 @@ def login(user: UserLogin, response: Response, db: Session = Depends(get_db)):
     db.refresh(db_user)
 
     access_token = create_access_token(data={"sub": db_user.correo}, session_id=session_id)
-    return {"message": "Login exitoso", "user": {"nombre": db_user.nombre, "correo": db_user.correo, "rol_id": db_user.rol_id}, "access_token": access_token}
+    return {
+        "message": "Registro exitoso",
+        "user": {
+            "nombre": db_user.nombre,
+            "rol_id": db_user.rol_id,
+            "id": db_user.id,
+        },
+        "access_token": access_token
+    }
 
 # Ruta para registrar un nuevo usuario
 @router.post("/register", status_code=201)
 def register(user: UserRegister, db: Session = Depends(get_db)):
-    # Verificar si el correo ya está registrado
+
     db_user = db.query(Usuario).filter(Usuario.correo == user.correo).first()
     if db_user:
         raise HTTPException(status_code=400, detail="El correo ya está registrado")
-    
-    # Crear y guardar el nuevo usuario
+
     db_rol = db.query(Rol).filter(Rol.rol == 'user').first()
+    if not db_rol:
+        raise HTTPException(status_code=400, detail="Rol predeterminado no encontrado")
+
+    session_id = str(uuid.uuid4())
 
     new_user = Usuario(
         nombre=user.nombre,
         correo=user.correo,
-        password=get_password_hash(user.password),  # Hashear la contraseña
+        password=get_password_hash(user.password),  
         direccion=user.direccion,
         num_celular=user.num_celular,
         rol_id=db_rol.id,
+        session_id=session_id
     )
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
     
-    # Crear token JWT para el nuevo usuario
-    access_token = create_access_token(data={"sub": new_user.correo})
-    return {"message": "Usuario registrado exitosamente", "access_token": access_token}
+    access_token = create_access_token(data={"sub": new_user.correo}, session_id=session_id)
+
+    return {
+        "message": "Registro exitoso",
+        "user": {
+            "nombre": new_user.nombre,
+            "rol_id": new_user.rol_id,
+            "id": new_user.id,
+        },
+        "access_token": access_token
+    }
 
 
 def get_token_from_header(authorization: str = Header(...), db: Session = Depends(get_db)):

@@ -166,7 +166,10 @@ const Home = () => {
     <div className="home-container">
 
       {loading ? (
-        <p>Cargando perritos...</p> // Mostrar mensaje mientras se cargan los datos
+        <div className="loading-message">
+          <span>Cargando imagenes...</span>
+          <div className="spinner"></div>
+        </div>
       ) : (
         perritos && (
           <div>

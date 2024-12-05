@@ -6,20 +6,37 @@ import { useNavigate } from 'react-router-dom';
 
 const User = () => {
   const { user } = useContext(AuthContext);
+  const [actualUser, setActualUser] = useState(null);
   const { edit } = useContext(AuthContext);
-  const [newData, setNewData] = useState(user || {});
+  const [newData, setNewData] = useState({});
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+
+  const user_data = async () => {
+    console.log("entra aca")
+    try {
+      const user_response = await axios.get(`http://localhost:8000/users/${user.id}`);
+      setActualUser(user_response.data)
+    if (actualUser) {
+      setNewData(actualUser);
+      setLoading(false);
+    }
+    } catch (error) {
+      console.log("Error al obtener usuario:", error)
+    }
+  }
+
+
 
 
   useEffect(() => {
-    if (user) {
-      setNewData(user);
-    }
-    console.log(user.id)
-  }, [user]);
+    if(loading) { user_data() }     
+  });
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,7 +59,8 @@ const User = () => {
         direccion: newData.direccion
       });
       console.log(response.data)
-      edit(response.data)
+      const {id, nombre, rol_id} = response.data;
+      edit({id, nombre, rol_id})
 
       setSuccessMessage('Datos actualizados exitosamente');
     } catch (error) {
@@ -115,6 +133,14 @@ const User = () => {
           <img src={URL.createObjectURL(newData.foto)} alt="Foto de perfil" />
         </div>
       )} */}
+
+      {loading && (
+        <div className="loading-message">
+          <span>Cargando usuario...</span>
+          <div className="spinner"></div>
+        </div>
+      )}
+
      </div>
   );
 };

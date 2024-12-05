@@ -47,12 +47,17 @@ export const AuthProvider = ({ children }) => {
     console.log("Usuario después de logout:", getUser()); // Debería ser null
   };
 
+  const edit = (user_edit) => {
+    setUser(user_edit);
+    saveUser(user_edit);
+  }
+
   if (loading) {
     return <div>Cargando...</div>;
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, token }}>
+    <AuthContext.Provider value={{ user, login, logout, token, edit }}>
       {children}
     </AuthContext.Provider>
   );

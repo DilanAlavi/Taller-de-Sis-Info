@@ -12,6 +12,8 @@
 - tensor queda pendiente
 - pip install python-jose python-multipart
 - pip install python-dotenv
+- pip install bcrypt
+- pip install passlib
 Para que funcione se debe crear el archivo .env dentro de backend (backend/.env), y dentro debe tener esta estructura:
 
 DB_USER=root

@@ -37,7 +37,7 @@ const PerritoPerdidoForm = () => {
           return;
         }
     
-        const maxSize = 5 * 1024 * 1024; // 5 MB
+        const maxSize = 7 * 1024 * 1024;
         if (file.size > maxSize) {
           alert('El archivo no puede ser mayor de 5 MB.');
           return;
