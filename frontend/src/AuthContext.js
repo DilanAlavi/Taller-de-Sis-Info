@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [correoUser, setcorreoUser] = useState('');
 
   // Cargar el token y los datos del usuario desde el localStorage al iniciar
   useEffect(() => {
@@ -57,7 +58,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, token, edit }}>
+    <AuthContext.Provider value={{ user, login, logout, token, edit, correoUser , setcorreoUser }}>
       {children}
     </AuthContext.Provider>
   );
