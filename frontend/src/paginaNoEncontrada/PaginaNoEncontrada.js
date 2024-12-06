@@ -15,7 +15,7 @@ const PaginaNoEncontrada = () => {
   return (
     <div className="not-found-page">
       <h1 className="error-code">404</h1>
-      <h2 className="error-message">Página no encontrada</h2>
+      <h2 className="error-message-page">Página no encontrada</h2>
       <p>Lo sentimos, la página que buscas no existe.</p>
       <p>Serás redirigido al inicio en unos segundos...</p>
     </div>

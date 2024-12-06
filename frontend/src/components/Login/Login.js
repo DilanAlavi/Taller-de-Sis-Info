@@ -28,25 +28,16 @@ const Login = () => {
     return null;
   };
 
-  const validatePassword = (password) => {
-    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%&*]).{8,}$/;
-    if (!password) return 'La contraseña no puede estar vacía';
-    if (!passwordRegex.test(password)) {
-      return 'La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial (@, #, $, %, &, *)';
-    }
-    return null;
-  };
+  
 
   const validateFields = () => {
     const emailError = validateEmail(email);
-    const passwordError = validatePassword(password);
 
     setErrors({
       email: emailError,
-      password: passwordError,
     });
 
-    return !emailError && !passwordError;
+    return !emailError;
   };
 
   const handleSubmit = async (e) => {
@@ -104,7 +95,7 @@ const Login = () => {
           required
         />
 
-        {errors.email && <small className="error-message">{errors.email}</small>}
+        {errors.email && <small style={{fontSize:'0.5rem'}} className="error-message">{errors.email}</small>}
 
         <div className="password-container">
           <input

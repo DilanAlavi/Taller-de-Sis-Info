@@ -40,7 +40,7 @@ const Header = () => {
 
   const doLogout = () => {
     setIsUserOpen(false);
-    navigate('/home');
+    navigate('/login');
     logout();
   };
 

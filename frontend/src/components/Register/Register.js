@@ -1,8 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import './Register.css';
-import { AuthContext } from '../../AuthContext';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Register = () => {
@@ -15,7 +14,6 @@ const Register = () => {
   const [showPasswordHint, setShowPasswordHint] = useState(false);
   const [generalError, setGeneralError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const { login } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
@@ -102,9 +100,8 @@ const Register = () => {
       
       // Redirigir después de un breve retraso para mostrar el mensaje
       setTimeout(() => {
-        navigate('/home');
-      }, 2000);
-      login(response.data);
+        navigate('/login');
+      }, 1000);
 
     } catch (error) {
       console.error('Error en registro:', error);

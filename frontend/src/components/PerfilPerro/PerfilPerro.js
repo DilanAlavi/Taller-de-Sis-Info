@@ -255,6 +255,7 @@ const PerfilPerro = () => {
                   placeholder="Agrega un comentario..."
                   rows="3"
                   className="comentario-input"
+                  maxLength={200}
                 ></textarea>
                 <div>
                   <button type="submit" className="comentario-boton">Enviar</button>
@@ -273,6 +274,7 @@ const PerfilPerro = () => {
               rows="3"
               className="comentario-input"
               disabled={user ? false : true}
+              maxLength={200}
             />
             <button type="submit" className="comentario-boton" disabled={user ? false : true}>Enviar</button>
           </form>
