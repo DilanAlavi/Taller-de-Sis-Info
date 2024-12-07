@@ -1,18 +1,17 @@
-
 .info-page {
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
   line-height: 1.8;
+  font-family: Arial, sans-serif;
 }
-
 
 .info-page-title {
   text-align: center;
   margin-bottom: 30px;
   font-size: 2.5em;
+  color: #4CAF50;
 }
-
 
 .perros-list {
   margin-top: 20px;
@@ -24,6 +23,7 @@
   padding: 15px;
   margin-bottom: 20px;
   background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .perro-nombre {
@@ -39,16 +39,18 @@
 /* Secciones adicionales */
 .info-section {
   margin-top: 30px;
-  padding: 15px;
-  border-left: 4px solid #007BFF;
-  background-color: #f0f0f0;
+  padding: 20px;
+  border-left: 6px solid #4CAF50;
+  background-color: #f0f8f5;
   border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .section-title {
   color: #333;
   margin-bottom: 10px;
   font-size: 1.5em;
+  font-weight: bold;
 }
 
 .section-content {
@@ -56,12 +58,54 @@
   margin-bottom: 20px;
 }
 
+/* Estilo para listas dentro de las secciones */
+.tips-list {
+  margin-top: 10px;
+  margin-left: 20px; /* Ajuste para que no choque con los bordes */
+  padding-left: 20px; /* Sangría para las viñetas */
+  list-style-type: disc; /* Estilo de viñeta */
+}
+
+.tips-list li {
+  margin-bottom: 10px;
+  color: #555;
+}
+
 /* Enlaces */
 .register-link {
-  color: #007BFF;
+  color: #4CAF50;
+  font-weight: bold;
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .register-link:hover {
   text-decoration: underline;
+  color: #388E3C;
+}
+
+/* Botones o enlaces dentro de las secciones */
+.info-section a {
+  font-weight: bold;
+  color: #4CAF50;
+  transition: color 0.3s ease;
+}
+
+.info-section a:hover {
+  color: #388E3C;
+}
+
+/* Ajuste de margenes en dispositivos más pequeños */
+@media (max-width: 600px) {
+  .info-page {
+    padding: 15px;
+  }
+
+  .section-title {
+    font-size: 1.3em;
+  }
+
+  .tips-list {
+    margin-left: 15px; /* Ajuste adicional para pantallas pequeñas */
+  }
 }
