@@ -4,38 +4,38 @@ import axios from 'axios';
 
 const ReportList = () => {
   const [loading, setLoading] = useState(true);
-  const [reportes, setReportes] = useState(null);
+  const [reportes, setReportes] = useState([]);
 
   useEffect(() => {
-      const data = async () => {
-        try {
-          const response = await axios.get('http://127.0.0.1:8000/reporte/');
-          setReportes(response.data);
-        } catch (error) {
-          console.log(error);
-        } finally {
-          setLoading(false);
-        }
-      };
-      data();
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/reporte/');
+        setReportes(response.data);
+      } catch (error) {
+        console.log(error);
+        setReportes([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
   }, []);
-
 
   return (
     <div>
-      {(loading && !reportes) ? (
+      {loading ? (
         <div className="loading-message">
           <span>Cargando reportes...</span>
           <div className="spinner"></div>
         </div>
-      ) : ( reportes && (
+      ) : (
         <div className="report-list-container">
           <h1>Lista de Reportes de Usuarios</h1>
-          {!reportes ? (
+          {reportes.length === 0 ? (
             <div className="no-reports-message">
               <span>No existen reportes.</span>
             </div>
-          ) : ( 
+          ) : (
             <table className="report-table">
               <thead>
                 <tr>
@@ -46,7 +46,7 @@ const ReportList = () => {
                 </tr>
               </thead>
               <tbody>
-                {reportes && reportes.map((report) => (
+                {reportes.map((report) => (
                   <tr key={report.id}>
                     <td>{report.id}</td>
                     <td>{report.usuario.nombre}</td>
@@ -58,7 +58,7 @@ const ReportList = () => {
             </table>
           )}
         </div>
-      ))}
+      )}
     </div>
   );
 };
