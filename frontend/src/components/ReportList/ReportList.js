@@ -42,7 +42,7 @@ const ReportList = () => {
                   <th>ID</th>
                   <th>Usuario</th>
                   <th>Motivo</th>
-                  <th style={{ textAlign: 'left' }}>Descripcion</th>
+                  <th>Descripcion</th>
                 </tr>
               </thead>
               <tbody>
@@ -51,7 +51,7 @@ const ReportList = () => {
                     <td data-label="ID">{report.id}</td>
                     <td data-label="Usuario">{report.usuario.nombre}</td>
                     <td data-label="Motivo">{report.motivo}</td>
-                    <td data-label="Descripción" style={{ textAlign: 'left' }}>{report.descripcion}</td>
+                    <td data-label="Descripción">{report.descripcion}</td>
                   </tr>
                 ))}
               </tbody>
