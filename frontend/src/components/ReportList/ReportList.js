@@ -39,7 +39,7 @@ const ReportList = () => {
             <table className="report-table">
               <thead>
                 <tr>
-                  <th>ID</th>
+                  <th className='td-id'>ID</th>
                   <th>Usuario</th>
                   <th>Motivo</th>
                   <th className='td-description'>Descripcion</th>
