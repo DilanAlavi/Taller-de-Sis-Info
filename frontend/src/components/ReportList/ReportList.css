@@ -150,11 +150,17 @@
       overflow: hidden;
   }
 
+  .td-description {
+    display: block;
+    text-align: left; 
+    border-bottom: 1px solid rgba(76, 175, 80, 0.05);
+    padding-left: 10px; 
+  }
+
   .report-table td {
     display: block;
-    text-align: left; /* Cambiado de right a left */
+    text-align: right;
     border-bottom: 1px solid rgba(76, 175, 80, 0.05);
-    padding-left: 10px; /* Agregar espacio para claridad */
   }
 
 

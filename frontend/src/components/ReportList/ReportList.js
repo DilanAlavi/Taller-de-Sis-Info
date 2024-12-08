@@ -42,7 +42,7 @@ const ReportList = () => {
                   <th>ID</th>
                   <th>Usuario</th>
                   <th>Motivo</th>
-                  <th style={{ textAlign: 'left' }}>Descripcion</th>
+                  <th className='td-description'>Descripcion</th>
                 </tr>
               </thead>
               <tbody>
