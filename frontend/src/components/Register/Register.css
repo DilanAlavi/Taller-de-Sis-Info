@@ -93,6 +93,8 @@
   .register-form button {
     font-size: 0.9rem; /* Ajustar el tamaño del texto en el botón */
   }
+
+
 }
 
 
@@ -193,3 +195,81 @@
 }
 
 
+@media (max-width: 320px) {
+  .register-form {
+    padding: 1rem;
+    max-width: 90%; /* Ajustar ancho al 90% del viewport */
+    border-radius: 8px;
+  }
+}
+
+
+@media (max-width: 320px) {
+  .register-form {
+    padding: 1rem;
+    max-width: 90%; /* Ajustar ancho al 90% del viewport */
+    border-radius: 8px;
+  }
+
+  .register-form input {
+    padding: 0.6rem;
+    font-size: 0.9rem; /* Reducir el tamaño de fuente */
+  }
+
+  .register-form button {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  .toggle-password-reg {
+    left: 85%; /* Ajustar al ancho de la pantalla */
+    top: 22%; /* Corrige la posición vertical */
+    font-size: 1rem; /* Reducir tamaño si es necesario */
+  }
+
+  footer {
+    font-size: 0.8rem; /* Reducir texto del pie */
+    padding: 0.5rem;
+  }
+
+  .register-container {
+    height: 100%; /* Asegura que ocupe el espacio disponible */
+    padding: 0.5rem; /* Espacio más compacto */
+  }
+}
+
+
+
+@media (max-width: 427px) {
+  .register-form {
+    padding: 1.2rem;
+    max-width: 95%;
+    border-radius: 9px;
+  }
+
+  .register-form input {
+    padding: 0.7rem;
+    font-size: 1rem;
+  }
+
+  .register-form button {
+    padding: 0.7rem 1rem;
+    font-size: 1rem;
+  }
+
+  .toggle-password-reg {
+    left: 85%; /* Ajustar al tamaño del input */
+    top: 16%; /* Alinear verticalmente */
+    font-size: 1.1rem; /* Mantener buena visibilidad */
+  }
+
+  footer {
+    font-size: 0.85rem;
+    padding: 0.8rem;
+  }
+
+  .register-container {
+    height: 100%;
+    padding: 1rem;
+  }
+}
