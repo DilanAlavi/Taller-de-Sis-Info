@@ -124,9 +124,14 @@ const PerritoPerdidoForm = () => {
         alert('Registro exitoso');
         navigate('/home');
       } catch (error) {
-        console.error('Error en registro:', error);
+        if (axios.isAxiosError(error)) {
+          console.error('Error en la respuesta:', error.response?.data);
+          alert('Hubo un problema con el servidor. Por favor, inténtalo más tarde.');
+        } else {
+          console.error('Error desconocido:', error);
+        }
       } finally {
-        setLoading(false);
+        setIsProcessing(false);
       }
     };
 
@@ -188,19 +193,19 @@ const PerritoPerdidoForm = () => {
                   type="date" 
                   value={date}
                   onChange={(e) => {
-                    const selectedDate = new Date(e.target.value); // Fecha seleccionada
-                    const today = new Date(); // Fecha actual
-                    const minDate = new Date(); // Configura la fecha mínima
-                    minDate.setFullYear(today.getFullYear() - 1); // Permitir hasta 100 años atrás
-                
+                    const selectedDate = new Date(e.target.value);
+                    const today = new Date();
+                    const oneYearAgo = new Date();
+                    oneYearAgo.setFullYear(today.getFullYear() - 1);
+                  
                     if (selectedDate > today) {
                       alert("La fecha no puede ser en el futuro.");
-                    } else if (selectedDate < minDate) {
-                      alert("La fecha no puede ser tan antigua.");
+                    } else if (selectedDate < oneYearAgo) {
+                      alert("La fecha no puede ser más antigua que un año.");
                     } else {
-                      setDate(e.target.value); // Actualiza solo si es válida
+                      setDate(e.target.value);
                     }
-                  }}
+                  }}                  
                   required
                 />
               </div>
