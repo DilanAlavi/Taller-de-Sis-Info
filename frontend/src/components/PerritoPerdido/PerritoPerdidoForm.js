@@ -19,6 +19,7 @@ const PerritoPerdidoForm = () => {
   const [loading, setLoading] = useState(false);
   const [isDog, setIsDog] = useState(false);  
   const [isProcessing, setIsProcessing] = useState(false);
+  const [dateError, setDateError] = useState('');
   const navigate = useNavigate();
  
 
@@ -81,10 +82,45 @@ const PerritoPerdidoForm = () => {
       }
     };
     
+    const validateDate = () => {
+      const selectedDate = new Date(date);
+      const today = new Date();
+      const minDate = new Date();
+      minDate.setFullYear(today.getFullYear() - 1);
+    
+      if (!date) {
+        setDateError("El campo de fecha es obligatorio.");
+        return false;
+      }
+    
+      if (selectedDate > today) {
+        setDateError("La fecha no puede ser en el futuro.");
+        return false;
+      }
+    
+      if (selectedDate < minDate) {
+        setDateError("La fecha no puede ser más antigua que un año.");
+        return false;
+      }
+    
+      setDateError(''); // No hay errores
+      return true;
+    };
+    
 
     const handleSubmit = async (e) => {
       e.preventDefault();
       setLoading(true);
+
+      if (!validateDate()) {
+        setLoading(false);
+        return; // No enviar si la fecha no es válida
+      }
+
+      // setDateError('');
+      // alert("Reporte enviado con éxito.");
+      // setLoading(true);
+
       const formDataFoto = new FormData();
       formDataFoto.append("foto", foto);
 
@@ -124,14 +160,10 @@ const PerritoPerdidoForm = () => {
         alert('Registro exitoso');
         navigate('/home');
       } catch (error) {
-        if (axios.isAxiosError(error)) {
-          console.error('Error en la respuesta:', error.response?.data);
-          alert('Hubo un problema con el servidor. Por favor, inténtalo más tarde.');
-        } else {
-          console.error('Error desconocido:', error);
-        }
+        console.error('Error desconocido:', error);
+        alert('Hubo un problema con el servidor. Por favor, inténtalo más tarde.');
       } finally {
-        setIsProcessing(false);
+        setLoading(false);
       }
     };
 
@@ -189,26 +221,22 @@ const PerritoPerdidoForm = () => {
                   maxLength={150}
                   required
                 />
-                <input 
-                  type="date" 
+                <input
+                  id="date"
+                  type="date"
                   value={date}
-                  onChange={(e) => {
-                    const selectedDate = new Date(e.target.value);
-                    const today = new Date();
-                    const oneYearAgo = new Date();
-                    oneYearAgo.setFullYear(today.getFullYear() - 1);
-                  
-                    if (selectedDate > today) {
-                      alert("La fecha no puede ser en el futuro.");
-                    } else if (selectedDate < oneYearAgo) {
-                      alert("La fecha no puede ser más antigua que un año.");
-                    } else {
-                      setDate(e.target.value);
-                    }
-                  }}                  
+                  onChange={(e) => setDate(e.target.value)} // Solo actualiza el estado
+                  onBlur={validateDate} // Valida solo al perder el enfoque
                   required
                 />
+
+
               </div>
+              {dateError && (
+                <div className="error-validacion-fecha">
+                  {dateError}
+                </div>
+              )}
               <div className='container-textarea'>
                 <textarea 
                   placeholder="Descripción del perrito" 
