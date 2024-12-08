@@ -121,7 +121,9 @@ const User = () => {
           onChange={handleChange}
           required
         />
-        <button type="submit">Actualizar Datos</button>
+        <button id="update-button" type="submit" className="update-button">
+              Actualizar Datos
+        </button>
       </form>
 
       <button onClick={handleDelete} className="delete-button">

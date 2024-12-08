@@ -196,7 +196,7 @@
   display: block;
   width: 100%;
   margin-bottom: 5px;
-  background: #FA9B2F;
+  background: #25d366;
   color: white;
   border: none;
   border-radius: 4px;
@@ -205,7 +205,7 @@
 }
 
 .popup-comentario button:hover {
-  background-color: #e48f2f;
+  background-color: #25d366;
 }
 
 .popup-comentario button:last-child {
@@ -257,5 +257,5 @@
 }
 
 .popup-edit-comentario button:hover {
-  background-color: #e48f2f;
+  background-color: #25d366;
 }
