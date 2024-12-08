@@ -151,10 +151,12 @@
   }
 
   .report-table td {
-      display: block;
-      text-align: right;
-      border-bottom: 1px solid rgba(76, 175, 80, 0.05);
+    display: block;
+    text-align: left; /* Cambiado de right a left */
+    border-bottom: 1px solid rgba(76, 175, 80, 0.05);
+    padding-left: 10px; /* Agregar espacio para claridad */
   }
+
 
   .report-table td:before {
       content: attr(data-label);
