@@ -48,10 +48,10 @@ const ReportList = () => {
               <tbody>
                 {reportes.map((report) => (
                   <tr key={report.id}>
-                    <td>{report.id}</td>
-                    <td>{report.usuario.nombre}</td>
-                    <td>{report.motivo}</td>
-                    <td style={{ textAlign: 'left' }}>{report.descripcion}</td>
+                    <td data-label="ID">{report.id}</td>
+                    <td data-label="Usuario">{report.usuario.nombre}</td>
+                    <td data-label="Motivo">{report.motivo}</td>
+                    <td data-label="Descripción" style={{ textAlign: 'left' }}>{report.descripcion}</td>
                   </tr>
                 ))}
               </tbody>
