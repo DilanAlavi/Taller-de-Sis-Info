@@ -175,7 +175,7 @@ const PerritoPerdidoForm = () => {
                   if (/^[a-zA-Z\s]*$/.test(value) && value.length <= 45) { setNombre(value) }
                 }}
                   maxLength={45}
-                required
+                required 
               />
             </div>
 
