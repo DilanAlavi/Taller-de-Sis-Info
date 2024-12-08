@@ -42,7 +42,7 @@ const ReportList = () => {
                   <th>ID</th>
                   <th>Usuario</th>
                   <th>Motivo</th>
-                  <th>Descripcion</th>
+                  <th>Descripcion</th> 
                 </tr>
               </thead>
               <tbody>
