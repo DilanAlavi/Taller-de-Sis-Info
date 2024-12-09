@@ -139,10 +139,6 @@
       padding: 8px 5px;
   }
 
-  .report-table td {
-      word-break: break-word;
-  }
-
   .report-table thead {
       display: none;
   }
@@ -163,6 +159,7 @@
   }
 
   .report-table td {
+    word-break: break-word;
     display: block;
     text-align: right;
     border-bottom: 1px solid rgba(76, 175, 80, 0.05);
