@@ -51,7 +51,7 @@ const ReportList = () => {
                     <td data-label="ID">{report.id}</td>
                     <td data-label="Usuario">{report.usuario.nombre}</td>
                     <td data-label="Motivo">{report.motivo}</td>
-                    <td data-label="Descripción">{report.descripcion}</td>
+                    <td className="td-description-cell" data-label="Descripción">{report.descripcion}</td>
                   </tr>
                 ))}
               </tbody>
