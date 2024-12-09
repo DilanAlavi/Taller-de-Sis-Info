@@ -10,7 +10,7 @@ const ErrorPage = () => {
     if (!token) {
       const timeoutId = setTimeout(() => {
         navigate('/login');
-      }, 4000); 
+      }, 4000);
       return () => clearTimeout(timeoutId);
     }
   }, [token, navigate]);
