@@ -56,10 +56,7 @@
   border-bottom: 1px solid rgba(76, 175, 80, 0.1);
 }
 
-.report-table th:first-child,
-.report-table td:first-child {
-  padding-left: 20px;
-}
+
 
 .report-table th:last-child,
 .report-table td:last-child {
@@ -112,5 +109,76 @@
   margin-top: 30px;
   font-weight: bold;
 }
+@media (max-width: 600px) {
+  .report-list-container {
+      padding: 10px;
+      width: 100%;
+  }
 
-   
+  .report-table {
+      width: 100%;
+      font-size: 0.8rem;
+  }
+
+
+
+  .td-id {
+      font-size: 0.7rem;
+  }
+
+  .report-table th {
+      font-size: 0.7rem;
+      padding: 8px 5px;
+  }
+
+  .report-table thead {
+      display: none;
+  }
+
+  .report-table tr {
+      display: block;
+      margin-bottom: 10px;
+      border: 1px solid rgba(76, 175, 80, 0.1);
+      border-radius: 5px;
+      overflow: hidden;
+  }
+
+  /* Ajustes específicos para descripciones largas */
+  .td-description,
+  .td-description-cell {
+      text-align: justify;        /* Justificar texto */
+      white-space: pre-wrap;      /* Respeta saltos de línea */
+      word-break: break-word;     /* Evita desbordes */
+       /* Espaciado inicial */
+      max-width: 100%;            /* Limitar ancho */
+      overflow-wrap: break-word;  /* Divide palabras largas */
+  }
+
+  .report-table td {
+      word-break: break-word;
+      display: block;
+      text-align: right;
+      border-bottom: 1px solid rgba(76, 175, 80, 0.05);
+  }
+
+  .report-table td:before {
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+      text-transform: uppercase;
+  }
+
+  .report-table td:last-child {
+      border-bottom: none;
+  }
+
+  .report-list-container h1 {
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+  }
+
+  .no-reports-message {
+      font-size: 1rem;
+      margin-top: 20px;
+  }
+}
