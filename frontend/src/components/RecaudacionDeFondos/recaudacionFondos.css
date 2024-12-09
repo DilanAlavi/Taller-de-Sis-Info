@@ -98,4 +98,220 @@
   .share-button:hover {
     opacity: 0.9;
   }
-  
+
+ /* Media Queries */
+
+/* Para pantallas muy pequeñas (móviles de 320px de ancho) */
+@media (max-width: 300px) {
+  .fundraiser-title {
+    font-size: 1.3rem; /* Ajusta el tamaño de la fuente del título */
+  }
+
+  .fundraiser-subtitle {
+    font-size: 1.1rem; /* Ajusta el tamaño de la fuente del subtítulo */
+  }
+
+  .fundraiser-content {
+    font-size: 0.9rem; /* Reduce el tamaño de la fuente para mejorar la lectura */
+    padding: 0 10px; /* Añadir un poco de padding para no pegar el texto a los bordes */
+    max-width: 100%; /* Asegura que el contenido ocupe todo el ancho disponible */
+  }
+
+  .qr-image {
+    width: 180px; /* Reduce el tamaño de la imagen QR */
+    height: 180px; /* Mantiene la proporción de la imagen */
+  }
+
+  .share-buttons {
+    flex-direction: column;
+    align-items: stretch; /* Hace que los botones se expandan a lo largo del ancho */
+    margin-top: 10px;
+  }
+
+  .share-button {
+    width: 100%; /* Asegura que los botones ocupen el 100% del ancho */
+    padding: 12px;
+    font-size: 0.9rem; /* Ajusta el tamaño de la fuente de los botones */
+    margin-bottom: 10px; /* Espaciado entre botones */
+  }
+
+  .share-button--facebook {
+    background-color: #3b5998;
+  }
+
+  .share-button--whatsapp {
+    background-color: #25D366;
+  }
+
+  .share-button--instagram {
+    background-color: #C13584;
+  }
+}
+
+/* Para pantallas muy pequeñas (móviles de 320px de ancho) */
+@media (max-width: 320px) {
+  /* Títulos h1 y h2 */
+  .fundraiser-title {
+    font-size: 1.3rem; /* Ajusta el tamaño del título principal */
+    margin-bottom: 15px; /* Reduce el margen inferior */
+  }
+
+  .fundraiser-subtitle {
+    font-size: 1.1rem; /* Ajusta el tamaño de los subtítulos */
+    margin-bottom: 8px; /* Reduce el margen inferior */
+  }
+
+  /* Párrafos p */
+  .fundraiser-content {
+    font-size: 0.85rem; /* Ajusta el tamaño de la fuente del texto */
+    padding: 0 10px; /* Añade padding para no pegar el texto a los bordes */
+    max-width: 100%; /* Asegura que el texto ocupe todo el ancho disponible */
+    line-height: 1.4; /* Mejora la legibilidad */
+    overflow-wrap: break-word; /* Evita el desbordamiento del texto */
+  }
+
+  /* QR Image */
+  .qr-image {
+    width: 180px; /* Reducción adicional del tamaño de la imagen */
+    height: 180px; /* Mantiene la proporción */
+  }
+
+  /* Botones de compartir */
+  .share-buttons {
+    flex-direction: column;
+    align-items: stretch; /* Hace que los botones ocupen todo el ancho */
+    margin-top: 10px;
+  }
+
+  .share-button {
+    width: 100%; /* Hace que los botones ocupen el 100% del ancho */
+    padding: 12px;
+    font-size: 0.9rem; /* Ajusta el tamaño de la fuente de los botones */
+    margin-bottom: 10px; /* Añade espacio entre los botones */
+  }
+
+  .share-button--facebook {
+    background-color: #3b5998;
+  }
+
+  .share-button--whatsapp {
+    background-color: #25D366;
+  }
+
+  .share-button--instagram {
+    background-color: #C13584;
+  }
+}
+
+/* Para pantallas de 375px de ancho */
+@media (max-width: 375px) {
+  /* Títulos h1 y h2 */
+  .fundraiser-title {
+    font-size: 1.5rem; /* Ajusta el tamaño del título principal */
+    margin-bottom: 20px; /* Reduce el margen inferior */
+  }
+
+  .fundraiser-subtitle {
+    font-size: 1.2rem; /* Ajusta el tamaño de los subtítulos */
+    margin-bottom: 10px; /* Reduce el margen inferior */
+  }
+
+  /* Párrafos p */
+  .fundraiser-content {
+    font-size: 0.95rem; /* Ajusta el tamaño de la fuente del texto */
+    padding: 0 15px; /* Añade padding para no pegar el texto a los bordes */
+    max-width: 100%; /* Asegura que el texto ocupe todo el ancho disponible */
+    line-height: 1.4; /* Mejora la legibilidad */
+    overflow-wrap: break-word; /* Evita el desbordamiento del texto */
+  }
+
+  /* QR Image */
+  .qr-image {
+    width: 200px; /* Ajusta el tamaño de la imagen QR */
+    height: 200px; /* Mantiene la proporción */
+  }
+
+  /* Botones de compartir */
+  .share-buttons {
+    flex-direction: column;
+    align-items: stretch; /* Hace que los botones ocupen todo el ancho */
+    margin-top: 10px;
+  }
+
+  .share-button {
+    width: 100%; /* Hace que los botones ocupen el 100% del ancho */
+    padding: 12px;
+    font-size: 1rem; /* Ajusta el tamaño de la fuente de los botones */
+    margin-bottom: 10px; /* Añade espacio entre los botones */
+  }
+
+  .share-button--facebook {
+    background-color: #3b5998;
+  }
+
+  .share-button--whatsapp {
+    background-color: #25D366;
+  }
+
+  .share-button--instagram {
+    background-color: #C13584;
+  }
+}
+
+/* Para pantallas medianas (tabletas) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .fundraiser-title {
+    font-size: 1.8rem;
+  }
+
+  .fundraiser-subtitle {
+    font-size: 1.4rem;
+  }
+
+  .fundraiser-content {
+    font-size: 1rem;
+    max-width: 80%;
+  }
+
+  .qr-image {
+    width: 250px;
+    height: 250px;
+  }
+
+  .share-buttons {
+    flex-direction: row;
+  }
+
+  .share-button {
+    width: 30%;
+  }
+}
+
+/* Para pantallas grandes (pantallas de escritorio) */
+@media (min-width: 1025px) {
+  .fundraiser-title {
+    font-size: 2rem;
+  }
+
+  .fundraiser-subtitle {
+    font-size: 1.5rem;
+  }
+
+  .fundraiser-content {
+    font-size: 1rem;
+    max-width: 600px;
+  }
+
+  .qr-image {
+    width: 300px;
+    height: 300px;
+  }
+
+  .share-buttons {
+    flex-direction: row;
+  }
+
+  .share-button {
+    width: auto;
+  }
+}
