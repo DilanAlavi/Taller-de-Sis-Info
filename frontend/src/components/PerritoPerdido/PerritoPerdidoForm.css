@@ -310,7 +310,7 @@ textarea:focus,
   25% { transform: translateX(-5px); }
   75% { transform: translateX(5px); }
 }
-
+/* respondividad */
 @media (max-width: 768px) {
   .contenedor-perro-perdido {
     flex-direction: column;
@@ -321,3 +321,4 @@ textarea:focus,
     width: 90%;
   }
 }
+
