@@ -95,3 +95,22 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
   }
   
+/*para la contraseña*/
+  .user-form input[type="password"] {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+  }
+  
+  .user-form input::placeholder {
+    color: #aaa;
+  }
+  
+  .user-form input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  

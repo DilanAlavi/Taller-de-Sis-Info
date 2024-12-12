@@ -7,6 +7,11 @@ from app.models.perrito import Perrito
 from app.models.estado_perro import EstadoPerro
 from app.models.foto import Foto
 from app.models.comentarios import Comentario
+# para la contraseña
+from passlib.context import CryptContext
+
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 router = APIRouter()
 
@@ -15,6 +20,9 @@ class UserUpdate(BaseModel):
     correo: str | None = None
     direccion: str | None = None
     num_celular: int | None = None  
+    currentPassword: str | None = None
+    newPassword: str | None = None 
+     
 
 @router.get("/{user_id}")
 def get_user(user_id: int, db: Session = Depends(get_db)):
@@ -33,6 +41,11 @@ def edit_user(user_id: int, user_update: UserUpdate, db: Session = Depends(get_d
     user = db.query(Usuario).filter(Usuario.id == user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
+    #contraseña
+    if user_update.currentPassword and user_update.newPassword:
+        if not pwd_context.verify(user_update.currentPassword, user.password):
+            raise HTTPException(status_code=400, detail="Contraseña actual incorrecta")
+        user.password = pwd_context.hash(user_update.newPassword)
 
     for key, value in user_update.dict(exclude_unset=True).items():
         setattr(user, key, value)
@@ -78,3 +91,4 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
     db.delete(user)
     db.commit()
     return {"detail": "Usuario eliminado con éxito"}
+

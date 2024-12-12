@@ -317,43 +317,67 @@ button:focus:not(:focus-visible) {
   align-items: center;
 }
 
-.menu-user-open {
-  position: absolute;
-  left: 89.2%;
-  top: 19%;
-  background-color: white;
-  width: 9rem;
-  padding: 6px 5px;
-  height: auto;
-  z-index: 100;
+/* Ajuste del menú desplegable */
+
+.menu-user-open li {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--primary-dark); /* Texto más visible */
+  text-align: left;
+  transition: all 0.3s ease;
   border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .menu-user-open::after {
   content: '';
   position: absolute;
-  top: 7%;
-  left: 7.75rem;
-  transform: translateX(-108%);
+  top: -10px; /* Ajuste de la flecha */
+  right: 20px;
   border-width: 10px;
   border-style: solid;
-  border-color: transparent white transparent transparent;
-  rotate: 90deg;
+  border-color: transparent transparent white transparent; /* Triángulo blanco */
+  display: none; /* Ocultamos la flecha si no es necesaria */
 }
 
 .menu-user-open li {
-  margin: 8px 3px;
-  padding: 8px;
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--primary-dark);
+  text-align: left;
   transition: all 0.3s ease;
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
 .menu-user-open li:hover {
-  background-color: #e8f6ef;
+  background-color: var(--primary-color); /* Fondo más visible al hacer hover */
+  color: white; /* Cambiar texto a blanco en hover */
   transform: translateX(5px);
   cursor: pointer;
 }
+
+/* Aseguramos compatibilidad con móviles */
+@media (max-width: 768px) {
+  .menu-user-open {
+    top: 100px; /* Ajustamos más abajo para pantallas pequeñas */
+    right: 5%; /* Centrado horizontal en móviles */
+    width: 90%;
+  }
+
+  .menu-user-open::after {
+    display: none; /* Eliminamos la flecha en móviles */
+  }
+}
+
+/* Opcional: agregar un borde visible para separar opciones */
+.menu-user-open li:not(:last-child) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Línea sutil entre opciones */
+}
+
+
 
 .loading {
   text-align: center;

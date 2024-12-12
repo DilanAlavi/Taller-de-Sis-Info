@@ -106,7 +106,7 @@ const Header = () => {
                 </>
               )}
             </ul>
-          </nav>
+          </nav>    
         </div>
       </div>
     </header>
