@@ -3,12 +3,14 @@ import { Navigate } from 'react-router-dom';
 import React, { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../../AuthContext';
 import { api_url } from '../../config';
+import { getCorreo } from '../../localStorageHelper';
 
 const ProtectedRoute = ({ element }) => {
   const { logout } = useContext(AuthContext);
-  const [isAuthenticated, setIsAuthenticated] = useState(null); // Estado para controlar la autenticación
+  const [isAuthenticated, setIsAuthenticated] = useState(null); 
   const token = localStorage.getItem('access_token');
-  const { correoUser } = useContext(AuthContext);
+  const correoUser = getCorreo('TL_xsrf');
+
 
   useEffect(() => {
     const validateToken = async () => {
