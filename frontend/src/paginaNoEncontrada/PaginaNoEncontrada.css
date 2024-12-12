@@ -1,34 +1,81 @@
 .not-found-page {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f8f9fa;
-    font-family: 'Arial', sans-serif;
-    text-align: center;
-    color: #333;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #eaf8f5;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  color: #333;
+  padding: 20px; /* Espaciado para pantallas pequeñas */
+}
+
+.contenedor {
+  max-width: 600px;
+  width: 90%; /* Ajuste dinámico para pantallas pequeñas */
+  padding: 20px;
+  text-align: center;
+  background: #fff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.error-icon {
+  width: 150px;
+  max-width: 80%; /* Escala la imagen en pantallas más pequeñas */
+  margin-bottom: 20px;
+}
+
+.error-code {
+  font-size: 6rem;
+  font-weight: bold;
+  color: #ff6f61;
+}
+
+.error-message-page {
+  font-size: 1.8rem;
+  margin: 1rem 0;
+  color: #444;
+}
+
+.not-found-page p {
+  font-size: 1rem;
+  color: #666;
+}
+
+
+@media (max-width: 768px) {
   .error-code {
-    font-size: 8rem;
-    font-weight: bold;
-    color: #ff6f61;
+    font-size: 4rem;
   }
-  
+
   .error-message-page {
-    font-size: 2rem;
-    margin: 1rem 0;
-    color: #6c757d;
+    font-size: 1.5rem;
   }
-  
+
   .not-found-page p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contenedor {
+    padding: 15px;
+  }
+
+  .error-code {
+    font-size: 3rem;
+  }
+
+  .error-message-page {
     font-size: 1.2rem;
-    color: #555;
   }
-  
-  .not-found-page p:last-child {
-    margin-top: 1rem;
-    color: #888;
+
+  .error-icon {
+    width: 120px;
   }
-  
+
+  .not-found-page p {
+    font-size: 0.8rem;
+  }
+}
