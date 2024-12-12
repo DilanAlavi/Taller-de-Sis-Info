@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./PaginaPerroPerdido.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { api_url } from "../../config";
 
 const PaginaPerrosPerdidos = () => {
   const [loading, setLoading] = useState(true);
@@ -15,7 +16,7 @@ const PaginaPerrosPerdidos = () => {
   useEffect(() => {
     const perritosData = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/perritos/");
+        const response = await axios.get(`${api_url}/perritos/`);
         setPerritos(response.data);
       } catch (error) {
         console.log(error);
@@ -119,7 +120,7 @@ const PaginaPerrosPerdidos = () => {
           >
             {perro.foto[0] ? (
               <img
-                src={`http://127.0.0.1:8000/imagen/${perro.foto[0].direccion_foto}`}
+                src={`${api_url}/imagen/${perro.foto[0].direccion_foto}`}
                 alt={`Foto de ${perro.nombre}`}
                 className="perro-foto"
               />

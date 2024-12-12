@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import './Register.css';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { api_url } from '../../config';
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -87,7 +88,7 @@ const Register = () => {
     if (!isValid) return;
 
     try {
-      const response = await axios.post('http://localhost:8000/auth/register', {
+      const response = await axios.post(`${api_url}/auth/register`, {
         correo: email,
         nombre: nombre,
         password: password,

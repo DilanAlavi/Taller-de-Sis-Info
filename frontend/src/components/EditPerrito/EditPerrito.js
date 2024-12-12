@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import { AuthContext } from '../../AuthContext';
+import { api_url } from '../../config';
 
 const EditPerro = () => {
   const { user } = useContext(AuthContext);
@@ -16,7 +17,7 @@ const EditPerro = () => {
 
     const fetchPerro = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/perritos/${id}`);
+        const response = await axios.get(`${api_url}/perritos/${id}`);
         setPerro(response.data);
         setFormData({
           nombre: response.data.nombre,
@@ -47,7 +48,7 @@ const EditPerro = () => {
 
     try {
 
-      const response = await axios.put(`http://localhost:8000/perritos/${id}`, {
+      const response = await axios.put(`/perritos/${id}`, {
         nombre: formData.nombre,
         raza: formData.raza,
         color: formData.color,
@@ -83,7 +84,7 @@ const EditPerro = () => {
       <div className="perfil-perro-container">
         <div className="perfil-perro">
           {perro.foto.length > 0 ? (
-            <img src={`http://127.0.0.1:8000/imagen/${perro.foto[0].direccion_foto}`} alt={`Foto de ${perro.nombre}`} className="perro-foto" />
+            <img src={`${api_url}/imagen/${perro.foto[0].direccion_foto}`} alt={`Foto de ${perro.nombre}`} className="perro-foto" />
           ) : (
             <img src="/path/to/placeholder-image.jpg" alt="Imagen no disponible" className="perro-foto" />
           )}

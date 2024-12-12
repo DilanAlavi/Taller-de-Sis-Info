@@ -6,6 +6,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { FaArrowUp } from 'react-icons/fa';
 import axios from "axios";
+import { api_url } from '../../config';
 
 const testimonios = [
   {
@@ -88,7 +89,7 @@ const Home = () => {
   useEffect(() => {
     const perritosData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/perritos/');
+        const response = await axios.get(`${api_url}/perritos/`);
         setPerritos(response.data);
       } catch (error) {
         console.log(error);
@@ -218,7 +219,7 @@ const Home = () => {
           <div className="perro-card" key={index} onClick={() => navigate("/perfil-perro/1", { state: {perro} })}>
 
             {perro.foto[0] ? (
-              <img src={`http://127.0.0.1:8000/imagen/${perro.foto[0].direccion_foto}`} alt={`Foto de ${perro.nombre}`} className="perro-foto" />
+              <img src={`${api_url}/imagen/${perro.foto[0].direccion_foto}`} alt={`Foto de ${perro.nombre}`} className="perro-foto" />
             ) : (
               <img src="/path/to/placeholder-image.jpg" alt="Imagen no disponible" className="perro-foto" />
             )}
