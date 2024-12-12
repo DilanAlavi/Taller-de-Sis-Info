@@ -126,7 +126,7 @@ const PerritoPerdidoForm = () => {
       formDataFoto.append("foto", foto);
 
       try {
-        const response_foto = await fetch('${api_url}/foto/subir', {
+        const response_foto = await fetch(`${api_url}/foto/subir`, {
           method: 'POST',
           body: formDataFoto
         });
@@ -138,13 +138,13 @@ const PerritoPerdidoForm = () => {
 
         const data_foto = await response_foto.json();
 
-        const response_estado = await axios.post('${api_url}/perro/estado', {
+        const response_estado = await axios.post(`${api_url}/perro/estado`, {
           descripcion,
           direccion_visto: direccion,
           fecha: date,
           estado: 1,
         });
-        const response = await axios.post('${api_url}/perro/data', {
+        const response = await axios.post(`${api_url}/perro/data`, {
           raza,
           color,
           genero,
