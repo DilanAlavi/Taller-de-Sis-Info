@@ -15,6 +15,10 @@ const User = () => {
   const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+//para la contraseña
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+
 
   const user_data = async () => {
     console.log("entra aca")
@@ -47,6 +51,13 @@ const User = () => {
     }));
   };
 
+//para la contraseña
+  const handlePasswordChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'currentPassword') setCurrentPassword(value);
+    if (name === 'newPassword') setNewPassword(value);
+  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -57,7 +68,9 @@ const User = () => {
         correo: newData.correo,
         nombre: newData.nombre,
         num_celular: newData.num_celular,
-        direccion: newData.direccion
+        direccion: newData.direccion,
+        currentPassword: currentPassword || undefined,
+        newPassword: newPassword || undefined
       });
       console.log(response.data)
       const {id, nombre, rol_id} = response.data;
@@ -121,6 +134,20 @@ const User = () => {
           value={newData.direccion || ''}
           onChange={handleChange}
           required
+        />
+         <input
+          type="password"
+          name="currentPassword"
+          placeholder="Contraseña actual"
+          value={currentPassword}
+          onChange={handlePasswordChange}
+        />
+        <input
+          type="password"
+          name="newPassword"
+          placeholder="Nueva contraseña"
+          value={newPassword}
+          onChange={handlePasswordChange}
         />
         <button id="update-button" type="submit" className="update-button">
               Actualizar Datos
