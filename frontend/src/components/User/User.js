@@ -3,6 +3,7 @@ import './User.css';
 import { AuthContext } from '../../AuthContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { api_url } from '../../config';
 
 const User = () => {
   const { user } = useContext(AuthContext);
@@ -18,7 +19,7 @@ const User = () => {
   const user_data = async () => {
     console.log("entra aca")
     try {
-      const user_response = await axios.get(`http://localhost:8000/users/${user.id}`);
+      const user_response = await axios.get(`${api_url}/users/${user.id}`);
       setActualUser(user_response.data)
     if (actualUser) {
       setNewData(actualUser);
@@ -52,7 +53,7 @@ const User = () => {
     setError('');
     setSuccessMessage('');
     try {
-      const response = await axios.put(`http://127.0.0.1:8000/users/edit/${user.id}`, {
+      const response = await axios.put(`${api_url}/users/edit/${user.id}`, {
         correo: newData.correo,
         nombre: newData.nombre,
         num_celular: newData.num_celular,
@@ -72,7 +73,7 @@ const User = () => {
   const handleDelete = async () => {
     if (window.confirm("¿Estás seguro de que deseas eliminar tu cuenta? Esta acción es irreversible y se eliminaran todos tus datos, incluyendo a los perros reportados.")) {
       try {
-        await axios.delete(`http://127.0.0.1:8000/users/delete/${user.id}`);
+        await axios.delete(`${api_url}/users/delete/${user.id}`);
         navigate("/home"); 
         logout(); 
         setSuccessMessage("Cuenta eliminada exitosamente");

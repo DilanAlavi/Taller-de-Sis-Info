@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { api_url } from '../config';
 
 const ReportUser = () => {
   const location = useLocation();
@@ -16,7 +17,7 @@ const ReportUser = () => {
     //reporte al backend.
     console.log(user)
     try {
-      const response = await axios.post('http://localhost:8000/reporte/post', {
+      const response = await axios.post(`${api_url}/reporte/post`, {
         descripcion: description,
         motivo: reason,
         usuario_id: user.id

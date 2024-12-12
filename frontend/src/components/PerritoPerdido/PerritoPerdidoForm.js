@@ -4,6 +4,7 @@ import './PerritoPerdidoForm.css';
 import { AuthContext } from '../../AuthContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { api_url } from '../../config';
 
 const PerritoPerdidoForm = () => {
   const [foto, setFoto] = useState(null);
@@ -56,7 +57,7 @@ const PerritoPerdidoForm = () => {
           formData.append('file', file);
     
           try {
-            const response = await axios.post('http://localhost:8000/pets/classify_pet', formData, {
+            const response = await axios.post(`${api_url}/pets/classify_pet`, formData, {
               headers: {
                 'Content-Type': 'multipart/form-data',
               },
@@ -125,7 +126,7 @@ const PerritoPerdidoForm = () => {
       formDataFoto.append("foto", foto);
 
       try {
-        const response_foto = await fetch('http://localhost:8000/foto/subir', {
+        const response_foto = await fetch(`${api_url}/foto/subir`, {
           method: 'POST',
           body: formDataFoto
         });
@@ -137,13 +138,13 @@ const PerritoPerdidoForm = () => {
 
         const data_foto = await response_foto.json();
 
-        const response_estado = await axios.post('http://localhost:8000/perro/estado', {
+        const response_estado = await axios.post(`${api_url}/perro/estado`, {
           descripcion,
           direccion_visto: direccion,
           fecha: date,
           estado: 1,
         });
-        const response = await axios.post('http://localhost:8000/perro/data', {
+        const response = await axios.post(`${api_url}/perro/data`, {
           raza,
           color,
           genero,
@@ -152,7 +153,7 @@ const PerritoPerdidoForm = () => {
           estado_perro_id: response_estado.data[0].id
         });
         
-        await axios.post('http://localhost:8000/foto/post', {
+        await axios.post(`${api_url}/foto/post`, {
           direccion_foto: data_foto.file_id,
           perrito_id: response.data[0].id
         });

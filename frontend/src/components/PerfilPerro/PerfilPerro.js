@@ -4,6 +4,7 @@ import './PerfilPerro.css';
 import { FaArrowLeft, FaEllipsisV } from 'react-icons/fa';
 import axios from 'axios';
 import { AuthContext } from '../../AuthContext';
+import { api_url } from '../../config';
 
 const PerfilPerro = () => {
   // const [perro, setPerro] = useState(null);
@@ -26,7 +27,7 @@ const PerfilPerro = () => {
   useEffect(() => {
     const comentariosData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/comentario/${perro.id}`);
+        const response = await axios.get(`${api_url}/comentario/${perro.id}`);
         setComentarios(response.data);
       } catch (error) {
         console.log(error);
@@ -67,7 +68,7 @@ const PerfilPerro = () => {
     const confirmation = window.confirm('¿Estás seguro que encontraste tu perrito?');
     if (confirmation) {
       try {
-        await axios.delete(`http://localhost:8000/perritos/${perro.id}`);
+        await axios.delete(`${api_url}/perritos/${perro.id}`);
         alert('Perrito eliminado exitosamente.');
         navigate('/paginaperrovisto');
       } catch (error) {
@@ -81,14 +82,14 @@ const PerfilPerro = () => {
     if (nuevoComentario.trim() === '') return; // No permite comentarios vacíos
 
     try {
-      await axios.post('http://localhost:8000/comentario/post', {
+      await axios.post(`${api_url}/comentario/post`, {
         comentario: nuevoComentario,
         perrito_id: perro.id,
         usuario_id: user.id
       });
   
       try {
-        const responseNuevosComentarios = await axios.get(`http://127.0.0.1:8000/comentario/${perro.id}`);
+        const responseNuevosComentarios = await axios.get(`${api_url}/comentario/${perro.id}`);
         setComentarios(responseNuevosComentarios.data);
       } catch (error) {
         console.log(error);
@@ -110,12 +111,12 @@ const PerfilPerro = () => {
     if (nuevoComentarioEditado.trim() === '') return;  
 
     try {
-      await axios.put(`http://localhost:8000/comentario/edit/${idComentarioEditar}`, {
+      await axios.put(`${api_url}/comentario/edit/${idComentarioEditar}`, {
         comentario: nuevoComentarioEditado
       });
       setShowPopupComentario(false)
       try {
-        const responseNuevosComentarios = await axios.get(`http://127.0.0.1:8000/comentario/${perro.id}`);
+        const responseNuevosComentarios = await axios.get(`${api_url}/comentario/${perro.id}`);
         setComentarios(responseNuevosComentarios.data);
       } catch (error) {
         console.log(error);
@@ -129,10 +130,10 @@ const PerfilPerro = () => {
 
   const handleComentarioDelete = async (id) => {
     try {
-      const resposeDeleteComentario = await axios.delete(`http://localhost:8000/comentario/delete/${id}`);
+      const resposeDeleteComentario = await axios.delete(`${api_url}/comentario/delete/${id}`);
       console.log(resposeDeleteComentario);
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/comentario/${perro.id}`);
+        const response = await axios.get(`${api_url}/comentario/${perro.id}`);
         setComentarios(response.data);
       } catch (error) {
         console.log(error);
@@ -175,7 +176,7 @@ const PerfilPerro = () => {
         <div className="perfil-perro">
           
           {perro.foto[0] ? (
-            <img src={`http://127.0.0.1:8000/imagen/${perro.foto[0].direccion_foto}`} alt={`Foto de ${perro.nombre}`} className="perro-foto" />
+            <img src={`${api_url}/imagen/${perro.foto[0].direccion_foto}`} alt={`Foto de ${perro.nombre}`} className="perro-foto" />
           ) : (
             <img src="/path/to/placeholder-image.jpg" alt="Imagen no disponible" className="perro-foto" />
           )}

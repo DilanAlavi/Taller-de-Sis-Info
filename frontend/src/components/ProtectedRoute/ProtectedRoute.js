@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Navigate } from 'react-router-dom';
 import React, { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../../AuthContext';
+import { api_url } from '../../config';
 
 const ProtectedRoute = ({ element }) => {
   const { logout } = useContext(AuthContext);
@@ -16,7 +17,7 @@ const ProtectedRoute = ({ element }) => {
         return;
       }
       try {
-        await axios.get('http://localhost:8000/auth/profile', {
+        await axios.get(`${api_url}/auth/profile`, {
           headers: { Authorization: `Bearer ${token}` },
           params: { correo: correoUser },
         });

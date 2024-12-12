@@ -4,6 +4,7 @@ import axios from 'axios';
 import './Login.css';
 import { AuthContext } from '../../AuthContext';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { api_url } from '../../config';
 
 
 const Login = () => {
@@ -47,7 +48,7 @@ const Login = () => {
     if (!validateFields()) return; 
 
     try {
-      const response = await axios.post('http://localhost:8000/auth/login', {
+      const response = await axios.post(`${api_url}/auth/login`, {
         correo: email,
         password: password
       });

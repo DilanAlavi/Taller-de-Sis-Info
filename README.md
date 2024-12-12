@@ -31,3 +31,4 @@ solo cambia en DB_PASSWORD por tu contraseña real
 - npm install react-slick slick-carousel
 - Mas dependecias nuevas -> npm install @tensorflow/tfjs
 - npm start
+- npm install dotenv

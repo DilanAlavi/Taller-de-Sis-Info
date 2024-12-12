@@ -4,6 +4,7 @@ import './PaginaPerroVisto.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import axios from "axios";
+import { api_url } from '../../config';
 
 const PaginaPerrosVistos = () => {
   const [loading, setLoading] = useState(true);
@@ -17,7 +18,7 @@ const PaginaPerrosVistos = () => {
   useEffect(() => {
     const perritosData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/perritos/');
+        const response = await axios.get(`${api_url}/perritos/`);
         setPerritos(response.data);
       } catch (error) {
         console.log(error);
@@ -121,7 +122,7 @@ const PaginaPerrosVistos = () => {
           >
             {perro.foto[0] ? (
               <img 
-                src={`http://127.0.0.1:8000/imagen/${perro.foto[0].direccion_foto}`} 
+                src={`${api_url}/imagen/${perro.foto[0].direccion_foto}`} 
                 alt={`Foto de ${perro.nombre}`} 
                 className="perro-visto-foto" 
               />

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './DogRecognition.css';
 import { FaUpload } from 'react-icons/fa';
+import { api_url } from '../../config';
 
 const DogRecognition = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -58,7 +59,7 @@ const DogRecognition = () => {
 
     try {
       console.log('Enviando solicitud al servidor...');
-      const response = await axios.post('http://localhost:8000/dogs/classify', formData, {
+      const response = await axios.post(`${api_url}/dogs/classify`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -151,7 +152,7 @@ const DogRecognition = () => {
                 {result.coincidencias.map((coincidencia, index) => (
                   <div key={index} className="coincidencia-card">
                     <img 
-                      src={`http://127.0.0.1:8000/imagen/${coincidencia.drive_id}`}
+                      src={`${api_url}/imagen/${coincidencia.drive_id}`}
                       alt={`Perro ${index + 1}`}
                       className="coincidencia-imagen"
                     />

@@ -4,6 +4,7 @@ import './PerritoVistoForm.css';
 import { AuthContext } from '../../AuthContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { api_url } from '../../config';
 
 const PerritoVistoForm = () => {
   const [foto, setFoto] = useState(null);
@@ -45,7 +46,7 @@ const PerritoVistoForm = () => {
           formData.append('file', file);
       
           try {
-            const response = await axios.post('http://localhost:8000/pets/classify_pet', formData, {
+            const response = await axios.post(`${api_url}/pets/classify_pet`, formData, {
               headers: {
                 'Content-Type': 'multipart/form-data',
               },
@@ -87,7 +88,7 @@ const PerritoVistoForm = () => {
       formDataFoto.append("foto", foto);
 
       try {
-        const response_foto = await fetch('http://localhost:8000/foto/subir', {
+        const response_foto = await fetch(`${api_url}/foto/subir`, {
           method: 'POST',
           body: formDataFoto
         });
@@ -101,7 +102,7 @@ const PerritoVistoForm = () => {
         console.log("Imagen subida:", data_foto.file_id)
 
 
-        const response_estado = await axios.post('http://localhost:8000/perro/estado', {
+        const response_estado = await axios.post(`${api_url}/perro/estado`, {
           descripcion: descripcion,
           direccion_visto: direccion,
           fecha: currentDate,
@@ -109,7 +110,7 @@ const PerritoVistoForm = () => {
         });
         console.log(response_estado.data[0]);
 
-        const response = await axios.post('http://localhost:8000/perro/data', {
+        const response = await axios.post(`${api_url}/perro/data`, {
           raza: raza,
           color: color,
           genero: genero,
@@ -121,7 +122,7 @@ const PerritoVistoForm = () => {
 
         
 
-        const response_imagen_perrito = await axios.post('http://localhost:8000/foto/post', {
+        const response_imagen_perrito = await axios.post(`${api_url}/foto/post`, {
           direccion_foto: data_foto.file_id,
           perrito_id: response.data[0].id
         });

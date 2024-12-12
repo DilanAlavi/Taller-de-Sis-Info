@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './ReportList.css';
 import axios from 'axios';
+import { api_url } from '../../config';
 
 const ReportList = () => {
   const [loading, setLoading] = useState(true);
@@ -9,7 +10,7 @@ const ReportList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/reporte/');
+        const response = await axios.get(`${api_url}/reporte/`);
         setReportes(response.data);
       } catch (error) {
         console.log(error);
