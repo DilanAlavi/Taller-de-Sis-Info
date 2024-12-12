@@ -6,6 +6,7 @@ import {
   saveUser,
   getUser,
   removeUser,
+  deleteCorreo,
 } from './localStorageHelper'; // Importar las funciones de manejo de localStorage
 
 // Crear el contexto de autenticación
@@ -42,6 +43,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     removeToken();
     removeUser();
+    deleteCorreo('TL_xsrf');
 
     // Verificar si los datos fueron eliminados correctamente
     console.log("Token después de logout:", getToken()); // Debería ser null

@@ -5,6 +5,7 @@ import './Login.css';
 import { AuthContext } from '../../AuthContext';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { api_url } from '../../config';
+import { setCorreo } from '../../localStorageHelper';
 
 
 const Login = () => {
@@ -43,7 +44,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setcorreoUser(email);
+    setCorreo('TL_xsrf', email);
 
     if (!validateFields()) return; 
 
