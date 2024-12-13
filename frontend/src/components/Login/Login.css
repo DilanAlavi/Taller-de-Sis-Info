@@ -113,43 +113,24 @@
   transition: color 0.3s ease;
 }
 
-@media (max-width: 398px) {
-  .login-container {
-    height: 100%;
-    padding: 0.5rem;
-  }
+.password-container {
+  position: relative;
+}
 
-  .login-form {
-    padding: 1rem;
-    max-width: 90%; /* Ajustar ancho al 90% del viewport */
-    border-radius: 8px;
-  }
-
-  .login-form h2 {
-    font-size: 1.5rem; /* Reducir el tamaño del título */
-  }
-
-  .login-form input {
-    padding: 0.6rem;
-    font-size: 0.9rem; /* Reducir el tamaño de fuente */
-  }
-
-  .login-form button {
-    padding: 0.6rem;
-    font-size: 0.9rem;
-  }
-
+@media (max-width: 2540px) {
   .toggle-password {
-    left: 84%; /* Ajustar al ancho del input */
-    top: 39%; /* Corrige la posición vertical */
-  }
-
-  footer {
-    font-size: 0.8rem; /* Reducir texto del pie */
-    padding: 0.5rem;
+    left: 90%; 
+    top: 20%;
   }
 }
 
+@media (max-width: 1540px) {
+  .toggle-password {
+    left: 90%; 
+    top: 20%; 
+    font-size: 1rem;
+  }
+}
 
 @media (max-width: 384px) {
   .login-container {

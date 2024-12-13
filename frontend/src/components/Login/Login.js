@@ -7,16 +7,14 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { api_url } from '../../config';
 import { setCorreo } from '../../localStorageHelper';
 
-
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login } = useContext(AuthContext)
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const { setcorreoUser } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
-
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev); // Alternar visibilidad de contraseña
@@ -30,15 +28,11 @@ const Login = () => {
     return null;
   };
 
-  
-
   const validateFields = () => {
     const emailError = validateEmail(email);
-
     setErrors({
       email: emailError,
     });
-
     return !emailError;
   };
 
@@ -46,7 +40,7 @@ const Login = () => {
     e.preventDefault();
     setCorreo('TL_xsrf', email);
 
-    if (!validateFields()) return; 
+    if (!validateFields()) return;
 
     try {
       const response = await axios.post(`${api_url}/auth/login`, {
@@ -54,28 +48,24 @@ const Login = () => {
         password: password
       });
 
-      login(response.data)
+      login(response.data);
       console.log(response.data);
       alert('Login exitoso');
       navigate('/home');
 
     } catch (error) {
       console.error('Error en login:', error.response.data);
-      // alert('Error en login: ' + error.response.data.detail);
       if (error.response?.status === 404) {
-        // El correo no está registrado en el sistema
         setErrors({
           ...errors,
           general: 'La cuenta no existe, regístrese por favor.',
         });
       } else if (error.response?.status === 401) {
-        // Las credenciales son incorrectas
         setErrors({
           ...errors,
           general: 'Usuario y contraseña incorrecta.',
         });
       } else {
-        // Otro error
         setErrors({
           ...errors,
           general: 'Ocurrió un error inesperado. Inténtelo de nuevo más tarde.',
@@ -116,7 +106,6 @@ const Login = () => {
           </button>
         </div>
 
-
         {errors.password && (
           <small className="error-message">{errors.password}</small>
         )}
@@ -124,13 +113,11 @@ const Login = () => {
         {errors.general && (
           <small className="error-message">{errors.general}</small>
         )}
-        {/* <button type="submit">Entrar</button> */}
 
         <button className='dog-button'>
           <span className="shadow-button"></span>
           <span className="edge-button"></span>
-          <span className="front-button text-button"> Iniciar Sesion
-          </span>
+          <span className="front-button text-button"> Iniciar Sesion</span>
         </button>
 
         <div className="login-prompt">
