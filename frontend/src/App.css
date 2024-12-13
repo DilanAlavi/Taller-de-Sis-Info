@@ -483,15 +483,15 @@ button:focus:not(:focus-visible) {
   }
 
   .footer {
-    font-size: 0.8rem; /* Disminuir aún más el tamaño de letra conforme la pantalla sea más pequeña */
+    font-size: 0.8rem;
   }
 
   .footer-links a {
-    font-size: 0.8rem; /* Tamaño de letra ajustado para enlaces del footer */
+    font-size: 0.8rem; 
   }
 
   .footer-links {
-    flex-direction: row; /* Dos columnas en pantallas estrechas */
+    flex-direction: row;
   }
 }
 
@@ -501,20 +501,20 @@ button:focus:not(:focus-visible) {
   }
 
   .footer {
-    font-size: 1rem; /* Tamaño de letra mayor para dispositivos más anchos */
+    font-size: 1rem; 
   }
 
   .footer-links a {
-    font-size: 1rem; /* Tamaño de letra ajustado para enlaces del footer */
+    font-size: 1rem;
   }
 }
 
 @media (max-width: 800px) {
   .footer {
-    font-size: 0.7rem; /* Tamaño de letra aún más pequeño para pantallas más estrechas */
+    font-size: 0.7rem; 
   }
 
   .footer-links a {
-    font-size: 0.7rem; /* Tamaño de letra ajustado para enlaces del footer */
+    font-size: 0.7rem; 
   }
 }
