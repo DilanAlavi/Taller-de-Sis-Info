@@ -139,16 +139,16 @@ const PerritoVistoForm = () => {
 
 
     return (
-      <div className='contenedor-perro-perdido'>
+      <div className='contenedor-perro-visto'>
       
-        <div className="perrito-perdido-form-container">
+        <div className="perrito-visto-form-container">
           <h2>Reporta un Perrito Visto</h2>
-          <form onSubmit={handleSubmit} className="perrito-perdido-form">
+          <form onSubmit={handleSubmit} className="perrito-visto-form">
 
             <div className='container-img-nom'>
               <div className='container-img'>
                 {preview && (
-                  <div className="image-perdido-preview">
+                  <div className="image-visto-preview">
                     <img src={preview} alt="Preview" />
                   </div>
                 )}
@@ -236,7 +236,7 @@ const PerritoVistoForm = () => {
           
         </div>
 
-        <img className='img-perdido' src={`${process.env.PUBLIC_URL}/images/confiable.webp`} alt='perro'/>
+        <img className='img-visto' src={`${process.env.PUBLIC_URL}/images/confiable.webp`} alt='perro'/>
 
 
       </div>
