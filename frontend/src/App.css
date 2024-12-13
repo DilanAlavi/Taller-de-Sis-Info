@@ -388,32 +388,33 @@ button:focus:not(:focus-visible) {
 
 @media (max-width: 1100px) {
   .footer-links {
-    display: none;
+    display: flex; /* Mantiene los enlaces visibles */
+    flex-wrap: wrap; /* Permite que se ajusten en varias líneas */
+    flex-direction: row; /* Organiza los enlaces horizontalmente */
   }
-  
+
   .brand-logo {
     width: 2.5rem;
     height: auto;
   }
-  
+
   .brand-title {
     font-size: 1.2rem;
   }
-  
+
   .navbar-brand {
     padding: 1rem 0.6rem;
   }
-  
+
   .social-icons img {
     width: 1rem;
   }
-  
+
   .navbar {
     padding: 0.3rem 0.3rem 0.3rem 1rem;
-
     justify-content: initial;
   }
-  
+
   .navbar-list {
     display: none;
     flex-direction: column;
@@ -421,13 +422,13 @@ button:focus:not(:focus-visible) {
     right: 0;
     transform: translateX(100%);
   }
-  
+
   .navbar-list.active {
     display: flex;
     transform: translateX(0);
     align-items: initial;
   }
-  
+
   .menu-button {
     display: block;
     background: none;
@@ -435,32 +436,32 @@ button:focus:not(:focus-visible) {
     font-size: 15px;
     cursor: pointer;
     color: white;
-    
   }
-  
+
   .overlay {
     justify-content: initial;
   }
-  
+
   .overlay h3 {
     font-size: 1rem;
   }
-  
+
   .text-home {
     width: 90vw;
     max-height: 95vh;
     padding: 0.7rem;
     font-size: 0.8rem;
   }
-  
+
   .buttons {
     flex-direction: column;
   }
 
-  .menu-user-open{
+  .menu-user-open {
     top: 100%;
     left: 10%;
   }
+
   .menu-user-open::after {
     content: '';
     position: absolute;
@@ -472,16 +473,48 @@ button:focus:not(:focus-visible) {
     border-color: transparent white transparent transparent;
     rotate: 90deg;
   }
+
   .text-home {
     margin-top: 5rem;
   }
+
   .coincidencia-card {
     max-width: 80%;
+  }
+
+  .footer {
+    font-size: 0.8rem; /* Disminuir aún más el tamaño de letra conforme la pantalla sea más pequeña */
+  }
+
+  .footer-links a {
+    font-size: 0.8rem; /* Tamaño de letra ajustado para enlaces del footer */
+  }
+
+  .footer-links {
+    flex-direction: row; /* Dos columnas en pantallas estrechas */
   }
 }
 
 @media (min-width: 1101px) {
   .menu-button {
     display: none;
+  }
+
+  .footer {
+    font-size: 1rem; /* Tamaño de letra mayor para dispositivos más anchos */
+  }
+
+  .footer-links a {
+    font-size: 1rem; /* Tamaño de letra ajustado para enlaces del footer */
+  }
+}
+
+@media (max-width: 800px) {
+  .footer {
+    font-size: 0.7rem; /* Tamaño de letra aún más pequeño para pantallas más estrechas */
+  }
+
+  .footer-links a {
+    font-size: 0.7rem; /* Tamaño de letra ajustado para enlaces del footer */
   }
 }
