@@ -1,5 +1,5 @@
 /* Estilos generales ya existentes */
-.perrito-perdido-form-container {
+.perrito-visto-form-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,11 +8,11 @@
   height: 100%;
 }
 
-.perrito-perdido-form-container h2 {
+.perrito-visto-form-container h2 {
   margin-bottom: 0.5rem;
 }
 
-.contenedor-perro-perdido {
+.contenedor-perro-visto {
   
   width: 100%;  /* Aseguramos que ocupe todo el ancho */
   margin: 0;
@@ -121,7 +121,7 @@ textarea {
   font-size: small;
 }
 
-.perrito-perdido-form {
+.perrito-visto-form {
   position: inherit;
   display: flex;
   flex-direction: column;
@@ -135,7 +135,7 @@ input {
 
 
 
-.img-perdido {
+.img-visto {
   margin: 0;
   height: 110vh;
   opacity: 0.9;
@@ -144,7 +144,7 @@ input {
   z-index: -1;
 }
 
-.contenedor-perro-perdido input:not(.input-img),
+.contenedor-perro-visto input:not(.input-img),
 .container-genero-raza-color select,
 textarea {
   padding: 0.8rem;
@@ -155,16 +155,16 @@ textarea {
   transition: all 0.3s ease;
 }
 
-.contenedor-perro-perdido input::placeholder:not(.input-img),
+.contenedor-perro-visto input::placeholder:not(.input-img),
 textarea::placeholder,
-.contenedor-perro-perdido input[type='date']::placeholder,
+.contenedor-perro-visto input[type='date']::placeholder,
 .container-genero-raza-color select::placeholder {
   color: rgba(92, 92, 92, 0.712);
   opacity: 0.65;
 }
 
 
-.contenedor-perro-perdido input:focus:not(.input-img),
+.contenedor-perro-visto input:focus:not(.input-img),
 textarea:focus,
 .container-genero-raza-color select:focus {
   outline: none;
@@ -254,7 +254,7 @@ textarea:focus,
   /* width: 3rem; */
 }
 
-.image-perdido-preview {
+.image-visto-preview {
   width: 70%;
   max-width: 10rem;
   max-height: 8rem;
@@ -264,7 +264,7 @@ textarea:focus,
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.image-perdido-preview img {
+.image-visto-preview img {
   max-width: 10rem;
   max-height: 8rem;
   height: auto;
@@ -322,16 +322,16 @@ textarea:focus,
 
 /* Estilos responsivos para pantallas pequeñas */
 @media screen and (min-width: 320px) and (max-width: 435px) {
-  .perrito-perdido-form-container {
+  .perrito-visto-form-container {
     padding: 1.5rem;
   }
 
-  .perrito-perdido-form-container h2 {
+  .perrito-visto-form-container h2 {
     font-size: 1.2rem;
     text-align: center;
   }
 
-  .contenedor-perro-perdido {
+  .contenedor-perro-visto {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
@@ -347,7 +347,7 @@ textarea:focus,
     align-items: center;
   }
 
-  .image-perdido-preview {
+  .image-visto-preview {
     max-width: 8rem;
     max-height: 6rem;
   }
@@ -396,23 +396,23 @@ textarea:focus,
     font-size: 0.9rem;
   }
 
-  .img-perdido {
+  .img-visto {
     display: none !important;
   }
 }
 
 /* Estilos responsivos para pantallas grandes entre 768px y 1044px */
 @media screen and (min-width: 768px) and (max-width: 1044px) {
-  .perrito-perdido-form-container {
+  .perrito-vistoo-form-container {
     padding: 2rem;
   }
 
-  .perrito-perdido-form-container h2 {
+  .perrito-visto-form-container h2 {
     font-size: 1.5rem;
     text-align: center;
   }
 
-  .contenedor-perro-perdido {
+  .contenedor-perro-visto {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
@@ -430,7 +430,7 @@ textarea:focus,
     align-items: center;
   }
 
-  .image-perdido-preview {
+  .image-visto-preview {
     max-width: 12rem;
     max-height: 9rem;
   }
@@ -479,23 +479,23 @@ textarea:focus,
     font-size: 1rem;
   }
 
-  .img-perdido {
+  .img-visto {
     display: none !important;
   }
 }
 
 
  @media screen and (max-width: 2560px) {
-  /* .perrito-perdido-form-container {
+  /* .perrito-visto-form-container {
     padding: 3rem;
   }
 
-  .perrito-perdido-form-container h2 {
+  .perrito-visto-form-container h2 {
     font-size: 2rem;
     text-align: center;
   }
 
-  .contenedor-perro-perdido {
+  .contenedor-perro-visto {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
@@ -513,7 +513,7 @@ textarea:focus,
     align-items: center;
   } 
 
-   .image-perdido-preview {
+   .image-visto-preview {
     max-width: 16rem; 
     max-height: 12rem; 
   }
@@ -556,7 +556,7 @@ textarea:focus,
     padding: 0 2rem;
   }
 
-  .image-perdido-preview {
+  .image-visto-preview {
     width: 70%;
     max-width: 10rem;
     max-height: 8rem;
@@ -566,14 +566,14 @@ textarea:focus,
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
-  .image-perdido-preview img {
+  .image-visto-preview img {
     max-width: 10rem;
     max-height: 8rem;
     height: auto;
     display: block;
     border-radius: 8px;
   }
-  .img-perdido {
+  .img-visto {
     display: flex;
     height: 1030px;
     max-width: 25rem;  
