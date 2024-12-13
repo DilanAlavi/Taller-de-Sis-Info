@@ -20,6 +20,7 @@ const ErrorPage = () => {
       <h1>Acceso denegado</h1>
       <p>No estás autenticado. Necesitas iniciar sesión para acceder a esta página.</p>
       <p>Serás redirigido a la página de inicio de sesión en unos segundos...</p>
+      <img src="/images/acceso negado.png" alt="Error Negado" className="error-negado" />
     </div>
   );
 };

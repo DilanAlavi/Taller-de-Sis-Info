@@ -7,7 +7,7 @@ const PaginaNoEncontrada = () => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       navigate('/home');
-    }, 40000); 
+    }, 4000); 
     return () => clearTimeout(timeoutId);
   }, [navigate]);
 

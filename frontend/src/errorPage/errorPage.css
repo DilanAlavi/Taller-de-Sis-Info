@@ -11,19 +11,24 @@
   position: relative; 
 }
 
-  
-  .error-page h1 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-  }
-  
-  .error-page p {
-    font-size: 1rem;
-    margin-bottom: 10px;
-  }
-  
-  .error-page a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
+.error-page h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.error-page p {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.error-page a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.error-negado {
+  width: 100%; 
+  max-width: 300px;
+  height: auto;
+  margin-top: 20px;
+}
