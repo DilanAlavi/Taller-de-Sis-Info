@@ -19,9 +19,12 @@ const ContactPage = () => {
   return (
     <div className="contact-page">
       <h1 className="contact-title">Preguntas Frecuentes</h1>
-      
+
       <div className="faq-section">
-        <h2 className="faq-title">He encontrado a mi perro perdido. ¿Cómo elimino su perfil del sitio?</h2>
+        <h2 className="faq-title-q">
+          <span className="line">He encontrado a mi perro perdido.</span>
+          <span className="line">¿Cómo elimino su perfil del sitio?</span>
+        </h2>
         <p className="faq-content">
           Puedes hacer dos cosas: a) ingresar a tu cuenta y cambiar el estado de "perdido" a "encontrado" o b) eliminar tu cuenta por completo. 
           Para cambiar el estado, accede con tus credenciales. Si solo tienes un perro registrado, se te dirigirá directamente a la página donde 
@@ -31,7 +34,10 @@ const ContactPage = () => {
       </div>
 
       <div className="faq-section">
-        <h2 className="faq-title">Entregué un perro encontrado a sus dueños. ¿Cómo lo elimino de mi lista?</h2>
+        <h2 className="faq-title-q">
+          <span className="line">Entregué un perro encontrado a sus dueños.</span>
+          <span className="line">¿Cómo lo elimino de mi lista?</span>
+        </h2>
         <p className="faq-content">
           Para eliminar un perro que ya ha sido encontrado, primero accede a tu cuenta. Si solo tienes un perro registrado, irás automáticamente 
           a la página de edición del perfil del perro. Si tienes varios perros, selecciona el nombre del perro que deseas eliminar y haz clic en 
@@ -41,7 +47,9 @@ const ContactPage = () => {
       </div>
 
       <div className="faq-section">
-        <h2 className="faq-title">¿Cómo puedo borrar mi cuenta?</h2>
+        <h2 className="faq-title-q">
+          <span className="line">¿Cómo puedo borrar mi cuenta?</span>
+        </h2>
         <p className="faq-content">
           Para eliminar tu cuenta permanentemente, utiliza el enlace "Eliminar cuenta" que se encuentra en la página de inicio de sesión. 
           También puedes hacerlo directamente desde aquí: 
@@ -51,7 +59,10 @@ const ContactPage = () => {
       </div>
 
       <div className="faq-section">
-        <h2 className="faq-title">El formulario de registro me pide una contraseña, ¿cómo obtengo una?</h2>
+        <h2 className="faq-title-q">
+          <span className="line">El formulario de registro me pide una contraseña,</span>
+          <span className="line">¿cómo obtengo una?</span>
+        </h2>
         <p className="faq-content">
           Si eres un nuevo usuario, la casilla de contraseña es para que configures una clave que se asociará con tu correo electrónico. 
           Los usuarios que regresan pueden usar el mismo campo para ingresar su contraseña y, al mismo tiempo, registrar un nuevo perro.
@@ -59,7 +70,9 @@ const ContactPage = () => {
       </div>
 
       <div className="faq-section">
-        <h2 className="faq-title">¿Cómo se utiliza mi información de contacto?</h2>
+        <h2 className="faq-title-q">
+          <span className="line">¿Cómo se utiliza mi información de contacto?</span>
+        </h2>
         <p className="faq-content">
           Para facilitar las reuniones entre perros y sus dueños, ahora mostramos los números de teléfono de los usuarios en las listas de perros 
           perdidos y encontrados a otros usuarios registrados. En lugar de usar solo correos electrónicos, que a menudo resultan poco confiables, 
@@ -71,7 +84,9 @@ const ContactPage = () => {
       </div>
 
       <div className="faq-section">
-        <h2 className="faq-title">¿Cómo subo una foto de mi perro?</h2>
+        <h2 className="faq-title-q">
+          <span className="line">¿Cómo subo una foto de mi perro?</span>
+        </h2>
         <p className="faq-content">
           Para agregar una foto, primero accede a la sección de perfil de tu perro y selecciona la opción de "Actualizar". Una vez ahí, puedes subir 
           la imagen desde tu computadora o móvil. Si no puedes hacerlo desde el sitio, también tienes la opción de enviar la foto por correo electrónico; 
