@@ -10,7 +10,7 @@
   margin-bottom: 20px;
 }
 
-#filtro-container {
+#filtro-container-perros-perdidos {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -18,13 +18,13 @@
   margin-bottom: 20px;
 }
 
-.filtro-item {
+.filtro-item-perros-perdidos {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.filtro {
+.filtro-perros-perdidos {
   padding: 10px 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -35,14 +35,14 @@
   cursor: pointer;
 }
 
-.filtro:hover {
+.filtro-perros-perdidos:hover {
   border-color: #3498db;
   background-color: #eaf4fc;
   color: #2c3e50;
   transform: scale(1.03);
 }
 
-.filtro-label {
+.filtro-label-perros-perdidos {
   font-weight: bold;
   color: #444;
   margin-bottom: 5px;

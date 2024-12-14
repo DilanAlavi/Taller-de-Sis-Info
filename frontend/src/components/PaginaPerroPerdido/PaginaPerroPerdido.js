@@ -51,12 +51,14 @@ const PaginaPerrosPerdidos = () => {
     <div id="pagina-perros-perdidos" className="pagina-perros-perdidos">
       <h1 id="titulo-perros-perdidos" className="titulo">Perros Perdidos</h1>
 
-      <div id="filtro-container" className="filtro-container">
-        <div className="filtro-item">
-          <label htmlFor="generoFiltro" className="filtro-label">Género:</label>
+      <div id="filtro-container-perros-perdidos" className="filtro-container-perros-perdidos">
+        <div className="filtro-item-perros-perdidos">
+          <label htmlFor="generoFiltroPerrosPerdidos" className="filtro-label-perros-perdidos">
+            Género:
+          </label>
           <select
-            id="generoFiltro"
-            className="filtro"
+            id="generoFiltroPerrosPerdidos"
+            className="filtro-perros-perdidos"
             onChange={(e) => setGeneroFiltro(e.target.value)}
             value={generoFiltro}
           >
@@ -66,11 +68,13 @@ const PaginaPerrosPerdidos = () => {
           </select>
         </div>
 
-        <div className="filtro-item">
-          <label htmlFor="razaFiltro" className="filtro-label">Raza:</label>
+        <div className="filtro-item-perros-perdidos">
+          <label htmlFor="razaFiltroPerrosPerdidos" className="filtro-label-perros-perdidos">
+            Raza:
+          </label>
           <select
-            id="razaFiltro"
-            className="filtro"
+            id="razaFiltroPerrosPerdidos"
+            className="filtro-perros-perdidos"
             onChange={(e) => setRazaFiltro(e.target.value)}
             value={razaFiltro}
           >
@@ -84,11 +88,13 @@ const PaginaPerrosPerdidos = () => {
           </select>
         </div>
 
-        <div className="filtro-item">
-          <label htmlFor="colorFiltro" className="filtro-label">Color:</label>
+        <div className="filtro-item-perros-perdidos">
+          <label htmlFor="colorFiltroPerrosPerdidos" className="filtro-label-perros-perdidos">
+            Color:
+          </label>
           <select
-            id="colorFiltro"
-            className="filtro"
+            id="colorFiltroPerrosPerdidos"
+            className="filtro-perros-perdidos"
             onChange={(e) => setColorFiltro(e.target.value)}
             value={colorFiltro}
           >
@@ -99,16 +105,6 @@ const PaginaPerrosPerdidos = () => {
             <option value="Negro">Negro</option>
           </select>
         </div>
-
-        <button
-
-          className="dog-button"
-          onClick={() => navigate("/perritoperdidoform")}
-        >
-          <span className="shadow-button"></span>
-          <span className="edge-button"></span>
-          <span className="front-button text-button">Perdí mi Perrito</span>
-        </button>
       </div>
 
       <div id="perros-container" className="perros-container">
