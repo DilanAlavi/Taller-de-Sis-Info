@@ -45,7 +45,7 @@
   
   
   
-  .update-button {
+  .update-button-user {
     padding: 12px 24px;
     background-color: #28a745;
     color: #fff;
@@ -59,22 +59,22 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   
-  .update-button:hover {
+  .update-button-user:hover {
     background-color: #218838;
     transform: scale(1.05);
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
   }
   
-  .update-button:active {
+  .update-button-user:active {
     background-color: #1e7e34;
     transform: scale(1);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
-  
 
-  .delete-button {
+  
+  .delete-button-user {
     padding: 12px 24px;
-    background-color: #dc3545; 
+    background-color: #dc3545; /* Rojo inicial */
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -84,19 +84,20 @@
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-  }
-  
-  .delete-button:hover {
-    background-color: #c82333; 
+}
+
+.delete-button-user:hover {
+    background-color: #b71c1c !important; /* Rojo más intenso */
     transform: scale(1.05); 
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); 
-  }
-  
-  .delete-button:active {
-    background-color: #bd2130; 
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Sombra más definida */
+}
+
+.delete-button-user:active {
+    background-color: #8b0000 !important; /* Rojo aún más intenso al hacer clic */
     transform: scale(1); 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-  }
+}
+
   
 /*para la contraseña*/
   .user-form input[type="password"] {
