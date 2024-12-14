@@ -212,8 +212,8 @@ const PerritoPerdidoForm = () => {
               />
             </div>
 
-            <div className='container-texta-fecha-dir'>
-              <div className='container-dir-fecha'>
+            <div className='container-texta-fecha-dir-p'>
+              <div className='container-dir-fecha-p'>
                 <input 
                   type="text" 
                   placeholder="Direccion perdido" 
@@ -238,7 +238,7 @@ const PerritoPerdidoForm = () => {
                   {dateError}
                 </div>
               )}
-              <div className='container-textarea'>
+              <div className='container-textarea-p'>
                 <textarea 
                   placeholder="Descripción del perrito" 
                   value={descripcion}
@@ -249,7 +249,7 @@ const PerritoPerdidoForm = () => {
             </div>
 
             <p className='datos-adicionales'>Datos adicionales del perrito:</p>
-            <div className='container-genero-raza-color'>
+            <div className='container-genero-raza-color-p'>
               <select defaultValue="" onChange={(e) => setRaza(e.target.value)} required>
                 <option value="" disabled>Selecciona su raza</option>
                 <option value="Golden">Golden</option>
@@ -273,7 +273,7 @@ const PerritoPerdidoForm = () => {
               </select>
             </div>
 
-            {!isProcessing && <button className="start-button" type="submit" disabled={loading || !isDog || isProcessing}>
+            {!isProcessing && <button className="start-button-p" type="submit" disabled={loading || !isDog || isProcessing}>
               <span className="shadow-button"></span>
               <span className="edge-button"></span>
               <span className="front-button text-button">
