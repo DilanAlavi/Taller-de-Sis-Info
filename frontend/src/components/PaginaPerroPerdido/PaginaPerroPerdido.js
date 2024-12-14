@@ -107,6 +107,15 @@ const PaginaPerrosPerdidos = () => {
         </div>
       </div>
 
+      <button
+        className="dog-button"
+        onClick={() => navigate("/perritoperdidoform")}
+      >
+        <span className="shadow-button"></span>
+        <span className="edge-button"></span>
+        <span className="front-button text-button">Perdí mi Perrito</span>
+      </button>
+
       <div id="perros-container" className="perros-container">
         {perrosPerdidos.map((perro, index) => (
           <div
