@@ -146,7 +146,7 @@ const PerritoVistoForm = () => {
           <form onSubmit={handleSubmit} className="perrito-visto-form">
 
             <div className='container-img-nom'>
-              <div className='container-img'>
+              <div className='container-img-visto'>
                 {preview && (
                   <div className="image-visto-preview">
                     <img src={preview} alt="Preview" />
@@ -217,7 +217,7 @@ const PerritoVistoForm = () => {
               </select>
             </div>
 
-            {!isProcessing && <button className="start-button" type="submit" disabled={loading || !isDog || isProcessing}>
+            {!isProcessing && <button className="start-button-v" type="submit" disabled={loading || !isDog || isProcessing}>
               <span className="shadow-button"></span>
               <span className="edge-button"></span>
               <span className="front-button text-button">

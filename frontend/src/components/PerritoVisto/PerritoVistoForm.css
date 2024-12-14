@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3rem;
+  padding: 1rem;
   width: 100%;
   height: 100%;
 }
@@ -136,9 +136,11 @@ input {
 
 
 .img-visto {
-  margin: 0;
-  height: 110vh;
+  margin-right: 300px;
+  object-fit: cover;
+ 
   opacity: 0.9;
+  /* width: 300px; */
   filter: brightness(90%);
   box-shadow: 5px 0 30px -5px rgba(0, 0, 0, 0.329);
   z-index: -1;
@@ -324,16 +326,18 @@ textarea:focus,
 @media screen and (min-width: 320px) and (max-width: 435px) {
   .perrito-visto-form-container {
     padding: 1.5rem;
-    /* justify-content: flex-start;
-    align-items: flex-start; */
+    width: 70%;
+    justify-content: center !important;
   }
 
   .perrito-visto-form-container h2 {
-    font-size: 1.2rem;
+    font-size: 1rem;
     text-align: center;
+    justify-content: center !important;
     /* justify-content: flex-start; */
     margin-bottom: 2rem;
     margin-top: 2rem;
+    margin-left: 130px;
   }
 
   .contenedor-perro-visto {
@@ -349,15 +353,18 @@ textarea:focus,
     flex-direction: column;
   }
 
-  .container-img {
-    flex-direction: column;
-
+  .container-img-visto {
+    /* flex-direction: row; */
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin-left: 130px;
   }
 
-  /* .image-visto-preview {
+  .image-visto-preview {
     max-width: 8rem;
     max-height: 6rem;
-  } */
+  }
 
   .subir-imagen div {
     font-size: 0.8rem;
@@ -373,7 +380,7 @@ textarea:focus,
   
   .container-textarea{
     max-width: max-content;
-    margin-left: -118px;
+    margin-left: -7px;
     width: 200%; /* Ocupa casi todo el ancho disponible */
     max-width: 900px; /* Ancho máximo */
     margin-top: 15px;
@@ -390,7 +397,7 @@ textarea:focus,
 .container-dir-fecha input {
     width: 100%; 
     max-width: 350px; 
-    gap: 1rem;
+    gap: 3rem;
 }
 
   .container-genero-raza-color {
@@ -398,7 +405,7 @@ textarea:focus,
     gap: 1rem;
     padding: 1rem 0;
     /* font-size: small; */
-    width: auto; /* O ajusta a un valor mayor */
+    width: 320px; /* O ajusta a un valor mayor */
     max-width: none;
   }
 
@@ -416,14 +423,14 @@ textarea:focus,
     font-size: 0.9rem;
   }
 
-  .start-button {
+  .start-button-v {
     margin-top: 2rem;
-    width: 100%;
+    width: 162%;
     padding: 0.7rem;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     border-radius: 8px;
     margin-bottom: 2rem;
-    margin-left: 10px;
+    margin-left: 0px;
   }
 
   .loading-messages {
@@ -492,9 +499,9 @@ textarea:focus,
     font-size: 1rem;
   }
 
-  .start-button {
+  .start-button-v {
     margin-top: 1.5rem;
-    width: 90%;
+    width: 108%;
     padding: 1rem;
     font-size: 1rem;
     border-radius: 8px;
