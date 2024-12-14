@@ -10,7 +10,7 @@
   margin-bottom: 20px;
 }
 
-#filtro-container {
+#filtro-container-perros-perdidos {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -18,36 +18,40 @@
   margin-bottom: 20px;
 }
 
-.filtro-item {
+.filtro-item-perros-perdidos {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.filtro {
-  padding: 10px 15px;
+.filtro-perros-perdidos {
+  padding: 8px 12px; 
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #f9f9f9;
-  font-size: 1rem;
+  font-size: 0.9rem; 
   color: #333;
   transition: all 0.3s ease;
   cursor: pointer;
+  max-width: 150px; 
 }
 
-.filtro:hover {
+.filtro-perros-perdidos:hover {
   border-color: #3498db;
   background-color: #eaf4fc;
   color: #2c3e50;
   transform: scale(1.03);
 }
 
-.filtro-label {
+.filtro-perros-perdidos option {
+  font-size: 0.9rem; /* Reducir el tamaño de la fuente en las opciones */
+}
+
+.filtro-label-perros-perdidos {
   font-weight: bold;
   color: #444;
   margin-bottom: 5px;
 }
-
 
 #perros-container {
   display: flex;
@@ -67,7 +71,7 @@
   transition: transform 0.3s ease;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-} 
+}
 
 .perro-card:hover {
   transform: scale(1.05);
@@ -79,7 +83,7 @@
   height: auto; /* Mantener proporción */
   object-fit: cover;
   border-radius: 10px 10px 0 0; /* Redondeo solo en la parte superior */
-} 
+}
 
 /* Nombre del perro */
 .perro-nombre {
@@ -123,15 +127,40 @@
 
 /* Ajustes específicos para pantallas pequeñas */
 @media (max-width: 600px) {
-  .perro-card {
-    width: 100%; /* Usar el 100% del ancho disponible */
+  #filtro-container-perros-perdidos {
+    flex-wrap: nowrap; /* Filtros en una sola línea */
+    justify-content: space-between; /* Ajustar espacio entre elementos */
+    gap: 10px;
+    overflow-x: auto; /* Habilitar desplazamiento horizontal si es necesario */
   }
 
-  .perro-nombre {
-    font-size: 1.2rem; /* Reducir tamaño de texto */
+  .filtro-item-perros-perdidos {
+    flex: 1; /* Distribuir espacio uniformemente */
+    max-width: 30%; /* Limitar ancho para que encajen en una línea */
+    margin: 0 5px; /* Añadir espacio lateral */
   }
 
-  .perro-info {
-    font-size: 0.9rem;
+  .filtro-label-perros-perdidos {
+    font-size: 0.9rem; /* Reducir tamaño del texto */
+    margin-bottom: 3px;
+  }
+
+  .filtro-perros-perdidos {
+    font-size: 0.9rem; /* Reducir tamaño del texto en los selects */
+    padding: 8px 10px;
+  }
+
+  .dog-button {
+    margin-top: 15px;
+    width: 100%; /* Botón ocupa todo el ancho */
+    font-size: 1rem;
+    padding: 10px;
+  }
+  .filtro-perros-perdidos {
+    max-width: 120px; /* Reducir el ancho en dispositivos móviles */
+    font-size: 0.85rem; /* Ajustar el tamaño de fuente */
+  }
+  .filtro-perros-perdidos option {
+    font-size: 0.6rem; /* Reducir tamaño de fuente de las opciones en móviles */
   }
 }

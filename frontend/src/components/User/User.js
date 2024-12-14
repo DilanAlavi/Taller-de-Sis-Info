@@ -149,12 +149,12 @@ const User = () => {
           value={newPassword}
           onChange={handlePasswordChange}
         />
-        <button id="update-button" type="submit" className="update-button">
+        <button id="update-button-user" type="submit" className="update-button-user">
               Actualizar Datos
         </button>
       </form>
 
-      <button onClick={handleDelete} className="delete-button">
+      <button onClick={handleDelete} className="delete-button-user">
         Eliminar Cuenta
       </button>
       {/* {newData.foto && (
