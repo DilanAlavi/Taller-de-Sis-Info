@@ -23,7 +23,7 @@ const Header = () => {
       !event.target.closest('.user-img') ) {
 
         setIsUserOpen(false);
-        
+
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -115,5 +115,6 @@ const Header = () => {
     </header>
   );
 };
+
 
 export default Header;
