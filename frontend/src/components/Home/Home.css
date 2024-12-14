@@ -192,17 +192,6 @@ p {
   overflow: hidden; 
 }
 
-/* Testimonios */
-.testimonial-card {
-  background-color: #ffffff; /* Tarjetas blancas para contraste */
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 30px;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  margin: 15px;
-  flex: 1 1 200px; /* Permite que las tarjetas crezcan y se reduzcan, con un ancho mínimo de 200px */
-}
 
 
 .testimonial-card:hover {
@@ -211,14 +200,77 @@ p {
   border: 1px solid #462f1054; 
 }
 
-/* Foto de testimonios */
+
+/* Tarjetas de testimonios */
+.testimonial-card {
+  background-color: #ffffff;
+  border-radius: 10px; /* Bordes redondeados para mantener estilo */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  padding: 15px 10px; /* Ajuste compacto del padding interno */
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin: 2px; /* Mínimo espacio entre tarjetas */
+  flex: 1 1 calc(33.333% - 4px); /* Tres tarjetas por fila con separación mínima */
+  max-width: 300px; /* Limitar el tamaño máximo */
+  height: 180px; /* Altura fija para consistencia */
+}
+
+/* Imagen circular dentro de la tarjeta */
 .testimonial-foto {
-  width: 100px;
-  height: 100px;
+  width: 60px; /* Tamaño reducido de la imagen */
+  height: 60px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 15px;
+  margin-bottom: 8px; /* Espacio compacto debajo de la imagen */
 }
+
+/* Texto dentro de la tarjeta */
+.testimonial-card h3 {
+  font-size: 1rem;
+  margin-bottom: 4px; /* Reducir margen entre título y texto */
+}
+
+.testimonial-card p {
+  font-size: 0.85rem;
+  line-height: 1.2; /* Compactar el texto */
+  color: #4a3c2a;
+  margin: 0; /* Eliminar márgenes innecesarios */
+}
+
+/* Ajustes para pantallas medianas */
+@media (max-width: 1024px) {
+  .testimonial-card {
+    flex: 1 1 calc(50% - 4px); /* Dos tarjetas por fila con separación mínima */
+    height: auto; /* Ajuste dinámico según contenido */
+  }
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+  .testimonial-card {
+    flex: 1 1 calc(100% - 4px); /* Una tarjeta ocupa todo el ancho */
+    width: 100%; /* Sin márgenes laterales */
+    margin: 5px 0; /* Separación mínima vertical */
+    height: auto; /* Ajuste automático */
+  }
+
+  .testimonial-foto {
+    width: 50px; /* Imagen más pequeña en móviles */
+    height: 50px;
+  }
+
+  .testimonial-card h3 {
+    font-size: 0.9rem; /* Texto ligeramente más pequeño */
+  }
+
+  .testimonial-card p {
+    font-size: 0.8rem; /* Compactar texto */
+  }
+}
+
+
+
+
 
 /* Contenedor del carrusel */
 .slider-container {
