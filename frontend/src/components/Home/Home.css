@@ -220,11 +220,26 @@ p {
   margin-bottom: 15px;
 }
 
+/* Contenedor del carrusel */
 .slider-container {
   background-color: white;
-  padding-bottom: 2rem;
+  padding: 2rem 1rem; /* Ajustamos el padding para pantallas pequeñas */
+  text-align: center; /* Centrar el texto */
 }
 
+/* Título del carrusel */
 .slider-container h2 {
-  margin: 0px;
+  font-size: 1.8rem; /* Tamaño del texto reducido para pantallas pequeñas */
+  margin: 0 auto; /* Centrado del título */
+  word-wrap: break-word; /* Permite que el texto largo se divida en varias líneas */
+  overflow-wrap: break-word;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+  .slider-container h2 {
+    font-size: 1.5rem; /* Reducir aún más el tamaño en pantallas pequeñas */
+    line-height: 1.4; /* Espaciado entre líneas para mejor legibilidad */
+    padding: 0 1rem; /* Padding lateral para evitar corte del texto */
+  }
 }
