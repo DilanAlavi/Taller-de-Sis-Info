@@ -147,3 +147,24 @@ input::placeholder {
 .upload-logo:hover {
   transform: scale(1.15);
 }
+
+@media screen and (max-width: 435px) {
+  .perfil-perro-form div {
+    display: flex;
+    flex-direction: column; /* Cambia la dirección de los elementos */
+    align-items: flex-start; /* Alinea al inicio */
+  }
+
+  .perfil-perro-form label {
+    margin-bottom: 0.5rem; /* Agrega un espacio entre el label y el input */
+  }
+
+  .perfil-perro-form textarea {
+    width: 100%; /* Asegúrate de que ocupe todo el ancho */
+  }
+
+  textarea[name="descripcion"] {
+    width: 100%; /* Aumenta el ancho específico */
+    max-width: none; /* Opcional: Elimina cualquier límite que afecte el ancho */
+  }
+}
