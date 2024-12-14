@@ -245,17 +245,7 @@ const Home = () => {
           ))}
         </Slider>
 
-
-        <Link to="/register">
-          <button className="start-button button-empezar">
-            <span className="shadow-button"></span>
-            <span className="edge-button"></span>
-            <span className="front-button text-button">Empezar</span>
-          </button>
-        </Link>
-
       </div>
-
       
     </div>
   );
