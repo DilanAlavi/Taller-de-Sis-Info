@@ -26,7 +26,7 @@
 
 .nombre-perrito {
   margin-top: 1rem;
-  max-width: 20vw;
+  max-width: 20vh;
 }
 
 .container-img-nom {
@@ -44,7 +44,7 @@
 }
 
 
-.container-textarea {
+.container-textarea-p {
   text-align: center;
 }
 
@@ -66,7 +66,7 @@ textarea {
   font-family: 'Montserrat', sans-serif;
 }
 
-.container-texta-fecha-dir {
+.container-texta-fecha-dir-p {
   display: flex;
   padding-left: 2rem;
   padding-right: 2rem;
@@ -74,17 +74,17 @@ textarea {
   align-items: center;
 }
 
-.container-dir-fecha {
+.container-dir-fecha-p {
   display: flex;
   flex-direction: column;
   /* justify-content: space-around; */
 }
 
-.container-dir-fecha input {
+.container-dir-fecha-p input {
   margin: 6px;
 }
 
-.container-genero-raza-color {
+.container-genero-raza-color-p {
   margin-top: 1rem;
   display: flex;
   justify-content: space-around;
@@ -125,7 +125,7 @@ input {
 }
 
 .contenedor-perro-perdido input:not(.input-img),
-.container-genero-raza-color select {
+.container-genero-raza-color-p select {
   width: 100%;
   padding: 0.8rem;
   margin-bottom: 1.2rem;
@@ -139,7 +139,7 @@ input {
 .contenedor-perro-perdido input::placeholder:not(.input-img),
 textarea::placeholder,
 .contenedor-perro-perdido input[type='date']::placeholder,
-.container-genero-raza-color select::placeholder {
+.container-genero-raza-color-p select::placeholder {
   color: rgba(92, 92, 92, 0.712);
   opacity: 0.65;
 }
@@ -147,7 +147,7 @@ textarea::placeholder,
 
 .contenedor-perro-perdido input:focus:not(.input-img),
 textarea:focus,
-.container-genero-raza-color select:focus {
+.container-genero-raza-color-p select:focus {
   outline: none;
   border-color: #ee6d0a;
   /* box-shadow: 0 0 5px rgba(238, 109, 10, 0.5); */
@@ -155,11 +155,11 @@ textarea:focus,
   transform: scale(1.01);
 }
 
-.container-genero-raza-color {
+.container-genero-raza-color-p {
   padding: 0 3rem 0 3rem;
 }
 
-.container-genero-raza-color select {
+.container-genero-raza-color-p select {
   width: 12rem;
 }
 
@@ -193,7 +193,7 @@ textarea:focus,
 }
 
 
-.start-button {
+.start-button-p {
   margin-top: 0.5rem;
 }
 
@@ -279,7 +279,7 @@ textarea:focus,
 }
 
 @media (max-width: 768px) {
-  .container-texta-fecha-dir {
+  .container-texta-fecha-dir-p {
     flex-direction: column;
     align-items: center;
   }
@@ -310,6 +310,118 @@ textarea:focus,
   25% { transform: translateX(-5px); }
   75% { transform: translateX(5px); }
 }
+
+@media screen and (min-width: 320px) and (max-width: 435px) {
+  .perrito-perdido-form-container {
+    padding: 1.5rem;
+  }
+
+  .perrito-perdido-form-container h2 {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+  }
+
+  .contenedor-perro-perdido {
+    flex-direction: column;
+    align-items: left;
+
+  }
+
+
+  .container-img-nom {
+    flex-direction: column;
+  }
+
+  .container-img {
+    flex-direction: column;
+
+  }
+
+  /* .image-perdido-preview {
+    max-width: 8rem;
+    max-height: 6rem;
+  } */
+
+  .nombre-perrito {
+    width: 105% !important; /* Asegura que ocupe el 90% del ancho del contenedor */
+    max-width: 600px !important; /* No exceder el ancho del contenedor */
+    margin: 0.5rem 0; /* Espaciado arriba y abajo */
+    margin-left: 12px;
+  }
+
+  .subir-imagen div {
+    font-size: 0.8rem;
+    align-items: flex-start; 
+    justify-content: flex-start;
+  }
+
+  .container-dir-fecha-p{
+    margin-left: -40px;
+    width: 133%;
+  }
+  
+  .container-textarea-p{
+    margin-left: -35px;
+    width: 134%; /* Ocupa casi todo el ancho disponible */
+  }
+ 
+  .container-texta-fecha-dir-p{
+    justify-content: flex-start; /* Alinear horizontalmente a la izquierda */
+    align-items: flex-start; 
+
+  }
+
+  .container-textarea-p textarea, 
+.container-dir-fecha-p input {
+    width: 100%; 
+    max-width: 350px; 
+    gap: 1rem;
+}
+
+  .container-genero-raza-color-p {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 0;
+    /* font-size: small; */
+    width: auto; /* O ajusta a un valor mayor */
+    max-width: none;
+  }
+
+  .container-genero-raza-color-p select {
+    
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    flex-basis: auto;
+    width: 105% !important;
+  }
+
+  .datos-adicionales {
+    margin-left: 0;
+    text-align: left;
+    font-size: 0.9rem;
+  }
+
+  .start-button-p {
+    margin-top: 2rem;
+    width: 100%;
+    padding: 0.7rem;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    margin-left: 10px;
+  }
+
+  .loading-messages {
+    font-size: 0.9rem;
+  }
+
+  .img-perdido {
+    display: none !important;
+  }
+}
+
 /* respondividad */
 @media (max-width: 768px) {
   .contenedor-perro-perdido {
@@ -321,4 +433,3 @@ textarea:focus,
     width: 90%;
   }
 }
-
