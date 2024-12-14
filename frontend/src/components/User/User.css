@@ -10,13 +10,16 @@
   .user-form {
     display: flex;
     flex-direction: column;
+    gap: 10px; /* Espaciado uniforme entre campos */
   }
   
   .user-form input {
-    margin: 10px 0;
+    width: 100%; /* Asegura que todos los campos sean del mismo ancho */
+    box-sizing: border-box; /* Incluye el padding y borde dentro del ancho */
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 16px;
   }
   
   /* button {
@@ -114,3 +117,13 @@
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
   }
   
+  /* Ajuste para pantallas pequeñas */
+@media (max-width: 600px) {
+  .user-container {
+    padding: 15px;
+  }
+  .user-form input,
+  button {
+    font-size: 14px; /* Tamaño reducido para dispositivos móviles */
+  }
+}

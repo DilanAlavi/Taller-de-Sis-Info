@@ -317,66 +317,56 @@ button:focus:not(:focus-visible) {
   align-items: center;
 }
 
-/* Ajuste del menú desplegable */
 
+/* Menú desplegable */
 .menu-user-open li {
   width: 100%;
   padding: 12px;
   font-size: 1rem;
   font-weight: 500;
-  color: var(--primary-dark); /* Texto más visible */
+  color: white; /* Texto blanco por defecto */
   text-align: left;
-  transition: all 0.3s ease;
-  border-radius: 8px;
-}
-
-.menu-user-open::after {
-  content: '';
-  position: absolute;
-  top: -10px; /* Ajuste de la flecha */
-  right: 20px;
-  border-width: 10px;
-  border-style: solid;
-  border-color: transparent transparent white transparent; /* Triángulo blanco */
-  display: none; /* Ocultamos la flecha si no es necesaria */
-}
-
-.menu-user-open li {
-  width: 100%;
-  padding: 12px;
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--primary-dark);
-  text-align: left;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease; /* Suavidad en las transiciones */
   border-radius: 8px;
 }
 
 .menu-user-open li:hover {
-  background-color: var(--primary-color); /* Fondo más visible al hacer hover */
-  color: white; /* Cambiar texto a blanco en hover */
-  transform: translateX(5px);
+  background-color: rgba(0, 0, 0, 0.1); /* Fondo gris suave al hacer hover */
+  color: white; /* Mantener el texto blanco */
+  transform: translateX(5px); /* Desplazamiento ligero */
   cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
 }
 
-/* Aseguramos compatibilidad con móviles */
+/* Flecha del menú */
+.menu-user-open::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent; /* Triángulo gris claro */
+  display: none;
+}
+
+/* Compatibilidad con móviles */
 @media (max-width: 768px) {
   .menu-user-open {
-    top: 100px; /* Ajustamos más abajo para pantallas pequeñas */
-    right: 5%; /* Centrado horizontal en móviles */
+    top: 100px;
+    right: 5%;
     width: 90%;
   }
 
   .menu-user-open::after {
-    display: none; /* Eliminamos la flecha en móviles */
+    display: none;
   }
 }
 
-/* Opcional: agregar un borde visible para separar opciones */
+/* Borde entre opciones */
 .menu-user-open li:not(:last-child) {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Línea sutil entre opciones */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Línea sutil */
 }
-
 
 
 .loading {
