@@ -15,8 +15,6 @@ const Header = () => {
 
   const popupRef = useRef(null);
 
-
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {
@@ -28,7 +26,6 @@ const Header = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [popupRef]);
-
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
