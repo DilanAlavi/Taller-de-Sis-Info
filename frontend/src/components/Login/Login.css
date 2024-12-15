@@ -159,8 +159,8 @@
   }
 
   .toggle-password {
-    left: 81%; /* Ajustar al ancho del input */
-    top: 39%; /* Corrige la posición vertical */
+    left: 89%; /* Ajustar al ancho del input */
+    top: 18%; /* Corrige la posición vertical */
     font-size: 1rem; /* Reducir tamaño si es necesario */
   }
 
