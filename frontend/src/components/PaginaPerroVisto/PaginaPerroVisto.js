@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import './PaginaPerroVisto.css';
+import "../PaginaPerroPerdido/PaginaPerroPerdido.css";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import axios from "axios";
@@ -50,15 +51,14 @@ const PaginaPerrosVistos = () => {
   }, [perritos, generoFiltro, razaFiltro, colorFiltro]);
 
   return (
-    <div>
-      <h1 id="titulo-perros-perdidos" style={{textAlign:'center'}} className="titulo">Perros Vistos</h1>
-
-      <div id="filtro-container" className="filtro-container">
-        <div className="filtro-item">
-          <label htmlFor="generoFiltro" className="filtro-label">Género:</label>
+    <div id="pagina-perros-perdidos" className="pagina-perros-perdidos">
+      <h1 id="titulo-perros-perdidos" className="titulo">Perros Vistos</h1>
+      <div id="filtro-container-perros-perdidos" className="filtro-container-perros-perdidos">
+      <div className="filtro-item-perros-perdidos">
+      <label htmlFor="generoFiltroPerrosPerdidos" className="filtro-label-perros-perdidos">Género:</label>
           <select
-            id="generoFiltro"
-            className="filtro"
+            id="generoFiltroPerrosPerdidos"
+            className="filtro-perros-perdidos"
             onChange={(e) => setGeneroFiltro(e.target.value)}
             value={generoFiltro}
           >
@@ -68,11 +68,11 @@ const PaginaPerrosVistos = () => {
           </select>
         </div>
 
-        <div className="filtro-item">
-          <label htmlFor="razaFiltro" className="filtro-label">Raza:</label>
+        <div className="filtro-item-perros-perdidos">
+          <label htmlFor="razaFiltroPerrosPerdidos" className="filtro-label-perros-perdidos">Raza:</label>
           <select
-            id="razaFiltro"
-            className="filtro"
+            id="razaFiltroPerrosPerdidos"
+            className="filtro-perros-perdidos"
             onChange={(e) => setRazaFiltro(e.target.value)}
             value={razaFiltro}
           >
@@ -86,11 +86,11 @@ const PaginaPerrosVistos = () => {
           </select>
         </div>
 
-        <div className="filtro-item">
-          <label htmlFor="colorFiltro" className="filtro-label">Color:</label>
+        <div className="filtro-item-perros-perdidos">
+          <label htmlFor="colorFiltroPerrosPerdidos" className="filtro-label-perros-perdidos">Color:</label>
           <select
-            id="colorFiltro"
-            className="filtro"
+            id="colorFiltroPerrosPerdidos"
+            className="filtro-perros-perdidos"
             onChange={(e) => setColorFiltro(e.target.value)}
             value={colorFiltro}
           >
@@ -113,10 +113,10 @@ const PaginaPerrosVistos = () => {
 
       </div>
       
-      <div className="perro-visto-container">
+      <div id="perros-container" className="perros-container">
         {perrosPerdidos.map((perro, index) => (
           <div 
-            className="perro-visto-card" 
+            className="perro-card" 
             key={index} 
             onClick={() => navigate(`/perfil-perro/${perro.id}`, { state: {perro} })}
           >
@@ -124,27 +124,27 @@ const PaginaPerrosVistos = () => {
               <img 
                 src={`${api_url}/imagen/${perro.foto[0].direccion_foto}`} 
                 alt={`Foto de ${perro.nombre}`} 
-                className="perro-visto-foto" 
+                className="perro-foto" 
               />
             ) : (
               <img 
                 src="/path/to/placeholder-image.jpg" 
                 alt="Imagen no disponible" 
-                className="perro-visto-foto" 
+                className="perro-foto" 
               />
             )}
             
-            <div className='perro-visto-informacion'>
+            <div className='perro-info'>
               <div>
-                <p>{perro.estado.fecha}</p>
+                <p className="perro-fecha">{perro.estado.fecha}</p>
                 <strong>Fecha visto</strong>
               </div>
               <div>
-                <p>{perro.estado.direccion_visto}</p>
+                <p className="perro-ubicacion">{perro.estado.direccion_visto}</p>
                 <strong>Última ubicación</strong>
               </div>
               <div>
-                <p>{perro.usuario.num_celular}</p>
+                <p className="perro-contacto" >{perro.usuario.num_celular}</p>
                 <strong>Contacto</strong>
               </div>
             </div>
