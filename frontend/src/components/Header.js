@@ -17,8 +17,8 @@ const Header = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (popupRef.current && !popupRef.current.contains(event.target) && !event.target.closest('.user-img') ) {
-          setIsUserOpen(false);
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setIsUserOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -109,5 +109,6 @@ const Header = () => {
     </header>
   );
 };
+
 
 export default Header;
