@@ -17,7 +17,7 @@ const Header = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (popupRef.current && !popupRef.current.contains(event.target)) {
+      if (popupRef.current && !popupRef.current.contains(event.target) && !event.target.closest('.user-img')) {
         setIsUserOpen(false);
       }
     };
