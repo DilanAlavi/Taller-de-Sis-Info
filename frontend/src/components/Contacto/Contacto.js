@@ -1,18 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import './Contacto.css';
+import { AuthContext } from '../../AuthContext';
+import { api_url } from '../../config';
+import { useNavigate } from 'react-router-dom';
 
 const ContactPage = () => {
   const [message, setMessage] = useState('');
+  const { logout } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleDeleteAccount = async () => {
-    try {
-      const response = await axios.delete('/api/delete-account');
-      if (response.status === 200) {
-        setMessage('Tu cuenta ha sido eliminada correctamente.');
+    if (window.confirm("¿Estás seguro de que deseas eliminar tu cuenta? Esta acción es irreversible y se eliminaran todos tus datos, incluyendo a los perros reportados.")) {
+      try {
+        await axios.delete(`${api_url}/users/delete/${user.id}`);
+        navigate("/home"); 
+        logout(); 
+        setSuccessMessage("Cuenta eliminada exitosamente");
+      } catch (error) {
+        setError("Error al eliminar la cuenta");
+        console.error("Error al eliminar el usuario:", error);
       }
-    } catch (error) {
-      setMessage('Hubo un problema al eliminar tu cuenta. Por favor, intenta nuevamente.');
     }
   };
 
