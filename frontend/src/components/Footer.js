@@ -13,7 +13,9 @@ const Footer = () => {
           <Link to="/contacto" className="footer-link">Contacto</Link>
           <Link to="/infoPerros" className="footer-link">Información</Link>
         </div>
-        <p>© 2024 Only Lost Dogs. Todos los derechos reservados.</p>
+        <div className="footer-rights">
+          <p>© 2024 Only Lost Dogs. Todos los derechos reservados.</p>
+        </div>
       </div>
     </footer>
   );
