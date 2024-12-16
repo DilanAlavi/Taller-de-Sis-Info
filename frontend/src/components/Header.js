@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FaBars, FaUser } from 'react-icons/fa'; 
 import { AuthContext } from '../AuthContext';
 import logo from '../components/Imagenes/soloLogo.png';
@@ -12,8 +12,10 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserOpen, setIsUserOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const popupRef = useRef(null);
+  const popupRefMenu = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -26,6 +28,23 @@ const Header = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [popupRef]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popupRefMenu.current && !popupRefMenu.current.contains(event.target) && !event.target.closest('.menu-button')) {
+        setIsMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [popupRefMenu]);
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+    setIsUserOpen(false);
+  }, [location]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -69,7 +88,7 @@ const Header = () => {
           </div>
         </div>
         
-        <div className="navbar">
+        <div className="navbar" ref={popupRefMenu}>
           <nav>
             <button className="menu-button" onClick={toggleMenu}>
               <FaBars />
