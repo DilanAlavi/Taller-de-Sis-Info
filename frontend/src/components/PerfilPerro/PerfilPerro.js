@@ -277,6 +277,7 @@ const PerfilPerro = () => {
               className="comentario-input"
               disabled={user ? false : true}
               maxLength={200}
+              required
             />
             <button type="submit" className="comentario-boton" disabled={user ? false : true}>Enviar</button>
           </form>
