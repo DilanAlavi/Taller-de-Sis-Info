@@ -257,6 +257,7 @@ const PerfilPerro = () => {
                   rows="3"
                   className="comentario-input"
                   maxLength={200}
+                  required
                 ></textarea>
                 <div>
                   <button type="submit" className="comentario-boton">Enviar</button>

@@ -48,7 +48,7 @@ const EditPerro = () => {
 
     try {
 
-      const response = await axios.put(`/perritos/${id}`, {
+      const response = await axios.put(`${api_url}/perritos/${id}`, {
         nombre: formData.nombre,
         raza: formData.raza,
         color: formData.color,

@@ -259,3 +259,41 @@
 .popup-edit-comentario button:hover {
   background-color: #25d366;
 }
+
+@media (max-width: 1100px) {
+  .comentarios-container {
+    max-width: 100%;
+    width: 80vw;
+    margin: 0;
+  }
+
+  .comentarios-lista {
+    width: 100%;
+    max-width: none;
+  }
+
+  .perfil-perro-container {
+    flex-wrap: nowrap;
+  }
+
+  .comentario-input {
+    min-width: 300px;
+  }
+
+  .comentario-texto {
+    font-size: 0.9rem;
+  }
+
+  .popup-comentario {
+    left: 51.5%;
+    top: 59%;
+
+    &::after {
+      top: -0.85rem;
+      left: 142px;  /* Ajusta esta distancia para controlar dónde aparece la colita */
+      transform: translateY(300%);  /* Centra la colita verticalmente */
+      transform: rotate(90deg);
+    }
+  }
+
+}

@@ -487,6 +487,15 @@ button:focus:not(:focus-visible) {
   .footer-links {
     flex-direction: row;
   }
+
+  .navbar-item {
+    margin-bottom: 2px;
+  }
+
+  .navbar-item a {
+    padding: 0.1rem;
+    font-size: 1rem;
+  }
 }
 
 @media (min-width: 1101px) {
