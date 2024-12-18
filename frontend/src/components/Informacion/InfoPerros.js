@@ -1,38 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom'; // Importa Link de react-router-dom
-import axios from 'axios';
 import './InfoPerros.css';
 
 const InfoPerros = () => {
-  const [data, setData] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('/api/perros-perdidos');
-        setData(response.data);
-      } catch (error) {
-        console.error('Error al cargar los datos', error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   return (
     <div className="info-page">
       <h1 className="info-page-title">Only Lost Dogs</h1> {/* Cambio de título */}
-      
-      {data && (
-        <div className="perros-list">
-          {data.map((perro) => (
-            <div key={perro.id} className="perro-item">
-              <h2 className="perro-nombre">{perro.nombre}</h2>
-              <p className="perro-descripcion">{perro.descripcion}</p>
-            </div>
-          ))}
-        </div>
-      )}
 
       <div className="info-section">
         <h2 className="section-title">Su perro está perdido</h2>
