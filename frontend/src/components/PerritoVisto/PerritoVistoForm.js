@@ -5,6 +5,7 @@ import { AuthContext } from '../../AuthContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { api_url } from '../../config';
+import AlertDialog from '../../popups/popupGenerico/PopupGenerico.js';
 
 const PerritoVistoForm = () => {
   const [foto, setFoto] = useState(null);
@@ -20,6 +21,11 @@ const PerritoVistoForm = () => {
   const [loading, setLoading] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false); 
   const [isDog, setIsDog] = useState(false); 
+
+
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertType, setAlertType] = useState('success');
   
 
   if (user) {
@@ -30,7 +36,9 @@ const PerritoVistoForm = () => {
       if (file) {
         const maxSize = 7 * 1024 * 1024; 
         if (file.size > maxSize) {
-          alert('El archivo no puede ser mayor de 5 MB.');
+          setAlertMessage("El archivo no puede ser mayor de 5 MB.");
+          setAlertType('error');
+          setAlertOpen(true);
           return;
         }
 
@@ -56,14 +64,20 @@ const PerritoVistoForm = () => {
       
             if (clasificacion === 'Perro' && parseFloat(confianza) > 60) {
               setIsDog(true); 
-              alert(`La imagen corresponde a un perro. Puedes subirla.`);
+              setAlertMessage("La imagen corresponde a un perro. Puedes subirla.");
+              setAlertType('success');
+              setAlertOpen(true);
             } else {
               setIsDog(false); 
-              alert(`La imagen NO corresponde a un perro. No puedes subirla.`);
+              setAlertMessage("La imagen NO corresponde a un perro. No puedes subirla.");
+              setAlertType('error');
+              setAlertOpen(true);
             }
           } catch (error) {
             console.error('Error al clasificar la imagen:', error);
-            alert('Error al procesar la imagen. Inténtalo nuevamente.');
+            setAlertMessage("Error al procesar la imagen. Inténtalo nuevamente.");
+            setAlertType('error');
+            setAlertOpen(true);
           } finally {
             setIsProcessing(false); 
           }
@@ -94,7 +108,9 @@ const PerritoVistoForm = () => {
         });
 
         if(!response_foto.ok) {
-          alert("Hubo un problema en la subida de la foto, comprueba tu conexión de internet")
+          setAlertMessage("Hubo un problema en la subida de la foto, comprueba tu conexión de internet");
+          setAlertType('error');
+          setAlertOpen(true);
           throw new Error('Error en la subida de la foto');
         }
 
@@ -128,8 +144,12 @@ const PerritoVistoForm = () => {
         });
         console.log('imagen bd: ', response_imagen_perrito)
 
-        alert('Registro exitoso');
-        navigate('/home');
+        setAlertMessage("Registro exitoso");
+        setAlertType('success');
+        setAlertOpen(true);
+        setTimeout(() => {
+          navigate('/home');
+        }, 3000);
       } catch (error) {
         console.error('Error en registro:', error);
       } finally {
@@ -237,6 +257,14 @@ const PerritoVistoForm = () => {
         </div>
 
         <img className='img-visto' src={`${process.env.PUBLIC_URL}/images/confiable.webp`} alt='perro'/>
+        <AlertDialog
+          isOpen={alertOpen}
+          message={alertMessage}
+          type={alertType}
+          onClose={() => 
+            setAlertOpen(false)
+          }
+        />
 
 
       </div>
