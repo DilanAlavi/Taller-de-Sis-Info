@@ -4,7 +4,6 @@ import './PopupGenerico.css';
 const AlertDialog = ({ isOpen, message, onClose, type = 'success' }) => {
     useEffect(() => {
       if (isOpen) {
-        // Evitar desplazamiento de fondo cuando el diálogo está abierto
         document.body.style.overflow = 'hidden';
         return () => {
           document.body.style.overflow = 'unset';
