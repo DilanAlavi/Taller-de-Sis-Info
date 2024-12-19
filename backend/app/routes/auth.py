@@ -7,20 +7,27 @@ from app.models.usuario import Usuario
 from app.models.rol import Rol
 from pydantic import BaseModel, EmailStr
 from fastapi.responses import JSONResponse
-import uuid
 from passlib.context import CryptContext
+from dotenv import load_dotenv
+import os
+import uuid
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+dotenv_path = os.path.join(current_dir, '..','.env.auth')
+
+load_dotenv(dotenv_path=dotenv_path)
+
+# Configuración de JWT
+SECRET_KEY = os.getenv('SECRET_KEY')
+print(SECRET_KEY)
+ALGORITHM = os.getenv('ALGORITHM')
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv('ACCESS_TOKEN_EXPIRE_MINUTES', 30))
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 router = APIRouter()
-session_id = str(uuid.uuid4())
 
-# Configuración de JWT
-SECRET_KEY = "Choquito"  # clave para cambiar
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
-
-# Modelos 
+# Modelos
 class UserLogin(BaseModel):
     correo: EmailStr
     password: str
@@ -37,10 +44,9 @@ class Token(BaseModel):
     token_type: str
 
 
-
 def create_access_token(data: dict, session_id: str) -> str:
     to_encode = data.copy()
-    expire = datetime.now(timezone.utc) + timedelta(minutes=30)
+    expire = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({
         "exp": expire,
         "session_id": session_id  
@@ -150,7 +156,7 @@ def get_token_from_header(authorization: str = Header(...), db: Session = Depend
 
 @router.get("/profile")
 def profile(request: Request, db: Session = Depends(get_db), token: dict = Depends(get_token_from_header)):
-    session_id = token.get("session_id")   # AQUI CAMBIO MUCHAS COSAS
+    session_id = token.get("session_id")
     correo_user = request.query_params.get("correo")
     if not session_id or not correo_user:
         raise HTTPException(status_code=401, detail="Token inválido")
