@@ -31,7 +31,7 @@ const App = () => {
       <Header />
         <main className="App-main">
           <Routes>
-            <Route path="/" element={<Login/>}/>
+            <Route path="/" element={<Home/>}/>
             <Route path="/perritoperdidoform" element={<ProtectedRoute element={<PerritoPerdidoForm />} />} />
             <Route path="/dog-recognition" element={<ProtectedRoute element={<DogRecognition />} />} />
             <Route path="/user" element={<ProtectedRoute element={<User />} />} />
