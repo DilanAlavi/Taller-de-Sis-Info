@@ -5,6 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import { AuthContext } from '../../AuthContext';
 import { api_url } from '../../config';
+import AlertDialog from '../../popups/popupGenerico/PopupGenerico.js';
 
 const EditPerro = () => {
   const { user } = useContext(AuthContext);
@@ -12,6 +13,11 @@ const EditPerro = () => {
   const [perro, setPerro] = useState(null);
   const [formData, setFormData] = useState({}); 
   const navigate = useNavigate();
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
+  const [popupType, setPopupType] = useState('success');
+  
 
   useEffect(() => {
 
@@ -45,9 +51,8 @@ const EditPerro = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-
       const response = await axios.put(`${api_url}/perritos/${id}`, {
         nombre: formData.nombre,
         raza: formData.raza,
@@ -56,23 +61,30 @@ const EditPerro = () => {
         estado: {
           descripcion: formData.descripcion,
           direccion_visto: formData.direccion_visto,
-          fecha: formData.fecha
-        }
+          fecha: formData.fecha,
+        },
       }, {
         headers: {
-          'X-User-ID': user.id.toString(), 
-        }
+          'X-User-ID': user.id.toString(),
+        },
       });
-
-      console.log("id usuario:", user.id.toString());
+  
       console.log("Perrito actualizado exitosamente:", response.data);
-      alert('Los cambios fueron guardados exitosamente.');
-      navigate(`/paginaperrovisto`, { state: { perro: perro } } ); 
+      setPopupMessage('Los cambios fueron guardados exitosamente.');
+      setPopupType('success');
+      setIsPopupOpen(true);
+
+      setTimeout(() => {
+        navigate(`/paginaperrovisto`, { state: { perro: response.data } });
+      }, 2000); 
     } catch (error) {
       console.error("Error al guardar los cambios:", error);
-      alert('Hubo un error al guardar los cambios.');
+      setPopupMessage('Hubo un error al guardar los cambios.');
+      setPopupType('error');
+      setIsPopupOpen(true);
     }
   };
+  
 
   if (!perro) {
     return <p>Cargando datos del perro...</p>;
@@ -168,6 +180,12 @@ const EditPerro = () => {
           </form>
         </div>
       </div>
+      <AlertDialog
+        isOpen={isPopupOpen}
+        message={popupMessage}
+        onClose={() => setIsPopupOpen(false)}
+        type={popupType}
+      />
     </div>
   );
 };
