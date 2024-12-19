@@ -149,7 +149,7 @@ textarea::placeholder,
 textarea:focus,
 .container-genero-raza-color-p select:focus {
   outline: none;
-  border-color: #ee6d0a;
+  border-color: #4CAF50;
   /* box-shadow: 0 0 5px rgba(238, 109, 10, 0.5); */
   box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.473); 
   transform: scale(1.01);
