@@ -25,7 +25,7 @@
     margin-top: 20px;
   }
   
-  .confirm-button {
+  .confirm-button-popup {
     background-color: #28a745;
     color: white;
     border: none;
@@ -34,12 +34,16 @@
     border-radius: 5px;
   }
   
-  .cancel-button {
+  .cancel-button-popup {
     background-color: #dc3545;
     color: white;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 5px;
+  }
+
+  .cancel-button-popup:hover{
+    background-color: #e04f5d !important;
   }
   
