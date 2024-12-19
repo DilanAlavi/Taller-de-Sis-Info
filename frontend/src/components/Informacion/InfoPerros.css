@@ -102,10 +102,13 @@
   }
 
   .section-title {
-    font-size: 1.3em;
+    font-size: 1.2em;
   }
 
   .tips-list {
     margin-left: 15px; /* Ajuste adicional para pantallas pequeñas */
+  }
+  .section-content, .tips-list{
+    font-size: 0.7rem;
   }
 }
