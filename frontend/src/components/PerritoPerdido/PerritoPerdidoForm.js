@@ -5,6 +5,7 @@ import { AuthContext } from '../../AuthContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { api_url } from '../../config';
+import AlertDialog from '../../popups/popupReconocimientoDogs/ReconocimientoDogs';
 
 const PerritoPerdidoForm = () => {
   const [foto, setFoto] = useState(null);
@@ -22,7 +23,10 @@ const PerritoPerdidoForm = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [dateError, setDateError] = useState('');
   const navigate = useNavigate();
- 
+
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertType, setAlertType] = useState('success');
 
 
 
@@ -67,10 +71,14 @@ const PerritoPerdidoForm = () => {
     
             if (clasificacion === 'Perro' && parseFloat(confianza) > 60) {
               setIsDog(true);
-              alert(`La imagen corresponde a un perro. Puedes continuar con el reporte.`);
+              setAlertMessage("La imagen corresponde a un perro. Puedes continuar con el reporte.");
+              setAlertType('success');
+              setAlertOpen(true);
             } else {
               setIsDog(false);
-              alert(`La imagen NO corresponde a un perro. No puedes continuar con el reporte.`);
+              setAlertMessage("La imagen NO corresponde a un perro. No puedes continuar con el reporte.");
+              setAlertType('error');
+              setAlertOpen(true);
             }
           } catch (error) {
             console.error('Error al clasificar la imagen:', error);
@@ -289,7 +297,15 @@ const PerritoPerdidoForm = () => {
             )}
 
         </div>
+        <AlertDialog
+          isOpen={alertOpen}
+          message={alertMessage}
+          type={alertType}
+          onClose={() => setAlertOpen(false)}
+        />
       </div>
+
+      
     );
   } else {
     return (
