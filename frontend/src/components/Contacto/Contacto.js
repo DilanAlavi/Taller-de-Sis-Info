@@ -4,28 +4,54 @@ import './Contacto.css';
 import { AuthContext } from '../../AuthContext';
 import { api_url } from '../../config';
 import { useNavigate } from 'react-router-dom';
+import PopupConfirm from '../../popups/popupConfirm/PopupConfirm';
 
 const ContactPage = () => {
   const [message, setMessage] = useState('');
   const { logout } = useContext(AuthContext);
   const { user } = useContext(AuthContext);
-  const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  // const [error, setError] = useState('');
+  // const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
 
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
+  // const handleDeleteAccount = async () => {
+  //   if (window.confirm("¿Estás seguro de que deseas eliminar tu cuenta? Esta acción es irreversible y se eliminaran todos tus datos, incluyendo a los perros reportados.")) {
+  //     try {
+  //       await axios.delete(`${api_url}/users/delete/${user.id}`);
+  //       navigate("/home"); 
+  //       logout(); 
+  //       setSuccessMessage("Cuenta eliminada exitosamente");
+  //     } catch (error) {
+  //       setError("Error al eliminar la cuenta");
+  //       console.error("Error al eliminar el usuario:", error);
+  //     }
+  //   }
+  // };
   const handleDeleteAccount = async () => {
-    if (window.confirm("¿Estás seguro de que deseas eliminar tu cuenta? Esta acción es irreversible y se eliminaran todos tus datos, incluyendo a los perros reportados.")) {
-      try {
-        await axios.delete(`${api_url}/users/delete/${user.id}`);
-        navigate("/home"); 
-        logout(); 
-        setSuccessMessage("Cuenta eliminada exitosamente");
-      } catch (error) {
-        setError("Error al eliminar la cuenta");
-        console.error("Error al eliminar el usuario:", error);
-      }
+    try {
+      await axios.delete(`${api_url}/users/delete/${user.id}`);
+      navigate("/home");
+      logout();
+      setSuccessMessage("Cuenta eliminada exitosamente");
+    } catch (error) {
+      setError("Error al eliminar la cuenta");
+      console.error("Error al eliminar el usuario:", error);
     }
   };
+
+  const openPopup = () => {
+    setIsPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+  };
+
+
 
   return (
     <div className="contact-page">
@@ -64,8 +90,19 @@ const ContactPage = () => {
         <p className="faq-content">
           Para eliminar tu cuenta permanentemente, utiliza el enlace "Eliminar cuenta" que se encuentra en la página de inicio de sesión. 
           También puedes hacerlo directamente desde aquí: 
-          <button onClick={handleDeleteAccount} className="delete-button">Eliminar cuenta</button>
+          <button onClick={openPopup} className="delete-button">Eliminar cuenta</button>
         </p>
+        <PopupConfirm
+          isOpen={isPopupOpen}
+          message="¿Estás seguro de que deseas eliminar tu cuenta? Esta acción es irreversible y se eliminarán todos tus datos, incluyendo a los perros reportados."
+          onConfirm={() => {
+            handleDeleteAccount();
+            closePopup();
+          }}
+          onCancel={closePopup}
+        />
+        {error && <p className="error-message">{error}</p>}
+        {successMessage && <p className="success-message">{successMessage}</p>}
         {message && <p className="message">{message}</p>}
       </div>
 
