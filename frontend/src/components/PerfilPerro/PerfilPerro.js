@@ -5,6 +5,8 @@ import { FaArrowLeft, FaEllipsisV } from 'react-icons/fa';
 import axios from 'axios';
 import { AuthContext } from '../../AuthContext';
 import { api_url } from '../../config';
+import PopupConfirm from '../../popups/popupConfirm/PopupConfirm';
+import AlertDialog from '../../popups/popupGenerico/PopupGenerico.js';
 
 const PerfilPerro = () => {
   // const [perro, setPerro] = useState(null);
@@ -23,6 +25,12 @@ const PerfilPerro = () => {
   const [ idComentarioEditar, setIdComentarioEditar ] = useState();
   const [loading, setLoading] = useState(true);
 
+  const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
+
+
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertType, setAlertType] = useState('success');
 
   useEffect(() => {
     const comentariosData = async () => {
@@ -65,16 +73,17 @@ const PerfilPerro = () => {
 
 
   const handleDelete = async () => {
-    const confirmation = window.confirm('¿Estás seguro que encontraste tu perrito?');
-    if (confirmation) {
-      try {
-        await axios.delete(`${api_url}/perritos/${perro.id}`);
-        alert('Perrito eliminado exitosamente.');
-        navigate('/paginaperrovisto');
-      } catch (error) {
-        console.error('Error al eliminar el perro:', error);
-        alert('Hubo un error al eliminar el perro.');
-      }
+    try {
+      await axios.delete(`${api_url}/perritos/${perro.id}`);
+      setAlertMessage("Perrito eliminado exitosamente.");
+      setAlertType('success');
+      setAlertOpen(true);
+      // navigate('/paginaperrovisto');
+    } catch (error) {
+      console.error('Error al eliminar el perro:', error);
+      setAlertMessage("Hubo un error al eliminar el perro.");
+      setAlertType('success');
+      setAlertOpen(true);
     }
   };
   const handleComentarioSubmit = async (e) => {
@@ -154,6 +163,14 @@ const PerfilPerro = () => {
   };
 
 
+  const openDeletePopup = () => {
+    setIsDeletePopupOpen(true); // Abre el popup
+  };
+
+  const closeDeletePopup = () => {
+    setIsDeletePopupOpen(false); // Cierra el popup
+  };
+
   if (!perro || !perro.id) {
     return (
       <div className="perfil-perro-page" style={{textAlign:"center"}}>
@@ -200,7 +217,9 @@ const PerfilPerro = () => {
         { ((user && user.id === perro.usuario.id) || (user && user.rol_id === 2)) && (
             <div className="perfil-perro-actions">
               <button onClick={handleEdit} className="editar-btn">Editar Perro</button>
-              <button onClick={handleDelete} className="eliminar-btn">Encontraste tu Perrito?</button>
+              {/* <button onClick={handleDelete} className="eliminar-btn">Encontraste tu Perrito?</button> */}
+              <button onClick={openDeletePopup} className="eliminar-btn">Encontraste tu Perrito?</button>
+
             </div>
         )
         }
@@ -286,7 +305,24 @@ const PerfilPerro = () => {
         )
       )}
 
-
+    <PopupConfirm
+       isOpen={isDeletePopupOpen}
+       message="¿Estás seguro de que encontraste tu perrito?"
+       onConfirm={() => {
+         handleDelete();
+         closeDeletePopup();
+       }}
+       onCancel={closeDeletePopup}
+     />
+     <AlertDialog
+        isOpen={alertOpen}
+        message={alertMessage}
+        type={alertType}
+        onClose={() => {
+          setAlertOpen(false);
+          navigate('/paginaperrovisto');
+        }}
+     />
     </div>
   );
 };
