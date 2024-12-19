@@ -110,6 +110,7 @@ const User = () => {
           value={newData.correo || ''}
           onChange={handleChange}
           required
+          maxLength={75}
         />
         <input
           type="text"
@@ -118,6 +119,7 @@ const User = () => {
           value={newData.nombre || ''}
           onChange={handleChange}
           required
+          maxLength={100}
         />
         <input
           type="number"
@@ -126,6 +128,8 @@ const User = () => {
           value={newData.num_celular || ''}
           onChange={handleChange}
           required
+          maxLength={8}
+          minLength={8}
         />
         <input
           type="text"
@@ -134,6 +138,7 @@ const User = () => {
           value={newData.direccion || ''}
           onChange={handleChange}
           required
+          maxLength={150}
         />
          <input
           type="password"
@@ -141,6 +146,7 @@ const User = () => {
           placeholder="Contraseña actual"
           value={currentPassword}
           onChange={handlePasswordChange}
+          maxLength={45}
         />
         <input
           type="password"
@@ -148,6 +154,8 @@ const User = () => {
           placeholder="Nueva contraseña"
           value={newPassword}
           onChange={handlePasswordChange}
+          maxLength={45}
+          min={8}
         />
         <button id="update-button-user" type="submit" className="update-button-user">
               Actualizar Datos
