@@ -36,3 +36,4 @@ __pycache__/
 
 
 backend/.env
+backend/app/.env.auth
