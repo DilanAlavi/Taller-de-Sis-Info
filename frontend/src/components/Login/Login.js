@@ -6,6 +6,7 @@ import { AuthContext } from '../../AuthContext';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { api_url } from '../../config';
 import { setCorreo } from '../../localStorageHelper';
+import AlertDialog from '../../popups/popupGenerico/PopupGenerico.js';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -13,8 +14,12 @@ const Login = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
-  const { setcorreoUser } = useContext(AuthContext);
+  // const { setcorreoUser } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
+
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertType, setAlertType] = useState('success');
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev); // Alternar visibilidad de contraseña
@@ -50,8 +55,10 @@ const Login = () => {
 
       login(response.data);
       console.log(response.data);
-      alert('Login exitoso');
-      navigate('/home');
+      setAlertMessage("Login Exitoso");
+      setAlertType('success');
+      setAlertOpen(true);
+      // navigate('/home');
 
     } catch (error) {
       console.error('Error en login:', error.response.data);
@@ -77,6 +84,15 @@ const Login = () => {
   return (
     <div className="login-container">
       <img className='image-login' src={`${process.env.PUBLIC_URL}/images/perros-home.jpg`} alt='perritos en un campo'/>
+      <AlertDialog
+          isOpen={alertOpen}
+          message={alertMessage}
+          type={alertType}
+          onClose={() => {
+            setAlertOpen(false);
+            navigate('/home');
+          }}
+        />
       <form onSubmit={handleSubmit} className="login-form">
         <h2>Iniciar Sesión</h2>
         <input

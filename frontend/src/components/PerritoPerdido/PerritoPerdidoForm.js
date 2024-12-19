@@ -5,6 +5,7 @@ import { AuthContext } from '../../AuthContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { api_url } from '../../config';
+import AlertDialog from '../../popups/popupGenerico/PopupGenerico.js';
 
 const PerritoPerdidoForm = () => {
   const [foto, setFoto] = useState(null);
@@ -22,7 +23,10 @@ const PerritoPerdidoForm = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [dateError, setDateError] = useState('');
   const navigate = useNavigate();
- 
+
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertType, setAlertType] = useState('success');
 
 
 
@@ -35,13 +39,17 @@ const PerritoPerdidoForm = () => {
         // Validar el tipo de archivo
         const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
         if (!validTypes.includes(file.type)) {
-          alert("Formato de archivo no soportado. Por favor, sube un archivo JPG o PNG.");
+          setAlertMessage("Formato de archivo no soportado. Por favor, sube un archivo JPG o PNG.");
+          setAlertType('error');
+          setAlertOpen(true);
           return;
         }
     
         const maxSize = 7 * 1024 * 1024;
         if (file.size > maxSize) {
-          alert('El archivo no puede ser mayor de 5 MB.');
+          setAlertMessage("El archivo no puede ser mayor de 5 MB.");
+          setAlertType('error');
+          setAlertOpen(true);
           return;
         }
     
@@ -67,14 +75,20 @@ const PerritoPerdidoForm = () => {
     
             if (clasificacion === 'Perro' && parseFloat(confianza) > 60) {
               setIsDog(true);
-              alert(`La imagen corresponde a un perro. Puedes continuar con el reporte.`);
+              setAlertMessage("La imagen corresponde a un perro. Puedes continuar con el reporte.");
+              setAlertType('success');
+              setAlertOpen(true);
             } else {
               setIsDog(false);
-              alert(`La imagen NO corresponde a un perro. No puedes continuar con el reporte.`);
+              setAlertMessage("La imagen NO corresponde a un perro. No puedes continuar con el reporte.");
+              setAlertType('error');
+              setAlertOpen(true);
             }
           } catch (error) {
             console.error('Error al clasificar la imagen:', error);
-            alert('Error al procesar la imagen. Inténtalo nuevamente.');
+            setAlertMessage("Error al procesar la imagen. Inténtalo nuevamente.");
+            setAlertType('error');
+            setAlertOpen(true);
           } finally {
             setIsProcessing(false);
           }
@@ -132,7 +146,9 @@ const PerritoPerdidoForm = () => {
         });
 
         if (!response_foto.ok) {
-          alert("Hubo un problema en la subida de la foto, comprueba tu conexión de internet")
+          setAlertMessage("Hubo un problema en la subida de la foto, comprueba tu conexión de internet");
+          setAlertType('error');
+          setAlertOpen(true);
           throw new Error('Error en la subida de la foto');
         }
 
@@ -158,11 +174,17 @@ const PerritoPerdidoForm = () => {
           perrito_id: response.data[0].id
         });
 
-        alert('Registro exitoso');
-        navigate('/home');
+        setAlertMessage("Registro exitoso");
+        setAlertType('success');
+        setAlertOpen(true);
+        setTimeout(() => {
+          navigate('/home');
+        }, 3000);
       } catch (error) {
         console.error('Error desconocido:', error);
-        alert('Hubo un problema con el servidor. Por favor, inténtalo más tarde.');
+        setAlertMessage("Hubo un problema con el servidor. Por favor, inténtalo más tarde.");
+        setAlertType('error');
+        setAlertOpen(true);
       } finally {
         setLoading(false);
       }
@@ -289,7 +311,16 @@ const PerritoPerdidoForm = () => {
             )}
 
         </div>
+        <AlertDialog
+          isOpen={alertOpen}
+          message={alertMessage}
+          type={alertType}
+          onClose={() => {setAlertOpen(false)}
+        }
+        />
       </div>
+
+      
     );
   } else {
     return (

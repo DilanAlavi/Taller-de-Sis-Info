@@ -3,6 +3,7 @@ import axios from 'axios';
 import './DogRecognition.css';
 import { FaUpload } from 'react-icons/fa';
 import { api_url } from '../../config';
+import AlertDialog from '../../popups/popupGenerico/PopupGenerico.js';
 
 const DogRecognition = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -10,13 +11,19 @@ const DogRecognition = () => {
   const [result, setResult] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertType, setAlertType] = useState('success');
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
     
     if (file && !allowedTypes.includes(file.type)) {
       console.error('Error: Por favor, selecciona una imagen en formato JPG, JPEG o PNG');
-      alert('Por favor, selecciona una imagen en formato JPG, JPEG o PNG');
+      setAlertMessage("Por favor, selecciona una imagen en formato JPG, JPEG o PNG");
+      setAlertType('error');
+      setAlertOpen(true);
       event.target.value = '';
       setSelectedFile(null);
       setPreview('');
@@ -28,7 +35,10 @@ const DogRecognition = () => {
     
     if (!validFileNameRegex.test(fileName.split('.')[0])) {
       console.error('Error: El nombre del archivo contiene caracteres no permitidos');
-      alert('Por favor, usa solo letras, números, guiones y puntos en el nombre del archivo. No se permiten espacios ni caracteres especiales.');
+      setAlertMessage("Por favor, usa solo letras, números, guiones y puntos en el nombre del archivo. No se permiten espacios ni caracteres especiales.");
+      setAlertType('error');
+      setAlertOpen(true);
+      
       event.target.value = '';
       setSelectedFile(null);
       setPreview('');
@@ -49,7 +59,9 @@ const DogRecognition = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!selectedFile) {
-      alert('Por favor, selecciona una imagen primero.');
+      setAlertMessage("Por favor, selecciona una imagen primero.");
+      setAlertType('error');
+      setAlertOpen(true);
       return;
     }
 

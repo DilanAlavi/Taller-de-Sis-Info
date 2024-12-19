@@ -6,6 +6,7 @@ import logo from '../components/Imagenes/soloLogo.png';
 import facebookLogo from '../components/Imagenes/facebook.png';
 import instagramLogo from '../components/Imagenes/instragram.png';
 import whatsappLogo from '../components/Imagenes/whatsApp.png';
+import AlertDialog from '../popups/popupGenerico/PopupGenerico.js';
 
 const Header = () => {
   const { user, logout } = useContext(AuthContext);
@@ -13,6 +14,10 @@ const Header = () => {
   const [isUserOpen, setIsUserOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertType, setAlertType] = useState('success');
 
   const popupRef = useRef(null);
   const popupRefMenu = useRef(null);
@@ -56,7 +61,10 @@ const Header = () => {
 
   const doLogout = () => {
     setIsUserOpen(false);
-    navigate('/login');
+    setAlertMessage("Sesión cerrada exitosamente.");
+    setAlertType('success');
+    setAlertOpen(true);
+    // navigate('/login');
     logout();
   };
 
@@ -125,7 +133,17 @@ const Header = () => {
           </nav>    
         </div>
       </div>
+      <AlertDialog
+          isOpen={alertOpen}
+          message={alertMessage}
+          type={alertType}
+          onClose={() => {
+            setAlertOpen(false);
+            navigate('/login');
+          }}
+        />
     </header>
+    
   );
 };
 
