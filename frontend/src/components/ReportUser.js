@@ -79,7 +79,7 @@ const ReportUser = () => {
               marginBottom: '15px',
               fontSize: '16px',
               borderRadius: '4px',
-              border: '1px solid #ccc',
+              border: '1px solid rgb(76, 175, 80)',
             }}
           >
             <option value="">Selecciona un motivo</option>
@@ -101,7 +101,7 @@ const ReportUser = () => {
               padding: '10px',
               fontSize: '16px',
               borderRadius: '4px',
-              border: '1px solid #ccc',
+              border: '1px solid rgb(76, 175, 80)',
               minHeight: '100px',
               resize: 'none',
             }}
@@ -115,7 +115,7 @@ const ReportUser = () => {
             padding: '12px',
             fontSize: '16px',
             color: '#fff',
-            backgroundColor: '#ee6d0a',
+            backgroundColor: 'rgb(76, 175, 80)',
             border: 'none',
             borderRadius: '4px',
             cursor: 'pointer',

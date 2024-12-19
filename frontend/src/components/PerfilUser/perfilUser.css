@@ -4,7 +4,7 @@
     margin-top: 20px;
     padding: 20px;
     border-radius: 8px;
-    background: linear-gradient(to right, #57ee77, #0b7a1a);
+    background: linear-gradient(to right, #77d38b, #489e54);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: left;
 }
@@ -95,10 +95,10 @@ a:hover {
 }
 
 .flag-report {
-    color: rgba(131, 24, 24, 0.5);
+    color: rgb(255, 255, 255);
 }
 
 .flag-report:hover {
     transform: scale(1.1);
-    color: rgba(184, 38, 38, 0.5);
+    color: rgba(255, 255, 255, 0.507);
 }

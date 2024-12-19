@@ -17,6 +17,8 @@ const Register = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   // Restricts phone number to only digits
@@ -62,7 +64,7 @@ const Register = () => {
     } else if (!/^\d+$/.test(numero)) {
       errors.numero = 'El número de celular solo puede contener dígitos.';
     } else if (numero.length < 8 || numero.length > 15) {
-      errors.numero = 'El número de celular debe tener entre 8 y 15 dígitos.';
+      errors.numero = 'El número de celular debe tener 8 dígitos.';
     }
   
     // Name validation
@@ -83,9 +85,13 @@ const Register = () => {
     e.preventDefault();
     setGeneralError('');
     setSuccessMessage('');
+    setLoading(true);
 
     const isValid = await validateForm();
-    if (!isValid) return;
+    if (!isValid) {
+      setLoading(false);
+      return;
+    }
 
     try {
       const response = await axios.post(`${api_url}/auth/register`, {
@@ -105,6 +111,7 @@ const Register = () => {
       }, 1000);
 
     } catch (error) {
+      setLoading(false);
       console.error('Error en registro:', error);
       setGeneralError(error.response?.data?.detail || 'Error en el registro. Por favor, intente de nuevo.');
     }
@@ -178,6 +185,7 @@ const Register = () => {
           value={numero}
           onChange={handleNumeroChange}
           required
+          maxLength={8}
         />
         {error.numero && <span className="error-message">{error.numero}</span>}
 
@@ -190,7 +198,7 @@ const Register = () => {
         />
         {error.direccion && <span className="error-message">{error.direccion}</span>}
 
-        <button className='dog-button'>
+        <button className='dog-button' disabled={loading}>
           <span className="shadow-button"></span>
           <span className="edge-button"></span>
           <span className="front-button text-button">Registrarse</span>

@@ -21,6 +21,8 @@ const Login = () => {
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState('success');
 
+  const [loading, setLoading] = useState(false);
+
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev); // Alternar visibilidad de contraseña
   };
@@ -44,6 +46,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setCorreo('TL_xsrf', email);
+    setLoading(true)
 
     if (!validateFields()) return;
 
@@ -61,6 +64,7 @@ const Login = () => {
       // navigate('/home');
 
     } catch (error) {
+      setLoading(false);
       console.error('Error en login:', error.response.data);
       if (error.response?.status === 404) {
         setErrors({
@@ -130,7 +134,7 @@ const Login = () => {
           <small className="error-message">{errors.general}</small>
         )}
 
-        <button className='dog-button'>
+        <button className='dog-button' disabled={loading}>
           <span className="shadow-button"></span>
           <span className="edge-button"></span>
           <span className="front-button text-button"> Iniciar Sesion</span>
